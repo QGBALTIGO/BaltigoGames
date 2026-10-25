@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0a0712" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Baltigo Games — centenas de jogos instantâneos dentro do Telegram." />
+  <title>Baltigo Games</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient--one"></div>
+  <div class="ambient ambient--two"></div>
+
+  <div id="offlineBanner" class="offline-banner" hidden>Sem conexão. Alguns jogos podem não carregar.</div>
+
+  <main id="app" class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Baltigo Games">
+        <span class="brand-mark" aria-hidden="true"><span>◆</span></span>
+        <span class="brand-copy"><strong>Baltigo</strong><small>GAMES</small></span>
+      </a>
+      <button id="profileButton" class="profile-button" type="button" aria-label="Perfil">
+        <span id="profileInitial" class="avatar">B</span>
+        <span class="profile-copy"><small>Olá,</small><strong id="profileName">jogador</strong></span>
+      </button>
+    </header>
+
+    <section id="homeView" class="view view--active" data-view="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="live-dot"></span> JOGUE AGORA</span>
+          <h1>Seu fliperama<br /><em>dentro do Telegram.</em></h1>
+          <p>Escolha, toque e jogue. Sem instalação, sem cadastro extra e com dezenas de estilos.</p>
+          <div class="hero-actions">
+            <button id="randomButton" class="primary-button" type="button"><span>▶</span> Jogar agora</button>
+            <button id="shareCatalogButton" class="ghost-button" type="button">Compartilhar</button>
+          </div>
+        </div>
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="orbit-card orbit-card--a">🕹️</span>
+          <span class="orbit-card orbit-card--b">🏎️</span>
+          <span class="orbit-card orbit-card--c">🧩</span>
+          <span class="orbit-core">BG</span>
+        </div>
+      </section>
+
+      <section class="search-wrap">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Buscar jogo, categoria ou estilo…" autocomplete="off" />
+          <button id="clearSearch" type="button" aria-label="Limpar busca" hidden>×</button>
+        </label>
+      </section>
+
+      <section class="category-strip-wrap" aria-label="Categorias">
+        <div id="categoryStrip" class="category-strip"></div>
+      </section>
+
+      <section id="recentSection" class="content-section" hidden>
+        <div class="section-head">
+          <div><span class="section-kicker">CONTINUE</span><h2>Jogue de novo</h2></div>
+          <button class="text-button" type="button" data-go="recent">Ver todos</button>
+        </div>
+        <div id="recentRail" class="game-rail"></div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-head">
+          <div><span class="section-kicker">DESTAQUES</span><h2>Em alta</h2></div>
+          <button class="text-button" type="button" data-go="explore">Explorar</button>
+        </div>
+        <div id="featuredRail" class="game-rail"></div>
+      </section>
+
+      <section class="content-section content-section--last">
+        <div class="section-head">
+          <div><span class="section-kicker">CATÁLOGO</span><h2>Todos os jogos</h2></div>
+          <span id="gameCount" class="count-pill">—</span>
+        </div>
+        <div id="homeGrid" class="game-grid"></div>
+        <div id="emptyState" class="empty-state" hidden>
+          <span>🎮</span><h3>Nenhum jogo encontrado</h3><p>Tente outro nome ou remova o filtro atual.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="exploreView" class="view" data-view="explore">
+      <div class="page-title"><span class="section-kicker">DESCUBRA</span><h1>Explorar jogos</h1><p>Filtre por categoria ou encontre algo novo.</p></div>
+      <div id="exploreGrid" class="game-grid game-grid--page"></div>
+    </section>
+
+    <section id="favoritesView" class="view" data-view="favorites">
+      <div class="page-title"><span class="section-kicker">SUA LISTA</span><h1>Favoritos</h1><p>Os jogos que você marcou ficam guardados neste dispositivo.</p></div>
+      <div id="favoritesGrid" class="game-grid game-grid--page"></div>
+      <div id="favoritesEmpty" class="empty-state"><span>♡</span><h3>Nenhum favorito ainda</h3><p>Toque no coração de um jogo para salvar aqui.</p></div>
+    </section>
+
+    <section id="recentView" class="view" data-view="recent">
+      <div class="page-title"><span class="section-kicker">HISTÓRICO</span><h1>Jogos recentes</h1><p>Volte rapidamente ao que você jogou por último.</p></div>
+      <div id="recentGrid" class="game-grid game-grid--page"></div>
+      <div id="recentEmpty" class="empty-state"><span>↻</span><h3>Nada por aqui ainda</h3><p>Abra um jogo e ele aparecerá neste histórico.</p></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegação principal">
+    <button class="nav-item nav-item--active" type="button" data-view-target="home"><span>⌂</span><small>Início</small></button>
+    <button class="nav-item" type="button" data-view-target="explore"><span>⌕</span><small>Explorar</small></button>
+    <button class="nav-item" type="button" data-view-target="favorites"><span>♡</span><small>Favoritos</small></button>
+    <button class="nav-item" type="button" data-view-target="recent"><span>↻</span><small>Recentes</small></button>
+  </nav>
+
+  <section id="player" class="player" hidden aria-label="Player do jogo">
+    <header class="player-bar">
+      <button id="playerBack" class="icon-button" type="button" aria-label="Voltar">‹</button>
+      <div class="player-meta"><small id="playerCategory">JOGO</small><strong id="playerTitle">—</strong></div>
+      <div class="player-actions">
+        <button id="playerFavorite" class="icon-button" type="button" aria-label="Favoritar">♡</button>
+        <button id="playerShare" class="icon-button" type="button" aria-label="Compartilhar">↗</button>
+        <button id="playerReload" class="icon-button" type="button" aria-label="Recarregar">↻</button>
+      </div>
+    </header>
+    <div class="player-stage">
+      <div id="playerLoader" class="player-loader"><span></span><p>Preparando o jogo…</p></div>
+      <iframe id="gameFrame" title="Jogo" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
