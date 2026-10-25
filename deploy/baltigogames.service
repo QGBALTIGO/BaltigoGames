@@ -1,0 +1,29 @@
+[Unit]
+Description=Baltigo Games Telegram bot and Mini App
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=simple
+User=baltigogames
+Group=baltigogames
+WorkingDirectory=/opt/baltigogames/current
+EnvironmentFile=/opt/baltigogames/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/baltigogames/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8056 --workers 1 --limit-concurrency 100
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=45
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+MemoryMax=768M
+CPUQuota=100%
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3038 @@
+{
+  "source_tree": "c97ef8bec4a4ce3154b4345a79aeda3ea2a6a465",
+  "source": "sausi-7/games",
+  "configs": {
+    "games/3d/orbital-outpost/config.json": {
+      "entry": "Customorbitaloutpost/index.html",
+      "images1": {
+        "meteor": "assets/meteor.png",
+        "spaceship": "assets/spaceship.png",
+        "collectable": "assets/pod.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "winbg": "assets/winbg.png",
+        "htpbg": "assets/htpbg.png",
+        "ovrbg": "assets/ovrbg.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "playbtn": "assets/playbtn.png",
+        "ovrbox": "assets/ovrbox.png",
+        "scoreback": "assets/scoreback.png",
+        "replay": "assets/replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "lvl_replay": "assets/lvl_replay.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "music": "assets/music.mp3",
+        "alert": "assets/alert.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3"
+      },
+      "mechanics": {
+        "surviveSeconds": 60,
+        "lives": 5,
+        "targetScore": 50,
+        "meteorScore": 10,
+        "podScore": 5,
+        "laserRange": 110,
+        "oxygenDrainPerSec": 0.4,
+        "energyDrainPerSec": 0.6,
+        "meteorSpawn": {
+          "min": 1.4,
+          "max": 2.4
+        },
+        "podSpawn": {
+          "min": 5.0,
+          "max": 8.0
+        },
+        "meteorSpeed": {
+          "min": 120,
+          "max": 220
+        },
+        "podSpeed": {
+          "min": 42,
+          "max": 68
+        },
+        "meteorDamage": {
+          "hull": 12,
+          "energy": 5
+        },
+        "podBenefits": {
+          "oxygen": 16,
+          "energy": 4
+        }
+      },
+      "texts": {
+        "labels": {
+          "lives": "Shields",
+          "score": "Score",
+          "gameOver": "Game Over",
+          "levelComplete": "MISSION COMPLETE",
+          "youWin": "Level Completed",
+          "play": "START MISSION",
+          "replay": "RETRY",
+          "next": "NEXT SECTOR",
+          "howToPlayTitle": "MISSION BRIEFING"
+        },
+        "howToPlay": [
+          "How to Play"
+        ]
+      }
+    },
+    "games/3d/planet-visitor/config.json": {
+      "entry": "Customplanetvisitor/index.html",
+      "images1": {
+        "alien_plant": "./assets/plant1.png",
+        "alien_plant2": "./assets/plant2.png",
+        "alien_plant3": "./assets/plant3.png",
+        "alien_plant4": "./assets/plant4.png",
+        "alien_plant5": "./assets/plant5.png",
+        "bird": "./assets/fly.png"
+      },
+      "images2": {
+        "background": "./assets/background.png",
+        "flyingplatform": "./assets/flyingplatform.png",
+        "platform": "./assets/platform.png",
+        "largeflyingplatform": "./assets/largeflyingplatform.png",
+        "swamp": "./assets/swamp.png"
+      },
+      "ui": {
+        "spaceship": "./assets/spaceship.png",
+        "lightbeam": "./assets/lightbeam.png",
+        "warning": "./assets/warning.png",
+        "button": "./assets/button.png",
+        "dialog_bg_start": "./assets/dialog_bg_start.png",
+        "game_over": "./assets/game_over.png",
+        "level_complete": "./assets/level_complete.png",
+        "replay_button_big": "./assets/replay_button_big.png",
+        "replay_button": "./assets/replay_button.png",
+        "camera": "./assets/camera.png",
+        "joystick_bg": "./assets/joystick_bg.png",
+        "joystick_knob": "./assets/joystick_knob.png",
+        "next_button": "./assets/next_button.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "shutter": "assets/shutter.wav",
+        "ouch": "assets/ouch.mp3",
+        "spaceship": "assets/spaceship.mp3"
+      },
+      "orientation": {
+        "frame": "landscape",
+        "width": 1920,
+        "height": 1080
+      },
+      "spritesheets": {
+        "player": {
+          "url": "./assets/player.png",
+          "frameWidth": 103,
+          "frameHeight": 143
+        }
+      }
+    },
+    "games/arcade/abhita/config.json": {
+      "entry": "Customabhita/index.html",
+      "orientation": {
+        "frame": "landscape",
+        "width": 1920,
+        "height": 1080
+      },
+      "images2": {
+        "background": "./assets/bg.png",
+        "cool_image": "./assets/image1.png"
+      },
+      "ui": {
+        "dialog_bg_start": "./assets/dialog_bg_start.png",
+        "level_complete": "./assets/level_complete.png",
+        "next_button": "./assets/next_button.png",
+        "replay_button": "./assets/replay_button.png",
+        "game_over": "./assets/game_over.png",
+        "replay_button_big": "./assets/replay_button_big.png"
+      },
+      "spritesheets": {},
+      "audio": {},
+      "tiles": {},
+      "fonts": [],
+      "texts": {
+        "title": "How to Play",
+        "instructions": "Drag and drop pieces to the grid below!\nSolve the puzzle to win.",
+        "levelComplete": "Level Complete!",
+        "gameOver": "Game Over",
+        "startButton": "Start",
+        "restartButton": "Restart",
+        "nextButton": "Next"
+      },
+      "mechanics": {
+        "cols": 2,
+        "rows": 4,
+        "pieceSourceWidth": 598,
+        "pieceSourceHeight": 932,
+        "puzzleWidth": 360,
+        "puzzleHeight": 600,
+        "timerSeconds": 60,
+        "snapDistance": 25,
+        "puzzleXPad": 0,
+        "puzzleYPad": 60
+      }
+    },
+    "games/arcade/balance-stack/config.json": {
+      "entry": "Custombalancestack/index.html",
+      "orientation": {
+        "frame": "portrait",
+        "width": 1090,
+        "height": 1920
+      },
+      "game": {
+        "blockWidth": 360,
+        "blockHeight": 95,
+        "baseWidth": 500,
+        "baseHeight": 115,
+        "targetBlocks": 10,
+        "blockColor": 6202239,
+        "baseColor": 2233143,
+        "backgroundColor": 16250813
+      },
+      "images1": {},
+      "images2": {
+        "cool_images": "assets/block.png",
+        "background": "assets/bg.png",
+        "base": "assets/base.png"
+      },
+      "ui": {
+        "htp": "assets/htp.png",
+        "playbtn": "assets/playbtn.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "scorebar": "assets/scorebar.png",
+        "replay_level": "assets/replay_level.png"
+      },
+      "texts": {
+        "score_label": "Score",
+        "target_label": "Target",
+        "htp_title": "How to Play",
+        "htp_body": "Tap to drop:               \n\nAligned on:\n\nStack up to win!",
+        "win_title": "Level Completed",
+        "game_over_title": "Game Over",
+        "your_score_fmt": "Your Score: {score}{slashTarget}"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "drop": "assets/drop.mp3"
+      }
+    },
+    "games/arcade/bug-smasher/config.json": {
+      "entry": "Custombugsmasher/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap the crawling bugs to squash them. Letting too many escape ends the game. Survive until the timer hits 0 to win.",
+        "score_label": "Score: ",
+        "win_title": "All Clear! You Survived!",
+        "game_over_title": "Too Many Escaped!"
+      },
+      "gameplay": {
+        "timerSeconds": 60,
+        "escapeLimit": 10,
+        "spawnMs": 900,
+        "minSpawnMs": 350,
+        "accelEveryMs": 7000,
+        "accelByMs": 80
+      },
+      "images1": {
+        "bugA": "assets/obj3.png",
+        "bugB": "assets/obj7.png",
+        "bugGold": "assets/obj12.png"
+      },
+      "images2": {
+        "platform": "assets/platform.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "collect": "assets/collect.mp3",
+        "game_over": "assets/lose.mp3",
+        "level_complete": "assets/win.mp3"
+      }
+    },
+    "games/arcade/catch-me-if-you-can/config.json": {
+      "entry": "Customcmiyc/index.html",
+      "images1": {
+        "enemy": "assets/obj1.png",
+        "obstacle": "assets/obj2.png",
+        "player": "assets/player.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "htpbg": "assets/htpbg.png",
+        "winbg": "assets/winbg.png",
+        "ovrbg": "assets/ovrbg.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "playbtn": "assets/playbtn.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "scorebar": "assets/scorebar.png",
+        "joystick_base": "assets/joystick_base.png",
+        "joystick_thumb": "assets/joystick_thumb.png"
+      },
+      "audio": {
+        "bg_music": "assets/background_music.mp3",
+        "hit": "assets/hit.mp3"
+      },
+      "settings": {
+        "playerSpeed": 300,
+        "enemySpeed": 220,
+        "obstacleSpeed": 320,
+        "maxHits": 10,
+        "obstacleSpawnDelay": 2000
+      },
+      "spritesheets": {}
+    },
+    "games/arcade/color-dash/config.json": {
+      "entry": "Customcolordash/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap LEFT/RIGHT to switch lanes. Collect paint orbs to change your color. You can pass through barriers only when your color MATCHES theirs. Mismatch = instant game over!",
+        "score_label": "Score",
+        "win_title": "You Win!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {
+        "speedAcceleration": 3,
+        "timerSeconds": 60,
+        "playerSpeed": 400,
+        "maxSpeed": 1000,
+        "laneCount": 3,
+        "laneStartIndex": 1,
+        "startColor": "blue",
+        "orbSpawnRate": 3000,
+        "barrierSpawnRate": 2000,
+        "minOrbSpawnRate": 1200,
+        "minBarrierSpawnRate": 900,
+        "spawnTightenStep": 150,
+        "speedIncreaseInterval": 20000,
+        "speedIncreaseAmount": 50,
+        "maxBarriers": 10,
+        "maxOrbs": 7,
+        "matchDestroyScore": 20,
+        "distanceScorePerSecond": 5,
+        "orbScore": 25,
+        "barrierPassScore": 10,
+        "useActionSwapColor": false,
+        "actionCooldownMs": 1200
+      },
+      "images2": {
+        "background": "assets/bg.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {
+        "player_colors": {
+          "url": "assets/player_colors.png",
+          "frameWidth": 64,
+          "frameHeight": 64,
+          "frames": 9
+        }
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "orb": "assets/orb.mp3",
+        "hit": "assets/hit.mp3"
+      }
+    },
+    "games/arcade/crossy-road/config.json": {
+      "entry": "Customcrossyroad/index.html",
+      "mechanics": {
+        "scorePerStep": 1,
+        "bonusScoreOnLane": 5,
+        "playerMoveTime": 200,
+        "playerSize": 15,
+        "carSpeedMin": 1.5,
+        "carSpeedMax": 4,
+        "laneWidth": 42,
+        "columns": 17,
+        "targetScore": 500,
+        "stepTime": 200
+      },
+      "ui": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "jump": "assets/jump.wav"
+      }
+    },
+    "games/arcade/demon/config.json": {
+      "entry": "Customdemon/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Defeat all d emons on each level. Tap action to attack; Tap to jump when grounded. Clear waves, enter the stairs to advance. Beat the final floor before the timer ends.",
+        "score_label": "Slain: ",
+        "win_title": "Tower Purged!",
+        "game_over_title": "The Night Consumes You"
+      },
+      "gameplay": {
+        "timerSeconds": 180,
+        "playerSpeed": 380,
+        "jumpSpeed": 960,
+        "gravityY": 1200,
+        "enemySpawnRate": 2500,
+        "enemyBaseSpeed": 120,
+        "playerMaxHealth": 10,
+        "targetFloors": 15
+      },
+      "images1": {
+        "projectile": "assets/obj12.png"
+      },
+      "images2": {
+        "demon_slayer_background": "assets/background.png",
+        "platform": "assets/platform1.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "slash": "assets/obj4.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {
+        "player": {
+          "url": "assets/tanjiro_sheet.png",
+          "frameWidth": 236,
+          "frameHeight": 300,
+          "frames": 4
+        },
+        "enemy": {
+          "url": "assets/demon_sheet.png",
+          "frameWidth": 115,
+          "frameHeight": 164,
+          "frames": 3
+        },
+        "akaza_boss": {
+          "url": "assets/akaza.png",
+          "frameWidth": 165,
+          "frameHeight": 228,
+          "frames": 4
+        },
+        "akaza2_boss": {
+          "url": "assets/akaza2.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza3_boss": {
+          "url": "assets/akaza3.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza4_boss": {
+          "url": "assets/akaza4.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza5_boss": {
+          "url": "assets/akaza5.png",
+          "frameWidth": 132,
+          "frameHeight": 274
+        },
+        "akaza6_boss": {
+          "url": "assets/akaza6.png",
+          "frameWidth": 213,
+          "frameHeight": 360
+        },
+        "akaza7_boss": {
+          "url": "assets/akaza7.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza8_boss": {
+          "url": "assets/akaza8.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza9_boss": {
+          "url": "assets/akaza9.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza10_boss": {
+          "url": "assets/akaza10.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza11_boss": {
+          "url": "assets/akaza11.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza12_boss": {
+          "url": "assets/akaza12.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza13_boss": {
+          "url": "assets/akaza13.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        },
+        "akaza14_boss": {
+          "url": "assets/akaza14.png",
+          "frameWidth": 172,
+          "frameHeight": 413
+        },
+        "akaza15_boss": {
+          "url": "assets/akaza15.png",
+          "frameWidth": 165,
+          "frameHeight": 228
+        }
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "jump": "assets/jump.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3",
+        "game_over": "assets/lose.mp3",
+        "level_complete": "assets/win.mp3",
+        "attack": "assets/attack.mp3"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    "games/arcade/flappy/config.json": {
+      "entry": "Customflappyplay/index.html",
+      "images1": {
+        "player": "./assets/player.png"
+      },
+      "images2": {
+        "pipe": "./assets/pipe-green.png",
+        "background": "./assets/background-day.png",
+        "ground": "./assets/base.png"
+      },
+      "ui": {
+        "backdrop": "./assets/backdrop.png",
+        "taskpanel": "./assets/taskpanel.png",
+        "playbtn1": "./assets/playbtn1.png",
+        "gameover": "./assets/gameover.png",
+        "message": "./assets/message.png",
+        "restart": "./assets/restart.png",
+        "restart1": "./assets/restart1.png",
+        "lvlboard": "./assets/lvlboard.png",
+        "nxtlvl": "./assets/nxtlvl.png"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "text": {
+        "howToPlay": "How to Play",
+        "tapInstructions": "Tap to Control:",
+        "tapInstructions1": "Avoid:",
+        "targetLabel": "Target: ",
+        "gameOver": "Game Over",
+        "yourScore": "Your Score: ",
+        "targetScore": "Target: ",
+        "levelCleared": "Level Completed"
+      },
+      "audio": {
+        "flap": "./assets/wing.wav",
+        "bgm": "./assets/bgm.mp3",
+        "score": "./assets/point.ogg",
+        "hit": "./assets/hit.ogg",
+        "die": "./assets/die.ogg"
+      },
+      "level1": {
+        "targetscore": 5,
+        "pipeSpeed": 300,
+        "gravity": 600,
+        "flapVelocity": -100,
+        "gap": 300
+      },
+      "spritesheets": {}
+    },
+    "games/arcade/hungry-player/config.json": {
+      "entry": "Customhungryplayer/index.html",
+      "images1": {
+        "obstacle": "assets/bubble.png",
+        "object1": "assets/fish1.png",
+        "object2": "assets/fish2.png",
+        "object3": "assets/fish3.png",
+        "object4": "assets/fish4.png",
+        "object5": "assets/fish5.png",
+        "object6": "assets/fish6.png",
+        "object7": "assets/fish7.png",
+        "player": "assets/player.png",
+        "chemical_drum": "assets/chemical_drum.png"
+      },
+      "images2": {
+        "background": "assets/background_sea.png",
+        "level_completed_background": "assets/background1.png",
+        "level_lost_background": "assets/background2.png"
+      },
+      "ui": {
+        "gameovrbg": "assets/gameovrbg.png",
+        "restart1": "assets/restart1.png",
+        "restart": "assets/restart.png",
+        "nextbtn": "assets/nextbtn.png",
+        "lvlbox": "assets/lvlbox.png",
+        "playbtn": "assets/playbtn.png",
+        "htpbox": "assets/htpbox.png",
+        "hpbox": "assets/hpbox.png",
+        "pointbox": "assets/pointbox.png",
+        "timebox": "assets/timebox.png"
+      },
+      "spritesheets": {},
+      "orientation": {
+        "frame": "landscape",
+        "width": 1920,
+        "height": 1080
+      },
+      "mechanics": {
+        "initialHP": 45,
+        "gameTime": 60,
+        "targetFishCount": 10,
+        "fishSpeed": 80,
+        "drumSpeed": 800,
+        "lives": 5
+      },
+      "audio": {
+        "eat": "assets/eat.mp3",
+        "bgm": "assets/bgm.mp3",
+        "bomb": "assets/bomb.mp3"
+      },
+      "labels": {
+        "howToPlayTitle": "How to Play",
+        "controlLabel": "Control:",
+        "collectLabel": "Collect:",
+        "avoidLabel": "Avoid:",
+        "livesTemplate": "Lives: {lives}",
+        "pointsTemplate": "Points: {got}/{target}",
+        "timeLabel": "Time:",
+        "winText": "Level Completed!",
+        "gameOverText": "Game Over"
+      },
+      "textStyles": {
+        "htpHeading": {
+          "fontSize": "70px",
+          "fontFamily": "outfit",
+          "color": "#ffffff"
+        },
+        "uiNumbers": {
+          "font": "bold 50px outfit",
+          "fill": "#000000"
+        }
+      }
+    },
+    "games/arcade/pirates/config.json": {
+      "entry": "Custompirates/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": " Win by defeating enough enemies before time runs out.",
+        "score_label": "Score: ",
+        "win_title": "Level Completed",
+        "game_over_title": "Try Again!",
+        "kills": "Shoot"
+      },
+      "gameplay": {
+        "orientation": "landscape",
+        "timerSeconds": 60,
+        "playerSpeed": 300,
+        "playerHealth": 5,
+        "playerJumpVelocity": 520,
+        "playerShootCooldownMs": 250,
+        "playerBody": {
+          "width": 400,
+          "height": 700,
+          "offsetX": 30,
+          "offsetY": 8
+        },
+        "enemyBody": {
+          "width": 200,
+          "height": 230,
+          "offsetX": 12,
+          "offsetY": 12
+        },
+        "enemySpawnRate": 2500,
+        "enemyShootMin": 1200,
+        "enemyShootMax": 2200,
+        "cannonballRate": 1800,
+        "coinSpawnRate": 2000,
+        "enemyTargetKills": 2,
+        "deckScrollSpeed": 90,
+        "bgmVolume": 0.4,
+        "sfxVolume": 0.6,
+        "enemyhealth": 1,
+        "enemyShootDelayMs": 900,
+        "targetKills": 2
+      },
+      "images1": {
+        "player": "assets/player.png",
+        "enemy": "assets/obj10.png",
+        "collectible": "assets/collect.png",
+        "obstacle": "assets/obj1.png",
+        "bullet": "assets/bullet.png",
+        "bullet1": "assets/bullet1.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "winbackground": "assets/background1.png",
+        "ovrbackground": "assets/background2.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "scoreback": "assets/scoreback.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/Attack.mp3",
+        "hit": "assets/hit.mp3",
+        "destroy": "assets/Explosion.mp3",
+        "win": "assets/win.mp3",
+        "lose": "assets/lose.mp3",
+        "jump": "assets/jump.mp3"
+      }
+    },
+    "games/arcade/red-light-green-light/config.json": {
+      "entry": "Customredlight/index.html",
+      "timer": 60,
+      "playerSpeed": 5,
+      "finishLineY": 120,
+      "playerSize": 48,
+      "lightChangeMin": 1500,
+      "lightChangeMax": 4000,
+      "colors": {
+        "backgroundTop": "#87ceeb",
+        "backgroundBottom": "#98fb98"
+      },
+      "fontSizes": {
+        "light": "48px",
+        "timer": "32px",
+        "winLose": "48px"
+      },
+      "messageBox": {
+        "width": 600,
+        "height": 300
+      },
+      "images1": {
+        "player": "./assets/player.png"
+      },
+      "images2": {
+        "background": "./assets/space.png",
+        "htpbg": "./assets/htpbg.png",
+        "winbg": "./assets/winbg.png",
+        "ovrbg": "./assets/ovrbg.png"
+      },
+      "ui": {
+        "htp": "assets/htp.png",
+        "finish": "assets/finish.png",
+        "play_game": "assets/play_game.png",
+        "replay_level": "assets/replay.png",
+        "level_complete": "assets/level_complete.png",
+        "replay": "assets/replay_level.png",
+        "next": "assets/next.png",
+        "game_over": "assets/game_over.png",
+        "scorebar": "assets/scoreback.png"
+      },
+      "audio": {
+        "bgm": "./assets/calm.mp3",
+        "gameover": "./assets/gameover.mp3",
+        "tap": "./assets/Destroy.mp3",
+        "levelCompleted": "./assets/levelCompleted.mp3"
+      },
+      "spritesheets": {
+        "character": {
+          "url": "./assets/hero.png",
+          "frameWidth": 100,
+          "frameHeight": 158
+        }
+      },
+      "blockColors": [
+        "#4a90e2",
+        "#50c878",
+        "#ff6b6b",
+        "#ffd93d",
+        "#6c5ce7"
+      ]
+    },
+    "games/arcade/snake/config.json": {
+      "entry": "Customsnake/index.html",
+      "images1": {
+        "enemy": "assets/obj1.png",
+        "normal": "assets/obj1.png",
+        "big": "assets/obj2.png",
+        "slow": "assets/obj3.png",
+        "boost": "assets/obj4.png",
+        "bomb": "assets/obj5.png",
+        "ghost": "assets/obj6.png",
+        "snake": "assets/snake.png",
+        "body": "assets/body.png",
+        "tail": "assets/tail.png",
+        "magnet": "assets/obj7.png"
+      },
+      "images2": {
+        "background": "assets/bg1.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "playbtn": "assets/playbtn.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "scorebar": "assets/scorebar.png"
+      },
+      "audio": {
+        "bg_music": "assets/background_music.mp3"
+      },
+      "config": {
+        "speed": 150,
+        "powerUpInterval": 2
+      },
+      "spritesheets": {}
+    },
+    "games/board/chess/config.json": {
+      "entry": "Customchess/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Move with arrows. A = Attack, S = Special. Defeat your opponent!",
+        "score_label": "HP:",
+        "win_title": "Victory! You are the Arena Champion!",
+        "game_over_title": "Defeat! Better luck next time."
+      },
+      "gameplay": {
+        "timerSeconds": null,
+        "playerHP": 100,
+        "enemyHP": 100,
+        "attackDamage": 10,
+        "specialDamage": 25,
+        "specialCooldown": 5
+      },
+      "images1": {},
+      "images2": {},
+      "ui": {
+        "htpbox": "assets/images/htpbox.png",
+        "playbtn": "assets/images/playbtn.png",
+        "ovrbox": "assets/images/ovrbox.png",
+        "replay": "assets/images/replay.png",
+        "lvlbox": "assets/images/lvlbox.png",
+        "next": "assets/images/next.png",
+        "lvl_replay": "assets/images/lvl_replay.png"
+      },
+      "spritesheets": {},
+      "audio": {}
+    },
+    "games/board/rock-paper-scissors/config.json": {
+      "entry": "CustomRPS/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Choose Rock, Paper, or Scissors before the countdown ends—beat the computer’s choice to win, or lose on a draw or timeout!",
+        "score_label": "Moves: ",
+        "win_title": "Perfect Pour!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {},
+      "images1": {
+        "side_view_scissors": "assets/scissors.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "A4_paper": "assets/paper.png",
+        "rock": "assets/rock.png"
+      },
+      "ui": {
+        "particle": "assets/particle.png",
+        "star": "assets/star.png",
+        "red": "assets/red.png",
+        "white": "assets/white.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3"
+      },
+      "colors": {
+        "ruby": "#e25458",
+        "mint": "#35d0a1",
+        "sun": "#f3c34a",
+        "ocean": "#4db2ff",
+        "plum": "#9146e8",
+        "rose": "#ff7aa2",
+        "teal": "#22b3b9",
+        "cocoa": "#7a5440"
+      }
+    },
+    "games/casual/bubble-shooter/config.json": {
+      "entry": "Custombubbleshooter/index.html",
+      "images1": {
+        "spherical": "./assets/red_bubble.png",
+        "spherical1": "./assets/blue_bubble.png",
+        "spherical2": "./assets/purple_bubble.png",
+        "spherical3": "./assets/orange_bubble.png",
+        "spherical4": "./assets/transparent_bubble.png"
+      },
+      "images2": {
+        "background": "./assets/background.png",
+        "htpbg": "./assets/htpbg.png",
+        "winbg": "./assets/winbg.png",
+        "ovrbg": "./assets/ovrbg.png",
+        "platform": "./assets/platform.png",
+        "cannon": "./assets/cannon.png"
+      },
+      "ui": {
+        "completed": "./assets/completed.png",
+        "game_over": "./assets/game_over.png",
+        "next": "./assets/next.png",
+        "replay_level": "./assets/replay_level.png",
+        "replay": "./assets/replay.png",
+        "http": "./assets/http.png",
+        "play_game": "./assets/play_game.png",
+        "textbox": "./assets/textbox.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "pop_sound": "./assets/pop_sound.mp3",
+        "unlock_sound": "./assets/unlock_sound.mp3",
+        "key_collect": "./assets/key_collect.mp3",
+        "up": "./assets/up.mp3",
+        "bgm": "./assets/bgm.mp3"
+      },
+      "texts": {
+        "timer_label": "Time",
+        "score_label": "Score",
+        "target_label": "Target",
+        "how_to_play_title": "How to Play",
+        "how_to_play_desc": "Swipe to aim, tap to shoot.\n\nMatch 3+:",
+        "game_over_title": "Game Over",
+        "win_title": "Level Completed"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "mechanics": {
+        "targetScore": 8,
+        "bubbleSpeed": 1500,
+        "timerSeconds": 60,
+        "gravity": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    "games/casual/candy-crush/config.json": {
+      "entry": "Customcandycrush/index.html",
+      "mechanics": {
+        "PLAYER_SPEED": 180,
+        "ATTACK_RANGE": 60,
+        "ATTACK_COOLDOWN": 400,
+        "PUNCH_DURATION": 200
+      },
+      "images1": {
+        "object1": "./assets/obj1.png",
+        "object2": "./assets/obj2.png",
+        "object3": "./assets/obj3.png",
+        "object4": "./assets/obj4.png",
+        "object5": "./assets/obj5.png"
+      },
+      "images2": {
+        "bg1": "./assets/lvl1bg.png"
+      },
+      "ui": {
+        "re": "./assets/reshuffle.png",
+        "lvl1": "./assets/lvl1icon.png",
+        "lvl1iconbg": "./assets/lvl1iconbg.png",
+        "lvlbg": "./assets/lvlbg.png",
+        "tilebg": "./assets/tilebg.png",
+        "lvlhead": "./assets/lvlheader.png",
+        "lvlcom": "./assets/lvlcom.png",
+        "timeout": "./assets/timeout.png",
+        "htpbox": "./assets/htpbox.png",
+        "playbtn": "./assets/playbtn.png",
+        "gameovrbg": "./assets/gameovrbg.png",
+        "restart1btn": "./assets/restart1btn.png",
+        "restartbtn": "./assets/restartbtn.png",
+        "lvlbox": "./assets/lvlcompleted.png",
+        "nextbtn": "./assets/nextbtn.png",
+        "timebg": "./assets/timebg.png",
+        "scorebg": "./assets/scorebg.png",
+        "lvltxtbg": "./assets/lvltxtbg.png"
+      },
+      "audio": {
+        "divine": "./assets/divine.mp3",
+        "destroy": "./assets/destroy.mp3",
+        "bgmusic": "./assets/bg.mp3"
+      },
+      "text": {
+        "howToPlayTitle": "How to Play",
+        "howToPlayText": "On a grid covered with\nvarious objects, try to form\nhorizontal or vertical chains\nof at least three identical\nones by swapping\nneighbouring objects.",
+        "gameOverTitle": "Game Over",
+        "levelCompletedTitle": "Level Completed",
+        "scoreLabel": "Score",
+        "timeLabel": "Time",
+        "levelLabel": "Level",
+        "targetLabel": "Target",
+        "levelNumber": "1"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "levels": {
+        "level1": {
+          "timeLimit": 25,
+          "scoreTarget": 300,
+          "rows": 8,
+          "columns": 5
+        },
+        "level2": {
+          "timeLimit": 20,
+          "scoreTarget": 50,
+          "rows": 8,
+          "columns": 5
+        },
+        "level3": {
+          "timeLimit": 25,
+          "scoreTarget": 100,
+          "rows": 8,
+          "columns": 5
+        }
+      }
+    },
+    "games/casual/cooking/config.json": {
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Drag the correct ingredients from the table onto the plate in the right order before time runs out. Avoid mistakes!",
+        "score_label": "Score: ",
+        "make_label": "Make: ",
+        "win_title": "Delicious! Order Complete!",
+        "game_over_title": "Order Failed! Try Again"
+      },
+      "gameplay": {
+        "orientation": "landscape",
+        "timerSeconds": 30,
+        "mistakeLimit": 3,
+        "ingredientSize": 150,
+        "previewSize": 130,
+        "tableCols": 3,
+        "tableGapX": 200,
+        "tableGapY": 180,
+        "plateSize": {
+          "width": 400,
+          "height": 300
+        },
+        "dropZone": {
+          "x": 1240,
+          "y": 620,
+          "width": 360,
+          "height": 150
+        },
+        "bgmVolume": 0.45,
+        "startLevel": 0,
+        "randomRecipe": true,
+        "recipes": [
+          {
+            "name": "Cake",
+            "sequence": [
+              "obj1",
+              "obj3",
+              "obj7",
+              "obj9"
+            ],
+            "decoys": [
+              "obj4",
+              "obj6",
+              "obj8"
+            ]
+          },
+          {
+            "name": "Burger",
+            "sequence": [
+              "obj2",
+              "obj5",
+              "obj4",
+              "obj6"
+            ],
+            "decoys": [
+              "obj1",
+              "obj10",
+              "obj11"
+            ]
+          },
+          {
+            "name": "Pizza",
+            "sequence": [
+              "obj10",
+              "obj11",
+              "obj12",
+              "obj13"
+            ],
+            "decoys": [
+              "obj2",
+              "obj3",
+              "obj7"
+            ]
+          }
+        ]
+      },
+      "images": {
+        "background": "assets/bg.png",
+        "player": "assets/obj1.png",
+        "enemy": "assets/obj5.png",
+        "collectible": "assets/obj12.png",
+        "platform": "assets/pan.png",
+        "obj1": "assets/obj1.png",
+        "obj2": "assets/obj2.png",
+        "obj3": "assets/obj3.png",
+        "obj4": "assets/obj4.png",
+        "obj5": "assets/obj5.png",
+        "obj6": "assets/obj6.png",
+        "obj7": "assets/obj7.png",
+        "obj8": "assets/obj8.png",
+        "obj9": "assets/obj9.png",
+        "obj10": "assets/obj10.png",
+        "obj11": "assets/obj11.png",
+        "obj12": "assets/obj12.png",
+        "obj13": "assets/obj13.png",
+        "platform2": "assets/platform2.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "jump": "assets/jump.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3",
+        "attack": "assets/Attack.mp3",
+        "Level_Complete": "assets/win.mp3",
+        "Game_Over": "assets/lose.mp3",
+        "Taking_a_Hit": "assets/hit.mp3"
+      }
+    },
+    "games/casual/fruit-cosmics/config.json": {
+      "entry": "Customfruitcosmics/index.html",
+      "labels": {
+        "howToPlayTitle": "How to Play",
+        "howToPlayDescription": "",
+        "targetLabel": "Target:",
+        "yourScoreLabel": "Your Score",
+        "gameOverText": "Game Over",
+        "winText": "Level Completed",
+        "avoidtext": "Avoid:",
+        "slicetext": "Slice:",
+        "livetext": "Lives:"
+      },
+      "targetScore": 200,
+      "timeLimit": 60,
+      "images1": {
+        "object": "assets/straw.png",
+        "object1": "assets/mango.png",
+        "object2": "assets/orange.png",
+        "bomb": "assets/stone.png"
+      },
+      "images2": {
+        "background": "assets/woddenBack.png",
+        "winbg": "assets/winbg.png",
+        "ovrbg": "assets/ovrbg.png"
+      },
+      "ui": {
+        "completed": "assets/completed.png",
+        "gameOver": "assets/gameover.png",
+        "next": "assets/next.png",
+        "replay_level": "assets/replay_level.png",
+        "replay": "assets/replay.png",
+        "htpBox": "assets/http.png",
+        "playbtn": "assets/playbtn.png",
+        "stopwatchIcon": "assets/scoreback.png",
+        "scoreback": "assets/scoreback.png",
+        "heart": "assets/heart.png",
+        "play_game": "assets/play_game.png"
+      },
+      "audio": {
+        "bgm": "assets/calm.mp3",
+        "slice": "assets/slices.mp3",
+        "bomb": "assets/bomb.mp3"
+      },
+      "spritesheets": {
+        "eve": {
+          "path": "assets/shark.png",
+          "frameWidth": 103,
+          "frameHeight": 150,
+          "frames": 4,
+          "frameRate": 12
+        }
+      }
+    },
+    "games/platformer/mario/config.json": {
+      "entry": "Custommario/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Use ← → to move and [Jump] to leap. Stomp enemies, collect coins, and reach the flag before time runs out!",
+        "score_label": "Score:",
+        "win_title": "Level Complete!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {
+        "timerSeconds": 60,
+        "playerSpeed": 320,
+        "levelWidth": 5100,
+        "bgParallax": 0.5
+      },
+      "images1": {
+        "enemy": "assets/obj5.png",
+        "collectible": "assets/obj12.png",
+        "flag": "assets/obj20.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "platform": "assets/platform1.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {
+        "hero": {
+          "url": "assets/hero.png",
+          "frameWidth": 342,
+          "frameHeight": 705,
+          "frames": 4
+        }
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "jump": "assets/jump.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3",
+        "destroy": "assets/hit.mp3"
+      }
+    },
+    "games/puzzle/6oct/config.json": {
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap letters on the wheel to form words. Submit to fill the crossword. Wrong guesses cost time and points—play smart! Shuffle to rearrange letters, Clear to reset your attempt.",
+        "score_label": "Score:",
+        "win_title": "Legendary! Puzzle Complete!",
+        "game_over_title": "Time’s Up!"
+      },
+      "gameplay": {
+        "orientation": "landscape",
+        "timerSeconds": 150,
+        "streakBonusAfter": 2,
+        "streakBonusPoints": 5,
+        "wrongPenaltyScore": 3,
+        "wrongPenaltyTime": 5,
+        "diffEveryFound": 2,
+        "diffTimeCut": 5,
+        "sfxVolume": 0.9,
+        "bgmVolume": 0.6,
+        "gridCellW": 92,
+        "gridCellH": 92,
+        "gridLetterSize": 40,
+        "wheelRadius": 170,
+        "wheelCenterSize": 260,
+        "wheelTokenSize": 128,
+        "wheelLetterSize": 64,
+        "currentWordSize": 64,
+        "startPuzzleIndex": 0,
+        "gridGap": 14,
+        "puzzles": [
+          {
+            "bank": "SPHINX",
+            "targets": [
+              "SPIN",
+              "HIPS",
+              "SHIN",
+              "PIN",
+              "SIN",
+              "SIP"
+            ],
+            "grid": {
+              "rows": 8,
+              "cols": 12,
+              "cells": [
+                "............",
+                "..SPIN......",
+                "............",
+                "...HIPS.....",
+                "............",
+                "....SHIN....",
+                "............",
+                "............"
+              ]
+            }
+          },
+          {
+            "bank": "PYRAMID",
+            "targets": [
+              "PRAM",
+              "RAMP",
+              "DRIP",
+              "RAY",
+              "DAY",
+              "PAY",
+              "MAY"
+            ],
+            "grid": {
+              "rows": 9,
+              "cols": 13,
+              "cells": [
+                ".............",
+                "...PRAM......",
+                ".............",
+                "....RAMP.....",
+                ".............",
+                "....DRIP.....",
+                ".............",
+                "..RAY.DAY....",
+                "............."
+              ]
+            }
+          },
+          {
+            "bank": "SCARAB",
+            "targets": [
+              "SCAR",
+              "CARS",
+              "ARCS",
+              "BAR",
+              "ARC",
+              "SABRA"
+            ],
+            "grid": {
+              "rows": 9,
+              "cols": 14,
+              "cells": [
+                "..............",
+                "....SCAR......",
+                "..............",
+                "....CARS......",
+                "..............",
+                "....ARCS......",
+                "..............",
+                "...BAR.ARC....",
+                ".............."
+              ]
+            }
+          }
+        ]
+      },
+      "images": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "collect": "assets/bgm.mp3",
+        "hit": "assets/bgm.mp3",
+        "level_complete": "assets/bgm.mp3",
+        "game_over": "assets/bgm.mp3"
+      }
+    },
+    "games/puzzle/colour-pour/config.json": {
+      "entry": "Customcolourpour/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap a bottle, then tap another to pour. You can only pour onto the same color or into an empty bottle, and only the contiguous top segment moves. Make every non-empty bottle a single color.",
+        "score_label": "Moves: ",
+        "win_title": "Perfect Pour!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {
+        "timerSeconds": 30,
+        "playerSpeed": 0,
+        "enemySpawnRate": 0,
+        "bottleCapacity": 4,
+        "columns": 5,
+        "pourMsPerUnit": 180,
+        "levelLayout": [
+          [
+            "ruby",
+            "ruby",
+            "ruby",
+            "mint"
+          ],
+          [
+            "mint",
+            "mint",
+            "mint",
+            "sun"
+          ],
+          [
+            "sun",
+            "sun",
+            "sun",
+            "ocean"
+          ],
+          [
+            "ocean",
+            "ocean",
+            "ocean",
+            "plum"
+          ],
+          [
+            "plum",
+            "plum",
+            "plum",
+            "rose"
+          ],
+          [
+            "rose",
+            "rose",
+            "teal",
+            "teal"
+          ],
+          [
+            "teal",
+            "cocoa",
+            "cocoa",
+            "cocoa"
+          ],
+          [
+            "ruby",
+            "rose",
+            "teal",
+            "cocoa"
+          ],
+          [],
+          []
+        ]
+      },
+      "images2": {
+        "background": "assets/background.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/attack.mp3",
+        "collision": "assets/collision.mp3",
+        "level_complete": "assets/win.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3"
+      },
+      "colors": {
+        "ruby": "#e25458",
+        "mint": "#35d0a1",
+        "sun": "#f3c34a",
+        "ocean": "#4db2ff",
+        "plum": "#9146e8",
+        "rose": "#ff7aa2",
+        "teal": "#22b3b9",
+        "cocoa": "#7a5440"
+      }
+    },
+    "games/puzzle/four-dots/config.json": {
+      "entry": "Customfourdots/index.html",
+      "cols": 7,
+      "rows": 6,
+      "cellSize": 130,
+      "player1Color": 16766720,
+      "player2Color": 16729344,
+      "howToPlayText": "Connect four pieces vertically, horizontally or diagonally. The first one to align 4 pieces wins!",
+      "images1": {
+        "Alien1": "assets/Alien1.png",
+        "player": "assets/player.png"
+      },
+      "images2": {
+        "background": "./assets/space.png",
+        "htpbg": "./assets/htpbg.png",
+        "winbg": "./assets/winbg.png",
+        "ovrbg": "./assets/ovrbg.png"
+      },
+      "ui": {
+        "htp": "assets/htp.png",
+        "play_game": "assets/play_game.png",
+        "replay_level": "assets/replay.png",
+        "level_complete": "assets/level_complete.png",
+        "replay": "assets/replay_level.png",
+        "next": "assets/next.png",
+        "game_over": "assets/game_over.png",
+        "scorebar": "assets/scorebar.png"
+      },
+      "audio": {
+        "bgm": "./assets/calm.mp3",
+        "gameover": "./assets/gameover.mp3",
+        "tap": "./assets/drop.mp3",
+        "levelCompleted": "./assets/levelCompleted.mp3"
+      },
+      "spritesheets": {
+        "character": {
+          "url": "./assets/hero.png",
+          "frameWidth": 100,
+          "frameHeight": 158
+        }
+      },
+      "texts": {
+        "htp_title": "How to Play",
+        "htp_desc": "Connect four pieces vertically, horizontally or diagonally. The first one to align 4 pieces wins!",
+        "turn_player": "Your Turn",
+        "turn_ai": "AI's Turn",
+        "win_title": "You Win!!",
+        "game_over_title": "Game Over",
+        "draw_title": "Draw!"
+      },
+      "blockColors": [
+        "#4a90e2",
+        "#50c878",
+        "#ff6b6b",
+        "#ffd93d",
+        "#6c5ce7"
+      ]
+    },
+    "games/puzzle/memory/config.json": {
+      "entry": "Custommemory/index.html",
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "images2": {
+        "background": "./assets/background.png",
+        "htpbg": "./assets/htpbg.png",
+        "winbg": "./assets/winbg.png",
+        "ovrbg": "./assets/ovrbg.png",
+        "card1": "./assets/card1.png",
+        "card2": "./assets/card2.png",
+        "card3": "./assets/card3.png",
+        "card4": "./assets/card4.png",
+        "card5": "./assets/card5.png",
+        "card6": "./assets/card6.png",
+        "card7": "./assets/card7.png",
+        "card8": "./assets/card8.png"
+      },
+      "ui": {
+        "tile": "./assets/tile.png",
+        "playButton": "./assets/button.png",
+        "retryButton": "./assets/replay_button.png",
+        "replay_button": "./assets/replay.png",
+        "next_button": "./assets/next_button.png",
+        "grid_bg": "./assets/grid_bg.png",
+        "dialog_bg_start": "./assets/htp.png",
+        "level_complete": "./assets/htp.png",
+        "game_over": "./assets/htp.png",
+        "popbars": "./assets/popbars.png",
+        "timer-bg": "./assets/Timer_bg.png",
+        "timer-icon": "./assets/timer_icon.png"
+      },
+      "fonts": [
+        {
+          "name": "outfit",
+          "url": "./assets/outfit.ttf"
+        }
+      ],
+      "audio": {
+        "bgmusic": "./assets/bgmusic.mp3",
+        "flip": "./assets/flip.mp3",
+        "match": "./assets/match_success.mp3",
+        "wrong": "./assets/no_match.mp3",
+        "gameover": "./assets/fail.mp3",
+        "win": "./assets/victory.mp3",
+        "click": "./assets/ui_click.mp3"
+      },
+      "texts": {
+        "title": "How to Play",
+        "instructions": "Flip over two tiles to find\n matching pairs.",
+        "clueLabel": "Clue",
+        "clueValue": "Value: 100"
+      },
+      "modules": [
+        {
+          "type": "platform",
+          "x": 100,
+          "y": 500,
+          "scale": 2
+        },
+        {
+          "type": "spike",
+          "x": 200,
+          "y": 400
+        },
+        {
+          "type": "button",
+          "x": 300,
+          "y": 300
+        }
+      ],
+      "spawn": {
+        "x": 100,
+        "y": 400
+      },
+      "mechanics": {
+        "startTime": 60,
+        "rows": 4,
+        "cols": 4
+      }
+    },
+    "games/puzzle/signal-circuit/config.json": {
+      "entry": "Customsignalcircuit/index.html",
+      "images2": {
+        "platform": "./assets/platform1.png",
+        "background": "./assets/bg.png",
+        "ovrbg": "./assets/ovrbg.png",
+        "winbg": "./assets/winbg.png"
+      },
+      "ui": {
+        "scorebar": "./assets/scorebar.png",
+        "htp": "assets/htp.png",
+        "play_game": "assets/play_game.png",
+        "replay_level": "assets/replay.png",
+        "level_complete": "assets/level_complete.png",
+        "replay": "assets/replay_level.png",
+        "next": "assets/next.png",
+        "game_over": "assets/game_over.png"
+      },
+      "audio": {
+        "collection": "./assets/Collection.mp3",
+        "bgm": "./assets/bgm.mp3",
+        "jump": "./assets/Jump.mp3"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "mechanics": {
+        "timer": 60,
+        "gridRows": 5,
+        "gridCols": 5,
+        "tileSize": 200
+      },
+      "text": {
+        "label_start": "START",
+        "label_end": "END",
+        "timer_label": "Time",
+        "htp_description": "Complete the circuit from start to end, before time’s up!",
+        "gameover_title": "Game Over",
+        "gameover_time_left": "Time Left",
+        "win_title": "Level Completed",
+        "win_time_taken": "Time Taken",
+        "btn_play": "Play",
+        "btn_replay": "Replay",
+        "btn_next": "Next"
+      }
+    },
+    "games/puzzle/unruly/config.json": {
+      "entry": "Customunruly/index.html",
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "images2": {
+        "background": "assets/bg.png"
+      },
+      "ui": {
+        "scorebar": "assets/scorebar.png",
+        "htp": "assets/htp.png",
+        "play_game": "assets/play_game.png",
+        "replay_level": "assets/replay.png",
+        "level_complete": "assets/level_complete.png",
+        "replay": "assets/replay_level.png",
+        "next": "assets/next.png",
+        "game_over": "assets/game_over.png"
+      },
+      "audio": {
+        "bgm": "./assets/bgm.mp3"
+      },
+      "spritesheets": {
+        "player": {
+          "path": "assets/eve_spritesheet.png",
+          "frameWidth": 102,
+          "frameHeight": 158
+        }
+      },
+      "mechanics": {
+        "statMin": 0,
+        "statMax": 10,
+        "choicesToWin": 20
+      },
+      "events": [
+        {
+          "text": "The Royal Chef turned the treasury into soup! What do you do?",
+          "advisor": "Chef Boris",
+          "choices": [
+            {
+              "text": "Eat the soup, money is overrated.",
+              "effects": {
+                "gold": -2,
+                "popularity": 2,
+                "ego": 1
+              }
+            },
+            {
+              "text": "Punish the chef! Demand your gold back.",
+              "effects": {
+                "gold": 1,
+                "chaos": 2,
+                "popularity": -1
+              }
+            }
+          ]
+        },
+        {
+          "text": "The sheep union demands stylish hats for all sheep.",
+          "advisor": "Shepherdess Flo",
+          "choices": [
+            {
+              "text": "Approve hats! Kingdom needs fashion.",
+              "effects": {
+                "gold": -1,
+                "popularity": 2,
+                "ego": 1
+              }
+            },
+            {
+              "text": "No hats. Ban all sheep unions.",
+              "effects": {
+                "chaos": 2,
+                "popularity": -2,
+                "ego": 1
+              }
+            }
+          ]
+        },
+        {
+          "text": "A wizard duplicated all cows by accident.",
+          "advisor": "Wizard Jeff",
+          "choices": [
+            {
+              "text": "Host a milk festival!",
+              "effects": {
+                "popularity": 2,
+                "gold": 1,
+                "ego": -1
+              }
+            },
+            {
+              "text": "Open a second castle just for cows.",
+              "effects": {
+                "chaos": 2,
+                "gold": -2,
+                "ego": 1
+              }
+            }
+          ]
+        },
+        {
+          "text": "Moat is full of jelly. Locals start swimming competitions.",
+          "advisor": "Builder Pam",
+          "choices": [
+            {
+              "text": "Sponsor jelly races!",
+              "effects": {
+                "popularity": 2,
+                "gold": -1
+              }
+            },
+            {
+              "text": "Replace jelly with water.",
+              "effects": {
+                "gold": -2,
+                "chaos": -1
+              }
+            }
+          ]
+        },
+        {
+          "text": "A dragon ate all the royal shoes.",
+          "advisor": "Footman Rex",
+          "choices": [
+            {
+              "text": "Throw a barefoot festival.",
+              "effects": {
+                "popularity": 2,
+                "chaos": 1
+              }
+            },
+            {
+              "text": "Bribe dragon with gold.",
+              "effects": {
+                "gold": -2,
+                "chaos": -2
+              }
+            }
+          ]
+        },
+        {
+          "text": "Your portrait painter added a moustache to all royal paintings.",
+          "advisor": "Artist Luc",
+          "choices": [
+            {
+              "text": "Declare moustaches royal fashion.",
+              "effects": {
+                "ego": 2,
+                "popularity": 1
+              }
+            },
+            {
+              "text": "Paint over them all night.",
+              "effects": {
+                "gold": -1,
+                "popularity": -1
+              }
+            }
+          ]
+        },
+        {
+          "text": "Royal cats form a rock band. Noise is unbearable.",
+          "advisor": "Maestro Kitty",
+          "choices": [
+            {
+              "text": "Join the band as lead singer.",
+              "effects": {
+                "ego": 2,
+                "chaos": 1
+              }
+            },
+            {
+              "text": "Ban all cat concerts.",
+              "effects": {
+                "chaos": -2,
+                "popularity": -2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "games/racing/forest-runner/config.json": {
+      "entry": "Customforestrunner/index.html",
+      "images1": {
+        "enemy": "./assets/eagle.png",
+        "burning-rock": "./assets/burning-rock.png",
+        "blue-power": "./assets/blue-power.png"
+      },
+      "images2": {
+        "background": "./assets/background.png",
+        "platform-long": "./assets/platform-long.png"
+      },
+      "ui": {
+        "blur_background": "./assets/blur_bg.png",
+        "branch": "./assets/branch.png",
+        "htp": "./assets/htp.png",
+        "replay": "./assets/replay.png",
+        "next": "./assets/next.png",
+        "play_game": "./assets/play_game.png",
+        "restart": "./assets/replay_level.png",
+        "completed": "./assets/completed.png",
+        "game_over": "./assets/game_over.png",
+        "replay_level": "./assets/replay_level.png",
+        "level_complete": "./assets/level_complete.png",
+        "blue-bar-empty": "./assets/blue-bar-empty.png",
+        "blue-bar-half": "./assets/blue-bar-half.png",
+        "blue-bar-full": "./assets/blue-bar-full.png",
+        "red-bar-empty": "./assets/red-bar-empty.png",
+        "red-bar-full": "./assets/red-bar-full.png",
+        "red-bar-1": "./assets/red-bar-1.png",
+        "red-bar-2": "./assets/red-bar-2.png",
+        "red-bar-3": "./assets/red-bar-3.png",
+        "red-bar-4": "./assets/red-bar-4.png",
+        "red-bar-5": "./assets/red-bar-5.png",
+        "blue-glow": "./assets/blue-glow.png",
+        "spellbook": "./assets/spellbook.png",
+        "book-glow": "./assets/book-glow.png"
+      },
+      "audio": {
+        "jump": "./assets/jump.mp3",
+        "collect": "./assets/collect.mp3",
+        "bgm": "./assets/background_music.mp3",
+        "collision": "./assets/collision.mp3",
+        "bird_hit": "./assets/hit_bird.mp3"
+      },
+      "spritesheets": {
+        "player": {
+          "url": "/assets/eve_spritesheet.png",
+          "frameWidth": 102,
+          "frameHeight": 158
+        }
+      },
+      "orientation": {
+        "frame": "landscape",
+        "width": 1920,
+        "height": 1080
+      },
+      "mechanics": {
+        "gameSpeed": 800,
+        "targetGameSpeed": 300,
+        "playerJumpVelocity": -700,
+        "playerDoubleJumpVelocity": -750,
+        "initialHealth": 6,
+        "initialPower": 0,
+        "maxPower": 3,
+        "powerModeDuration": 10000,
+        "obstacleSpawnDelay": 1500,
+        "platformSpawnDelay": 3000
+      }
+    },
+    "games/racing/road-fighter/config.json": {
+      "entry": "Customroadfighter/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap LEFT/RIGHT to snap to each side of the rope. Tap ACTION to dash through tight gaps. Avoid obstacles, collect points, and survive until the timer ends.",
+        "score_label": "Score:",
+        "win_title": "You Reached the Sky Summit!",
+        "game_over_title": "Fell from the Rope!"
+      },
+      "orientation": {
+        "frame": "portrait",
+        "width": 1080,
+        "height": 1920
+      },
+      "layout": {
+        "laneOffsetX": 170
+      },
+      "gameplay": {
+        "timerSeconds": 60,
+        "playerSpeed": 520,
+        "scrollSpeed": 60,
+        "dashCooldownMs": 1200,
+        "dashDurationMs": 180,
+        "dashBoost": 220,
+        "enemySpawnRateMs": 1100,
+        "minEnemySpawnRateMs": 550,
+        "rampEverySec": 15,
+        "rampFactor": 0.92,
+        "birdEveryMs": 2500,
+        "gemEveryMs": 1800,
+        "shieldEveryMs": 12000,
+        "shieldDurationMs": 4000,
+        "nearMissRadius": 32,
+        "lives": 3
+      },
+      "meta": {
+        "autoSceneChange": true,
+        "gameOverKey": "GameOverScene",
+        "winKey": "WinScene"
+      },
+      "images1": {
+        "player_vehicle_topView": "assets/obj1.png",
+        "enemy_vehicle_topView": "assets/obj5.png",
+        "obstacle": "assets/obj12.png",
+        "fuel_vehicle": "assets/obj3.png",
+        "health": "assets/shield.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "platform": "assets/platform1.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "collect": "assets/collect.mp3",
+        "hit": "assets/hit.mp3",
+        "win": "assets/win.mp3",
+        "lose": "assets/lose.mp3",
+        "swap": "assets/swap.mp3"
+      }
+    },
+    "games/racing/survival-run/config.json": {
+      "entry": "Customsurvivalrun/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Move through the haunted maze. Get close to a portal and press Action to rotate runes. Match all runes to seal the portal. Seal them all before time runs out. Avoid ghosts!",
+        "score_label": "Score: ",
+        "win_title": "All portals sealed!",
+        "game_over_title": "You were caught!"
+      },
+      "gameplay": {
+        "timerSeconds": 90,
+        "playerHP": 300,
+        "playerSpeed": 240,
+        "portalCount": 3,
+        "ghostSpawnRateMs": 2500,
+        "ghostSpeed": 120,
+        "ghostSpeedStep": 20,
+        "ghostSpeedMax": 260,
+        "difficultyStepMs": 12000,
+        "sealScore": 100,
+        "playerSize": {
+          "w": 80,
+          "h": 80
+        },
+        "maxGhosts": 10,
+        "ghostsPerWave": 2,
+        "portalSpawnChance": 0.6,
+        "minSpawnDist": 160
+      },
+      "images1": {
+        "player": "assets/player.png",
+        "enemy": "assets/obj10.png",
+        "portal": "assets/obj25.png",
+        "rune": "assets/obj14.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "platform": "assets/platform.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/Attack.mp3",
+        "explosion": "assets/Explosion.mp3",
+        "gameover": "assets/lose.mp3",
+        "hit": "assets/hit.mp3",
+        "level_complete": "assets/win.mp3",
+        "jump": "assets/jump.mp3"
+      }
+    },
+    "games/shooter/fighter-fury/config.json": {
+      "entry": "Customfighterfury/index.html",
+      "orientation": {
+        "frame": "landscape",
+        "width": 1920,
+        "height": 1080
+      },
+      "game": {
+        "maxHealth": 3,
+        "startEnemySpeed": 100,
+        "spawnInterval": 1000,
+        "minSpawnInterval": 350,
+        "spawnAccel": 5,
+        "scoreToWin": 5
+      },
+      "images1": {
+        "enemy": "assets/enemy.png",
+        "plane": "assets/plane.png",
+        "rocket": "assets/rocket.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "htpbg": "assets/htpbg.png",
+        "ovrbg": "assets/ovrbg.png",
+        "winbg": "assets/winbg.png"
+      },
+      "ui": {
+        "explosion": "assets/explosion.png",
+        "start_overlay": "assets/start_bg.png",
+        "button_play": "assets/play_button.png",
+        "button_retry": "assets/replay.png",
+        "scorebar": "assets/scorebar.png",
+        "next": "assets/next.png",
+        "replay": "assets/replay_button.png",
+        "ui_bg": "assets/ui_bg.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "explosion": "assets/explosion.mp3",
+        "hit": "assets/hit.mp3"
+      },
+      "texts": {
+        "title": "",
+        "tapToStart": "Shoot to defend your player! Survive and score\nas high as you can.",
+        "score": "Score: {score}",
+        "gameOver": "",
+        "win": "",
+        "startBtn": "",
+        "retry": "",
+        "playAgain": ""
+      },
+      "colors": {
+        "background": "#756f4d"
+      },
+      "sheets": {}
+    },
+    "games/shooter/gunman/config.json": {
+      "entry": "Customgunman/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Tap or click to shoot when the oscillating aim line points at the enemy. Defeat three enemies and then a tougher mini-boss to clear Level 1.",
+        "score_label": "Score: ",
+        "win_title": "Level 1 Cleared!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {
+        "timerSeconds": 0,
+        "aimSpeed": 1.25,
+        "aimMinDeg": -135,
+        "aimMaxDeg": -45,
+        "playerSpeed": 0,
+        "enemySpawnRate": 0,
+        "bulletSpeed": 1200,
+        "bulletLimit": 20,
+        "bulletLifeMs": 1200
+      },
+      "ui": {
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "images1": {
+        "player": "assets/player.png",
+        "enemy": "assets/enemy.png",
+        "enemy_boss": "assets/boss.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "platform": "assets/platform1.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/attack.mp3",
+        "hit": "assets/hit.mp3"
+      }
+    },
+    "games/shooter/shoot-enemy/config.json": {
+      "entry": "Customshootenemy/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Drag the joystick to aim (hold to charge) and release to shoot:",
+        "score_label": "Score ",
+        "win_title": "Level Completed",
+        "game_over_title": "Your Score:   "
+      },
+      "gameplay": {
+        "shots": 5,
+        "aimMaxDegrees": 25,
+        "shotsTotal": 20,
+        "targetGoals": 3
+      },
+      "images1": {
+        "player": "assets/obj2.png",
+        "enemy": "assets/obj6.png",
+        "bullet": "assets/bullet.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "background1": "assets/background1.png",
+        "background2": "assets/background2.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png",
+        "scorebar": "assets/scorebar.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/hit.mp3",
+        "collision": "assets/bgm.mp3",
+        "collection": "assets/collect.mp3",
+        "level_complete": "assets/win.mp3",
+        "game_over": "assets/lose.mp3"
+      }
+    },
+    "games/shooter/shooter/config.json": {
+      "entry": "Customshooter/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Landscape. Survive for 60s. Move with ←/→, jump with ↑ or Space. Shoot with Z or Action. Pick up crates for AK/Shotgun.",
+        "score_label": "Kills: ",
+        "win_title": "Temple Survived!",
+        "game_over_title": "You Fell in the Temple!"
+      },
+      "gameplay": {
+        "timerSeconds": 60,
+        "playerHP": 3,
+        "playerSpeed": 280,
+        "jumpSpeed": -750,
+        "gravityY": 900,
+        "spawn": {
+          "startMs": 1400,
+          "endMs": 500
+        },
+        "enemy": {
+          "baseSpeed": 80,
+          "maxSpeed": 200
+        },
+        "crate": {
+          "cooldownMs": 10000
+        },
+        "weapon": {
+          "pistol": {
+            "fireMs": 350,
+            "bulletSpeed": 900,
+            "oneBulletRule": true
+          },
+          "ak": {
+            "durationMs": 10000,
+            "fireMs": 110,
+            "bulletSpeed": 1100
+          },
+          "shotgun": {
+            "durationMs": 10000,
+            "pellets": 5,
+            "spreadDeg": 24,
+            "fireMs": 500,
+            "bulletSpeed": 800
+          }
+        }
+      },
+      "images1": {
+        "enemy": "assets/obj5.png",
+        "enemyFast": "assets/obj6.png",
+        "bullet": "assets/obj12.png",
+        "pellet": "assets/obj13.png",
+        "ebullet": "assets/obj21.png",
+        "crate": "assets/obj20.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "platform1": "assets/platform2.png",
+        "platform2": "assets/platform3.png"
+      },
+      "ui": {
+        "player": "assets/obj1.png",
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/Game_Background.mp3",
+        "shoot": "assets/Attack.mp3",
+        "blast": "assets/Explosion.mp3",
+        "kill": "assets/Destroy.mp3",
+        "hit": "assets/Taking_a_Hit.mp3",
+        "collect": "assets/Collection.mp3",
+        "win": "assets/Level_Complete.mp3",
+        "lose": "assets/Game_Over.mp3"
+      }
+    },
+    "games/shooter/vaccine-shooter/config.json": {
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Move with WASD/Arrows. Hold Space/Click/Action to shoot. Collect Vaccines for Burst (E or double-tap Action). Survive until the timer hits 0.",
+        "score_label": "Score:",
+        "win_title": "Infection Cleared!",
+        "game_over_title": "Nano-bot Destroyed"
+      },
+      "gameplay": {
+        "timerSeconds": 120,
+        "playerSpeed": 320,
+        "playerAccel": 1400,
+        "playerDrag": 800,
+        "playerSize": 64,
+        "fireRateMs": 160,
+        "bulletSpeed": 700,
+        "maxBullets": 30,
+        "spawnStartMs": 1400,
+        "maxEnemiesStart": 6,
+        "vaccineBurstRadius": 220,
+        "shieldMs": 2500,
+        "rapidMs": 3000
+      },
+      "images": {
+        "background": "assets/background.png",
+        "player": "assets/obj3.png",
+        "vaccine": "assets/obj12.png",
+        "shield": "assets/obj7.png",
+        "left": "assets/left.png",
+        "right": "assets/right.png",
+        "action": "assets/action.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {}
+    },
+    "games/sports/bowling/config.json": {
+      "entry": "Custombowling/index.html",
+      "targetScore": 40,
+      "strings": {
+        "howto": "Classic Bowling Game.\nDrag, aim, and release to roll the ball.\nTwo rolls per frame, 10 frames total.",
+        "startButton": "Tap to Start",
+        "scoreLabel": "Score",
+        "targetLabel": "Target",
+        "frameTitle": "Frame / Rolls",
+        "winTitle": "You Win! 🎉",
+        "loseTitle": "Try Again!",
+        "finalScore": "Final"
+      },
+      "images1": {
+        "ball": "assets/ball.png"
+      },
+      "images2": {},
+      "ui": {
+        "pin": "assets/pin.png",
+        "htpbox": "assets/htpbox.png",
+        "playbtn": "assets/playbtn.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "lvl_replay": "assets/lvl_replay.png"
+      },
+      "audio": {
+        "roll_sfx": "assets/roll.mp3",
+        "strike_sfx": "assets/strike.mp3",
+        "spare_sfx": "assets/spare.mp3"
+      },
+      "audioVolume": {
+        "roll": 0.3,
+        "pin": 0.25,
+        "strike": 0.35,
+        "spare": 0.35
+      },
+      "mechanics": {
+        "lane": {
+          "widthFactor": 0.9,
+          "height": 1500,
+          "railMargin": 40
+        },
+        "ball": {
+          "restitution": 0.05,
+          "friction": 0.02,
+          "frictionAir": 0.012,
+          "mass": 6,
+          "radius": 44,
+          "speedScale": 0.1
+        },
+        "pin": {
+          "restitution": 0.12,
+          "friction": 0.2,
+          "frictionAir": 0.002,
+          "mass": 0.5,
+          "width": 24,
+          "height": 92,
+          "scale": 0.3,
+          "rowSpacingY": 72,
+          "spacingX": 64
+        },
+        "detection": {
+          "tilt": 0.22,
+          "angularSpeed": 0.6,
+          "linearSpeed": 3.2,
+          "stopSpeed": 0.15,
+          "stopTicks": 60
+        }
+      }
+    },
+    "games/sports/penalty/config.json": {
+      "entry": "custompenalty/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Penalties: On your turn, choose Left/Center/Right and tap Action to shoot. On defense, choose a dive direction and tap Action to commit. Score more than the CPU in 5 rounds. Ties go to sudden death.",
+        "score_label": "Score",
+        "win_title": "Champions!",
+        "game_over_title": "Defeated!"
+      },
+      "gameplay": {
+        "orientation": "portrait",
+        "rounds": 5,
+        "turnTimeMs": 6000,
+        "ballFlightMs": 700,
+        "keeperDiveMs": 350,
+        "keeperResetMs": 250,
+        "laneSpreadX": 260,
+        "goalWidth": 800,
+        "goalHeight": 280,
+        "keeperWidth": 300,
+        "keeperHeight": 180,
+        "cpuSaveBias": 0.4,
+        "timerSeconds": 60,
+        "playerSpeed": 300,
+        "enemySpawnRate": 3000
+      },
+      "images": {},
+      "spritesheets": {},
+      "audio": {}
+    },
+    "games/sports/table-tennis/config.json": {
+      "entry": "Customtabletennis/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "How to Play",
+        "how_to_play1": "Control:",
+        "score_label": "Score: ",
+        "win_title": "Level Completed",
+        "game_over_title": "Game Over"
+      },
+      "gameplay": {
+        "timerSeconds": 0,
+        "targetScore": 5,
+        "paddle": {
+          "width": 26,
+          "height": 180,
+          "speed": 600
+        },
+        "ball": {
+          "size": 58,
+          "speed": 520,
+          "speedIncPerHit": 12,
+          "maxSpeed": 980
+        },
+        "ai": {
+          "speed": 520,
+          "reactDelayMs": 90,
+          "missJitter": 14
+        },
+        "power": {
+          "spawnEveryMs": 6000,
+          "maxOnField": 1,
+          "durationMs": 6000
+        },
+        "arenaInset": 40
+      },
+      "images1": {
+        "collectible": "assets/obj12.png",
+        "ball": "assets/obj7.png",
+        "power_speed": "assets/obj7.png",
+        "power_grow": "assets/obj7.png",
+        "power_shrink": "assets/obj7.png",
+        "power_multi": "assets/obj7.png"
+      },
+      "images2": {
+        "background": "assets/background.png",
+        "htpbg": "assets/htpbg.png",
+        "winbg": "assets/winbg.png",
+        "ovrbg": "assets/ovrbg.png",
+        "platform": "assets/platform2.png"
+      },
+      "ui": {
+        "left": "assets/left.png",
+        "scoreback": "assets/scoreback.png",
+        "right": "assets/right.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "hit": "assets/hit.mp3",
+        "collect": "assets/collect.mp3",
+        "score": "assets/collect.mp3",
+        "game_over": "assets/lose.mp3",
+        "level_complete": "assets/win.mp3"
+      }
+    },
+    "games/word-quiz/wordle/config.json": {
+      "entry": "Customwordlee/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Guess the hidden word in six tries. Each guess must be a real word. Letters turn green when correct and in the right spot, yellow when in the word but wrong spot, and gray when not in the word.",
+        "score_label": "Row",
+        "win_title": "You solved it!",
+        "game_over_title": "Better luck next time!"
+      },
+      "gameplay": {
+        "titleText": "WORDLY",
+        "wordLength": 5,
+        "maxRows": 6,
+        "keyboardRows": [
+          "QWERTYUIOP",
+          "ASDFGHJKL",
+          "{ENTER}ZXCVBNM{DEL}"
+        ],
+        "fixedAnswer": "",
+        "colors": {
+          "bg": 15856113,
+          "tile": 14342874,
+          "text": "#FFFF",
+          "correct": 6983396,
+          "present": 13286680,
+          "absent": 7895166,
+          "key": 14145437,
+          "keyText": "#111111"
+        }
+      },
+      "images1": {},
+      "images2": {
+        "background": "assets/gradientBack.png"
+      },
+      "ui": {
+        "player": "assets/obj1.png",
+        "enemy": "assets/obj5.png",
+        "collectible": "assets/obj12.png",
+        "platform": "assets/platform1.png",
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "spritesheets": {},
+      "audio": {
+        "bgm": "assets/bgm1.mp3",
+        "hit": "assets/hit1.mp3",
+        "collect": "assets/correct.mp3",
+        "win": "assets/win1.mp3"
+      },
+      "words": {
+        "answerPool": [
+          "APPLE",
+          "BRAIN",
+          "CHAOS",
+          "DELTA",
+          "GHOST",
+          "MIXER",
+          "PLANT",
+          "ROBOT",
+          "TIGER",
+          "WATER",
+          "CLOUD",
+          "HONEY",
+          "LASER",
+          "QUIET",
+          "RIVER",
+          "SMILE",
+          "SOLID",
+          "TRACK",
+          "UNITY",
+          "VIVID"
+        ],
+        "validGuesses": [
+          "ALERT",
+          "ALLEY",
+          "ANGEL",
+          "ANGLE",
+          "APART",
+          "ARISE",
+          "BASIC",
+          "BEACH",
+          "BEAST",
+          "BLESS",
+          "BRICK",
+          "BRIDE",
+          "BRISK",
+          "BROAD",
+          "BRUSH",
+          "CABLE",
+          "CANDY",
+          "CHAIR",
+          "CLOUD",
+          "COAST",
+          "DRIVE",
+          "DRINK",
+          "EAGER",
+          "EARTH",
+          "FAITH",
+          "FALSE",
+          "FANCY",
+          "FIELD",
+          "FLAME",
+          "FRESH",
+          "FRUIT",
+          "GIANT",
+          "GRACE",
+          "GRAND",
+          "GRAPE",
+          "GREEN",
+          "HONEY",
+          "HOTEL",
+          "LASER",
+          "LEMON",
+          "LIGHT",
+          "MAGIC",
+          "MARCH",
+          "MIGHT",
+          "MIXER",
+          "MONEY",
+          "NERVE",
+          "NORTH",
+          "OCEAN",
+          "OPERA",
+          "PAINT",
+          "PEACH",
+          "PLANT",
+          "PRIDE",
+          "QUIET",
+          "QUILT",
+          "RADIO",
+          "RAISE",
+          "RIVER",
+          "ROYAL",
+          "ROBOT",
+          "SMILE",
+          "SMOKE",
+          "SOLID",
+          "SOUND",
+          "SOUTH",
+          "SPARK",
+          "SPOON",
+          "STORM",
+          "SUGAR",
+          "TABLE",
+          "THINK",
+          "TIGER",
+          "TOWER",
+          "TRACK",
+          "TRAIN",
+          "TRUST",
+          "UNITY",
+          "URBAN",
+          "VIRAL",
+          "VIVID",
+          "WATER",
+          "WHEAT",
+          "WHEEL",
+          "WOMAN",
+          "WORLD"
+        ]
+      }
+    },
+    "games/word-quiz/words-of-wonder/config.json": {
+      "entry": "Customwordsofwonder/index.html",
+      "font": {
+        "family": "Outfit",
+        "url": "assets/outfit.ttf"
+      },
+      "texts": {
+        "how_to_play": "Connect letters to form valid words. Fill the crossword grid to win. Drag across letters in sequence; release to submit.",
+        "score_label": "Score:",
+        "win_title": "Puzzle Solved!",
+        "game_over_title": "Try Again!"
+      },
+      "gameplay": {
+        "orientation": "portrait",
+        "timerSeconds": 0,
+        "puzzles": [
+          {
+            "letters": [
+              "H",
+              "R",
+              "W",
+              "O",
+              "T"
+            ],
+            "crossword": {
+              "words": [
+                {
+                  "word": "WHO",
+                  "dir": "across",
+                  "slots": [
+                    {
+                      "r": 0,
+                      "c": 2
+                    },
+                    {
+                      "r": 0,
+                      "c": 3
+                    },
+                    {
+                      "r": 0,
+                      "c": 4
+                    }
+                  ]
+                },
+                {
+                  "word": "TWO",
+                  "dir": "across",
+                  "slots": [
+                    {
+                      "r": 1,
+                      "c": 0
+                    },
+                    {
+                      "r": 1,
+                      "c": 1
+                    },
+                    {
+                      "r": 1,
+                      "c": 2
+                    }
+                  ]
+                },
+                {
+                  "word": "WORTH",
+                  "dir": "down",
+                  "slots": [
+                    {
+                      "r": 0,
+                      "c": 2
+                    },
+                    {
+                      "r": 1,
+                      "c": 2
+                    },
+                    {
+                      "r": 2,
+                      "c": 2
+                    },
+                    {
+                      "r": 3,
+                      "c": 2
+                    },
+                    {
+                      "r": 4,
+                      "c": 2
+                    }
+                  ]
+                },
+                {
+                  "word": "HOW",
+                  "dir": "down",
+                  "slots": [
+                    {
+                      "r": 2,
+                      "c": 5
+                    },
+                    {
+                      "r": 3,
+                      "c": 5
+                    },
+                    {
+                      "r": 4,
+                      "c": 5
+                    }
+                  ]
+                },
+                {
+                  "word": "THROW",
+                  "dir": "across",
+                  "slots": [
+                    {
+                      "r": 4,
+                      "c": 1
+                    },
+                    {
+                      "r": 4,
+                      "c": 2
+                    },
+                    {
+                      "r": 4,
+                      "c": 3
+                    },
+                    {
+                      "r": 4,
+                      "c": 4
+                    },
+                    {
+                      "r": 4,
+                      "c": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            "bonusWords": [
+              "ROW",
+              "HOT",
+              "TOR",
+              "ROT"
+            ]
+          },
+          {
+            "letters": [
+              "T",
+              "H",
+              "R",
+              "E",
+              "E"
+            ],
+            "crossword": {
+              "words": [
+                {
+                  "word": "THREE",
+                  "dir": "down",
+                  "slots": [
+                    {
+                      "r": 0,
+                      "c": 5
+                    },
+                    {
+                      "r": 1,
+                      "c": 5
+                    },
+                    {
+                      "r": 2,
+                      "c": 5
+                    },
+                    {
+                      "r": 3,
+                      "c": 5
+                    },
+                    {
+                      "r": 4,
+                      "c": 5
+                    }
+                  ]
+                },
+                {
+                  "word": "TREE",
+                  "dir": "across",
+                  "slots": [
+                    {
+                      "r": 2,
+                      "c": 0
+                    },
+                    {
+                      "r": 2,
+                      "c": 1
+                    },
+                    {
+                      "r": 2,
+                      "c": 2
+                    },
+                    {
+                      "r": 2,
+                      "c": 3
+                    }
+                  ]
+                },
+                {
+                  "word": "HERE",
+                  "dir": "down",
+                  "slots": [
+                    {
+                      "r": 1,
+                      "c": 3
+                    },
+                    {
+                      "r": 2,
+                      "c": 3
+                    },
+                    {
+                      "r": 3,
+                      "c": 3
+                    },
+                    {
+                      "r": 4,
+                      "c": 3
+                    }
+                  ]
+                },
+                {
+                  "word": "THERE",
+                  "dir": "across",
+                  "slots": [
+                    {
+                      "r": 4,
+                      "c": 1
+                    },
+                    {
+                      "r": 4,
+                      "c": 2
+                    },
+                    {
+                      "r": 4,
+                      "c": 3
+                    },
+                    {
+                      "r": 4,
+                      "c": 4
+                    },
+                    {
+                      "r": 4,
+                      "c": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            "bonusWords": [
+              "THE",
+              "HER",
+              "ERE",
+              "HE",
+              "RE"
+            ]
+          }
+        ]
+      },
+      "images1": {},
+      "images2": {
+        "background": "assets/bg.png",
+        "platform2": "assets/platform2.png"
+      },
+      "ui": {
+        "htpbox": "assets/htpbox.png",
+        "ovrbox": "assets/ovrbox.png",
+        "replay": "assets/replay.png",
+        "lvl_replay": "assets/lvl_replay.png",
+        "lvlbox": "assets/lvlbox.png",
+        "next": "assets/next.png",
+        "playbtn": "assets/playbtn.png"
+      },
+      "audio": {
+        "bgm": "assets/bgm.mp3",
+        "attack": "assets/Attack.mp3",
+        "collect": "assets/collect.mp3",
+        "hit": "assets/hit.mp3",
+        "win": "assets/win.mp3"
+      }
+    }
+  }
+}

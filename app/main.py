@@ -19,9 +19,17 @@ WEB_DIR = ROOT / "web"
 CATALOG_FILE = Path(os.getenv("CATALOG_FILE", ROOT / "data" / "registry.json"))
 UPSTREAM_BASE = os.getenv("UPSTREAM_GAMES_BASE", "https://sausi-7.github.io/games").rstrip("/")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
+CONFIG_OVERRIDES_FILE = ROOT / "data" / "config-overrides.json"
+CONFIG_OVERRIDES = (
+    json.loads(CONFIG_OVERRIDES_FILE.read_text(encoding="utf-8")).get("configs", {})
+    if CONFIG_OVERRIDES_FILE.exists() else {}
+)
 
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 logger = logging.getLogger("baltigogames")
+# Telegram request URLs contain the bot credential.
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 _bot_application = None
 _proxy_client: httpx.AsyncClient | None = None
@@ -75,8 +83,10 @@ async def lifespan(app: FastAPI):
 
             _bot_application = await start_bot(BOT_TOKEN, public_app_url(), load_catalog)
             logger.info("Telegram bot connected")
-        except Exception:
-            logger.exception("Telegram bot failed to start; web app remains available")
+        except Exception as exc:
+            logger.error("Telegram bot failed to start (%s)", type(exc).__name__)
+            await _proxy_client.aclose()
+            raise RuntimeError("Telegram bot startup failed") from None
     else:
         logger.info("BOT_TOKEN not configured; running web app only")
 
@@ -101,12 +111,16 @@ app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
 @app.get("/health")
 async def health() -> dict[str, Any]:
     catalog = load_catalog()
-    return {
-        "ok": True,
+    bot_running = bool(_bot_application and _bot_application.running
+                       and _bot_application.updater.running)
+    ready = bool(catalog.get("games")) and (not BOT_TOKEN or bot_running)
+    return JSONResponse({
+        "ok": ready,
         "service": "baltigo-games",
         "games": len(catalog.get("games", [])),
         "bot_configured": bool(BOT_TOKEN),
-    }
+        "bot_running": bot_running,
+    }, status_code=200 if ready else 503)
 
 
 @app.get("/api/catalog")
@@ -135,6 +149,9 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
+    if safe_path in CONFIG_OVERRIDES:
+        return JSONResponse(CONFIG_OVERRIDES[safe_path], headers={"Cache-Control": "public, max-age=3600"})
+
     if _proxy_client is None:
         raise HTTPException(status_code=503, detail="proxy not ready")
 
@@ -144,6 +161,9 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
 
     try:
         upstream = await _proxy_client.get(url)
+        # Several upstream games reference a shared font one directory too high.
+        if upstream.status_code == 404 and PurePosixPath(safe_path).name == "outfit.ttf":
+            upstream = await _proxy_client.get(f"{UPSTREAM_BASE}/games/arcade/snake/outfit.ttf")
     except httpx.HTTPError as exc:
         raise HTTPException(status_code=502, detail="upstream game unavailable") from exc
 

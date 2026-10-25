@@ -2,6 +2,8 @@ import importlib
 import json
 
 import pytest
+import httpx
+from types import SimpleNamespace
 from fastapi.testclient import TestClient
 
 FIXTURE = {
@@ -62,3 +64,113 @@ def test_inline_search_ranking():
     ]}
     assert _search_games(catalog, "game:snake")[0]["slug"] == "snake"
     assert [g["slug"] for g in _search_games(catalog, "chess")] == ["chess"]
+
+
+def test_health_detects_bot_stopped(client, monkeypatch):
+    c, main = client
+    monkeypatch.setattr(main, "BOT_TOKEN", "test-only")
+    monkeypatch.setattr(main, "_bot_application", None)
+    response = c.get("/health")
+    assert response.status_code == 503
+    assert response.json()["ok"] is False
+    assert response.json()["bot_running"] is False
+
+
+def test_health_detects_bot_polling(client, monkeypatch):
+    c, main = client
+    monkeypatch.setattr(main, "BOT_TOKEN", "test-only")
+    bot = SimpleNamespace(running=True, updater=SimpleNamespace(running=True))
+    monkeypatch.setattr(main, "_bot_application", bot)
+    assert c.get("/health").json()["bot_running"] is True
+    bot.updater.running = False
+    assert c.get("/health").status_code == 503
+    monkeypatch.setattr(main, "_bot_application", None)
+
+
+@pytest.mark.parametrize("status,expected", [(404, 404), (403, 502), (500, 502), (503, 502)])
+def test_proxy_upstream_errors(client, monkeypatch, status, expected):
+    c, main = client
+    transport = httpx.MockTransport(lambda req: httpx.Response(status, text="upstream"))
+    monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=transport))
+    response = c.get("/play/games/arcade/snake/index.html")
+    assert response.status_code == expected
+    assert response.headers.get("cache-control") is None
+
+
+def test_proxy_network_failure(client, monkeypatch):
+    c, main = client
+    def fail(request):
+        raise httpx.ConnectError("offline", request=request)
+    monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=httpx.MockTransport(fail)))
+    assert c.get("/play/games/arcade/snake/index.html").status_code == 502
+
+
+def test_proxy_asset_and_private_headers(client, monkeypatch):
+    c, main = client
+    seen = []
+    def respond(request):
+        seen.append(request)
+        return httpx.Response(200, content=b"game bytes", headers={
+            "content-type": "text/javascript; charset=utf-8", "etag": "abc",
+            "set-cookie": "private=value", "last-modified": "Wed, 21 Oct 2026 07:28:00 GMT",
+        })
+    monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=httpx.MockTransport(respond)))
+    response = c.get("/play/games/arcade/snake/main.js?v=2", headers={
+        "Cookie": "session=private", "Authorization": "Bearer private",
+    })
+    assert response.status_code == 200
+    assert response.content == b"game bytes"
+    assert response.headers["content-type"].startswith("text/javascript")
+    assert response.headers["etag"] == "abc"
+    assert "set-cookie" not in response.headers
+    assert "cookie" not in seen[0].headers
+    assert "authorization" not in seen[0].headers
+    assert seen[0].url.query == b"v=2"
+
+
+@pytest.mark.parametrize("path", ["assets/main.js", "secret.env", "games/../secret", "games\\..\\secret"])
+def test_proxy_rejects_invalid_paths(client, path):
+    _, main = client
+    with pytest.raises(ValueError):
+        main.sanitize_proxy_path(path)
+
+
+def test_config_has_no_token(client, monkeypatch):
+    c, main = client
+    monkeypatch.setattr(main, "BOT_TOKEN", "test-only-secret")
+    response = c.get("/api/config")
+    assert response.json()["telegram_enabled"] is True
+    assert "test-only-secret" not in response.text
+
+
+def test_bot_http_logs_suppressed(client):
+    import logging
+    assert logging.getLogger("httpx").getEffectiveLevel() >= logging.WARNING
+    assert logging.getLogger("httpcore").getEffectiveLevel() >= logging.WARNING
+
+
+def test_missing_shared_font_uses_upstream_copy(client, monkeypatch):
+    c, main = client
+    seen = []
+    def respond(request):
+        seen.append(str(request.url))
+        if request.url.path.endswith("/games/arcade/snake/outfit.ttf"):
+            return httpx.Response(200, content=b"font bytes", headers={"content-type": "font/ttf"})
+        return httpx.Response(404)
+    monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=httpx.MockTransport(respond)))
+    response = c.get("/play/games/puzzle/outfit.ttf")
+    assert response.status_code == 200
+    assert response.content == b"font bytes"
+    assert response.headers["content-type"] == "font/ttf"
+    assert len(seen) == 2
+
+
+def test_game_config_overrides_remove_missing_preloads(client):
+    c, _ = client
+    snake = c.get("/play/games/arcade/snake/config.json")
+    assert snake.status_code == 200
+    assert snake.json()["spritesheets"] == {}
+    assert snake.json()["images1"]["body"] == "assets/body.png"
+    chess = c.get("/play/games/board/chess/config.json").json()
+    assert "attack" not in chess["ui"]
+    assert chess["ui"]["playbtn"] == "assets/images/playbtn.png"
