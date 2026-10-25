@@ -11,7 +11,12 @@ Configuração de produção adicional:
 ```env
 UPSTREAM_LOCAL_DIR=/opt/baltigogames/upstream/c97ef8b
 DATABASE_PATH=/var/lib/baltigogames/leaderboard.sqlite
+GAME_ASSET_ACCEL=1
 ```
+
+`GAME_ASSET_ACCEL=1` exige as duas rotas `internal` do Nginx em `deploy/nginx.conf`, com os aliases correspondentes ao mirror fixado e a `current/web/`. O aplicativo continua validando o caminho e escolhendo a imagem original ou a arte em português; somente a leitura do arquivo é delegada ao Nginx por `X-Accel-Redirect`. HTML, JavaScript e JSON adaptados continuam no Python. O Nginx entrega os bytes com `sendfile`, MIME, intervalos de bytes e validação condicional; as rotas internas retornam 404 ao acesso externo. Instalar e verificar essas rotas antes de ativar a flag no processo. Sem a flag, inclusive no Docker e nos servidores locais, `FileResponse` mantém a entrega direta.
+
+Os binários acelerados usam o cache HTTP público de uma hora e o cache de arquivos do sistema; a seleção ainda passa pelo aplicativo em cada requisição ao servidor. [Redirecionamentos `X-Accel-Redirect` não são armazenados pelo `proxy_cache`](https://trac.nginx.org/nginx/ticket/2189). O cache Nginx dos documentos adaptados permanece ativo. Verificar os corpos reais, MIME, Range/304, bloqueio das URLs internas e ausência de cookies após qualquer mudança nesse caminho. A flag sem as rotas internas correspondentes não é uma configuração válida.
 
 O bot e o site compartilham um processo; não aumentar `--workers`. Dois processos com o mesmo token causam conflito no Telegram. `/health` retorna 503 se o catálogo estiver vazio ou o bot configurado parar. O processo aborta se não conseguir iniciar o bot. A unidade permite 2.048 conexões concorrentes, keep-alive de dois segundos e 8.192 descritores, mantendo um único worker, CPU máxima de um núcleo e memória de 768 MiB.
 
@@ -58,7 +63,7 @@ A suíte do portal usa Chromium, Firefox e WebKit, incluindo celular, paisagem e
 
 Usar uma instância isolada sem `BOT_TOKEN`, com banco, cache e portas exclusivos. `tests/load_app.py` exige `BALTIGO_LOAD_TEST=1` e recusa credenciais do bot. O gerador `scripts/load_test_k6.js` aceita somente loopback e usa 1.200 identidades sintéticas distintas, compartilhando um IP para representar redes de operadora. Não usar a base pública nem o ranking real para carga.
 
-Fixar e registrar a versão e o SHA-256 do k6. Gerar os perfis com `scripts/create_load_manifest.py`: documentos, scripts, fontes e imagens vêm das requisições dos próprios jogos. O cenário completo tem rampa de 60 segundos, permanência de 180 segundos e finalização em 30 segundos. Verificar 1.200 inícios e finais, zero falhas HTTP/aplicativas, integridade SQLite, pontos persistidos e pico real de partidas simultâneas.
+Fixar e registrar a versão e o SHA-256 do k6. Gerar os perfis com `scripts/create_load_manifest.py`: documentos, scripts, fontes e imagens vêm das requisições dos próprios jogos. O cenário completo tem rampa de 60 segundos e finalização em 30 segundos; exigir no mínimo 180 segundos reais com todas as 1.200 partidas ativas. Usar `HOLD=210` na qualificação para incluir uma margem de início de 30 segundos, sem reduzir a janela aceita nem os limites de latência/erros. Registrar o valor efetivo de `HOLD` e calcular a sobreposição pelos timestamps do SQLite. Verificar 1.200 inícios e finais, zero falhas HTTP/aplicativas, integridade SQLite, pontos persistidos e pico real de partidas simultâneas.
 
 As metas de atividade e ranking são p95 < 500 ms e p99 < 1.500 ms. Abertura HTTP com cache vazio deve ter p95 < 2.500 ms. Manter as metas mesmo que um ensaio seja reprovado; guardar relatório, hashes e limites de recursos de cada tentativa. A carga HTTP não verifica renderização gráfica em 1.200 celulares nem latência da internet pública.
 

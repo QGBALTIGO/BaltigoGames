@@ -18,6 +18,7 @@ def client(tmp_path, monkeypatch):
     catalog.write_text(json.dumps(FIXTURE), encoding="utf-8")
     monkeypatch.setenv("CATALOG_FILE", str(catalog))
     monkeypatch.delenv("BOT_TOKEN", raising=False)
+    monkeypatch.delenv("GAME_ASSET_ACCEL", raising=False)
     import app.main as main
     importlib.reload(main)
     with TestClient(main.app) as c:
@@ -130,8 +131,10 @@ def test_proxy_asset_and_private_headers(client, monkeypatch, prefix):
 
 
 @pytest.mark.parametrize("prefix", ["play", "play-v2", "play-v3"])
-def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_path, monkeypatch, prefix):
+@pytest.mark.parametrize("accelerated", [False, True])
+def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_path, monkeypatch, prefix, accelerated):
     c, main = client
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", accelerated)
     mirror = tmp_path / "mirror"
     game = mirror / "games/arcade/cache-proof"
     game.mkdir(parents=True)
@@ -151,13 +154,144 @@ def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_pa
     assert '<html lang="pt-BR">' in document.text
     assert 'src="mechanics.js"' in document.text
     assert document.headers["cache-control"] == "public, max-age=3600"
+    assert "x-accel-redirect" not in document.headers
     script = c.get(f"/{prefix}/games/arcade/cache-proof/mechanics.js")
     assert script.status_code == 200
     assert "window.actualGameAsset='cache-proof'" in script.text
     assert script.headers["content-type"].startswith("text/javascript")
+    assert "x-accel-redirect" not in script.headers
     config = c.get(f"/{prefix}/games/arcade/cache-proof/config.json")
     assert config.status_code == 200
     assert config.json() == {"actual_config": "cache-proof"}
+    assert "x-accel-redirect" not in config.headers
+
+
+@pytest.mark.parametrize("accelerated", [False, True])
+def test_local_binary_delivery_is_optional_and_validated(client, tmp_path, monkeypatch, accelerated):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    asset = mirror / "games/arcade/proof/assets/obj 1.png"
+    asset.parent.mkdir(parents=True)
+    asset.write_bytes(b"\x89PNG\r\n\x1a\npublic-test-content")
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", accelerated)
+    response = c.get("/play-v3/games/arcade/proof/assets/obj%201.png", headers={
+        "Cookie": "session=private", "Authorization": "Bearer private",
+    })
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "image/png"
+    assert response.headers["cache-control"] == "public, max-age=3600"
+    assert response.headers["x-content-type-options"] == "nosniff"
+    assert "set-cookie" not in response.headers
+    if accelerated:
+        assert response.content == b""
+        assert "content-length" not in response.headers
+        assert response.headers["x-accel-redirect"] == "/_baltigo_game_assets/games/arcade/proof/assets/obj%201.png"
+    else:
+        assert response.content == asset.read_bytes()
+        assert "x-accel-redirect" not in response.headers
+        assert response.headers["content-length"] == str(asset.stat().st_size)
+        ranged = c.get("/play-v3/games/arcade/proof/assets/obj%201.png", headers={"Range": "bytes=0-7"})
+        assert ranged.status_code == 206 and ranged.content == asset.read_bytes()[:8]
+
+
+@pytest.mark.parametrize("accelerated", [False, True])
+def test_replacement_artwork_keeps_real_svg_type(client, tmp_path, monkeypatch, accelerated):
+    c, main = client
+    web = tmp_path / "web"
+    artwork = web / "game-art/cena pt.svg"
+    artwork.parent.mkdir(parents=True)
+    artwork.write_text('<svg xmlns="http://www.w3.org/2000/svg"><text>PERIGO</text></svg>', encoding="utf-8")
+    monkeypatch.setattr(main, "WEB_DIR", web)
+    monkeypatch.setattr(main, "ASSET_REPLACEMENTS", {"games/3d/proof/assets/warning.png": "game-art/cena pt.svg"})
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", accelerated)
+    response = c.get("/play-v3/games/3d/proof/assets/warning.png")
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "image/svg+xml"
+    assert "set-cookie" not in response.headers
+    if accelerated:
+        assert response.content == b""
+        assert response.headers["x-accel-redirect"] == "/_baltigo_game_art/game-art/cena%20pt.svg"
+    else:
+        assert response.content == artwork.read_bytes()
+        assert "x-accel-redirect" not in response.headers
+
+
+@pytest.mark.parametrize("accelerated", [False, True])
+def test_local_font_fallback_redirects_to_actual_font(client, tmp_path, monkeypatch, accelerated):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    font = mirror / "games/arcade/snake/outfit.ttf"
+    font.parent.mkdir(parents=True)
+    font.write_bytes(b"real-shared-font")
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", accelerated)
+    response = c.get("/play-v3/games/sports/proof/outfit.ttf")
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "font/ttf"
+    if accelerated:
+        assert response.headers["x-accel-redirect"] == "/_baltigo_game_assets/games/arcade/snake/outfit.ttf"
+    else:
+        assert response.content == font.read_bytes()
+
+
+def test_acceleration_rejects_traversal_and_outside_files(client, tmp_path, monkeypatch):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    mirror.mkdir()
+    outside = tmp_path / "private.png"
+    outside.write_bytes(b"must-not-be-served")
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", True)
+    response = c.get("/play-v3/games/%2e%2e/private.png")
+    assert response.status_code == 400 and "x-accel-redirect" not in response.headers
+    with pytest.raises(main.HTTPException):
+        main.local_game_asset(outside, mirror, "/_baltigo_game_assets/", "image/png", {})
+
+
+def test_acceleration_rejects_escaping_symlinks(client, tmp_path, monkeypatch):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    mirror.mkdir()
+    outside = tmp_path / "private.png"
+    outside.write_bytes(b"must-not-be-served")
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", True)
+    linked = mirror / "games/arcade/proof/outside.png"
+    linked.parent.mkdir(parents=True)
+    try:
+        linked.symlink_to(outside)
+    except OSError:
+        pytest.skip("Symlink creation unavailable on this host; traversal/root check was verified")
+    response = c.get("/play-v3/games/arcade/proof/outside.png")
+    assert response.status_code == 400 and "x-accel-redirect" not in response.headers
+
+
+def test_acceleration_rejects_invalid_artwork_mapping(client, tmp_path, monkeypatch):
+    c, main = client
+    web = tmp_path / "web"
+    web.mkdir()
+    outside = tmp_path / "private.svg"
+    outside.write_text("private", encoding="utf-8")
+    monkeypatch.setattr(main, "WEB_DIR", web)
+    monkeypatch.setattr(main, "ASSET_REPLACEMENTS", {"games/3d/proof/warning.png": "../private.svg"})
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", True)
+    response = c.get("/play-v3/games/3d/proof/warning.png")
+    assert response.status_code == 503 and "x-accel-redirect" not in response.headers
+    assert response.content != outside.read_bytes()
+
+
+def test_acceleration_does_not_redirect_upstream_fallback(client, tmp_path, monkeypatch):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    mirror.mkdir()
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+    monkeypatch.setattr(main, "GAME_ASSET_ACCEL", True)
+    monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=httpx.MockTransport(
+        lambda request: httpx.Response(200, content=b"upstream-image", headers={"content-type": "image/png"}))))
+    response = c.get("/play-v3/games/arcade/proof/missing.png")
+    assert response.status_code == 200 and response.content == b"upstream-image"
+    assert "x-accel-redirect" not in response.headers
 
 
 @pytest.mark.parametrize("path", ["assets/main.js", "secret.env", "games/../secret", "games\\..\\secret"])

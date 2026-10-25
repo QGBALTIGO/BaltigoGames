@@ -24,6 +24,7 @@ CATALOG_FILE = Path(os.getenv("CATALOG_FILE", ROOT / "data" / "registry.json"))
 UPSTREAM_BASE = os.getenv("UPSTREAM_GAMES_BASE", "https://sausi-7.github.io/games").rstrip("/")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
 UPSTREAM_LOCAL_DIR = Path(os.environ["UPSTREAM_LOCAL_DIR"]).resolve() if os.getenv("UPSTREAM_LOCAL_DIR") else None
+GAME_ASSET_ACCEL = os.getenv("GAME_ASSET_ACCEL", "0").strip() == "1"
 CONFIG_OVERRIDES_FILE = ROOT / "data" / "config-overrides.json"
 CONFIG_OVERRIDES = (
     json.loads(CONFIG_OVERRIDES_FILE.read_text(encoding="utf-8")).get("configs", {})
@@ -102,6 +103,23 @@ def sanitize_proxy_path(raw_path: str) -> str:
     if parts[0] != "games":
         raise ValueError("only game assets can be proxied")
     return "/".join(parts)
+
+
+def local_game_asset(path: Path, root: Path, internal_prefix: str, media_type: str,
+                     headers: dict[str, str]) -> Response:
+    """Delegate only a validated public file; Docker/direct servers stream it."""
+    root, path = root.resolve(), path.resolve()
+    if root not in path.parents or not path.is_file():
+        raise HTTPException(status_code=400, detail="invalid game asset path")
+    if not GAME_ASSET_ACCEL:
+        return FileResponse(path, media_type=media_type, headers=headers)
+    relative = quote(path.relative_to(root).as_posix(), safe="/._-")
+    response = Response(media_type=media_type, headers={
+        **headers, "X-Accel-Redirect": internal_prefix + relative,
+    })
+    # The internal Nginx file handler supplies the actual length, ranges and ETag.
+    del response.headers["content-length"]
+    return response
 
 
 @asynccontextmanager
@@ -200,7 +218,7 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
         replacement = (WEB_DIR / ASSET_REPLACEMENTS[safe_path]).resolve()
         if WEB_DIR not in replacement.parents or not replacement.is_file():
             raise HTTPException(status_code=503, detail="game artwork unavailable")
-        return FileResponse(replacement, media_type="image/svg+xml", headers={
+        return local_game_asset(replacement, WEB_DIR, "/_baltigo_game_art/", "image/svg+xml", {
             "Cache-Control": "public, max-age=3600", "X-Content-Type-Options": "nosniff",
         })
 
@@ -214,13 +232,15 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
         if UPSTREAM_LOCAL_DIR not in candidate.parents:
             raise HTTPException(status_code=400, detail="invalid game path")
         if not candidate.is_file() and candidate.name == "outfit.ttf":
-            candidate = UPSTREAM_LOCAL_DIR / "games/arcade/snake/outfit.ttf"
+            candidate = (UPSTREAM_LOCAL_DIR / "games/arcade/snake/outfit.ttf").resolve()
+            if UPSTREAM_LOCAL_DIR not in candidate.parents:
+                raise HTTPException(status_code=400, detail="invalid game path")
         if candidate.is_file():
             media_type = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
             if candidate.suffix.lower() in {".html", ".js", ".json"}:
                 content = adapt_game_content(safe_path, candidate.read_bytes(), media_type)
                 return Response(content, media_type=media_type, headers=cache_headers)
-            return FileResponse(candidate, media_type=media_type, headers=cache_headers)
+            return local_game_asset(candidate, UPSTREAM_LOCAL_DIR, "/_baltigo_game_assets/", media_type, cache_headers)
 
     if _proxy_client is None:
         raise HTTPException(status_code=503, detail="proxy not ready")

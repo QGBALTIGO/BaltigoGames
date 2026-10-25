@@ -41,6 +41,8 @@ O player mantém a barra de ferramentas fora da área nativa do Telegram. Jogos 
 
 O player usa a rota versionada `/play-v3/`; `/play/` e `/play-v2/` permanecem compatíveis. O novo prefixo impede que dispositivos reaproveitem documentos, configurações e scripts antigos do cache HTTP. O mirror local é preferido. Se faltar um arquivo, a rota ainda consulta `UPSTREAM_GAMES_BASE`, por padrão a fonte original. Cookies e credenciais do usuário não são encaminhados ao upstream.
 
+Na VPS, `GAME_ASSET_ACCEL=1` permite ao Nginx enviar os arquivos públicos que o aplicativo já validou e selecionou, incluindo as artes em português. Isso exige os aliases internos de `deploy/nginx.conf`. Documentos e configurações adaptados continuam no Python; sem a flag, a entrega direta permanece disponível no Docker e no desenvolvimento. Os detalhes de instalação e recuperação estão em `deploy/README.md`.
+
 ## Classificação e dados
 
 A classificação mede **participação**, não compara pontuações brutas de jogos diferentes. O servidor concede um ponto por 15 segundos ativos, até 10 pontos por partida e 100 por dia. O cliente informa atividade; isso não equivale a validação antitrapaça da mecânica.
@@ -93,7 +95,7 @@ O GitHub Actions executa a suíte completa, as jornadas do portal nos três nave
 
 `scripts/load_test_k6.js` usa identidades sintéticas assinadas, sessões e partidas reais da API, banco isolado e perfis dos arquivos realmente carregados pelos jogos. `tests/load_app.py` recusa o token de produção e exige `BALTIGO_LOAD_TEST=1`. Os geradores aceitam apenas endereços locais. Não executar carga contra usuários ou dados públicos.
 
-O perfil de qualificação tem 1.200 usuários, rampa de 60 segundos, 180 segundos de permanência, atividade a cada dez segundos, ranking a cada 30 segundos e finalização distribuída em 30 segundos. Todos devem começar e terminar sem erros, com pontos persistidos. As metas são p95 abaixo de 500 ms e p99 abaixo de 1.500 ms para atividade e ranking; p95 abaixo de 2.500 ms para abertura HTTP com cache inicialmente vazio. Manter as metas e guardar também os resultados reprovados.
+O perfil de qualificação tem 1.200 usuários, rampa de 60 segundos, no mínimo 180 segundos reais com todas as partidas ativas, atividade a cada dez segundos, ranking a cada 30 segundos e finalização distribuída em 30 segundos. A execução de qualificação usa `HOLD=210`, incluindo margem de início; a janela real precisa ser conferida pelos timestamps do banco. Todos devem começar e terminar sem erros, com pontos persistidos. As metas são p95 abaixo de 500 ms e p99 abaixo de 1.500 ms para atividade e ranking; p95 abaixo de 2.500 ms para abertura HTTP com cache inicialmente vazio. Manter as metas e guardar também os resultados reprovados.
 
 Registrar versão do código, hardware, limites de CPU/memória, Python, SQLite e gerador junto com o resultado. Esse perfil verifica HTTP, autenticação e persistência; não simula 1.200 renderizadores gráficos, aparelhos físicos, tráfego público da internet ou polling do Telegram. O tempo de abertura registrado no navegador inclui inicialização gráfica; o tempo HTTP da carga mede outra parte do fluxo.
 
