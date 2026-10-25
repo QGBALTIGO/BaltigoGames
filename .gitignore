@@ -6,3 +6,5 @@ __pycache__/
 .DS_Store
 .deploy/
 artifacts/
+.private-data/
+web/covers/*.png

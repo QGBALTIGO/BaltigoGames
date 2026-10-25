@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
 
 jobs:
@@ -18,18 +18,21 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt pytest
+          pip install -r requirements-dev.txt
       - name: Catalog integrity
         run: python scripts/validate_catalog.py
       - name: Unit and integration tests
         env:
           BOT_TOKEN: ""
-        run: pytest -q tests/test_app.py tests/test_static.py
+        run: pytest -q
 
   e2e:
     needs: unit
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      TEST_BASE_URL: http://127.0.0.1:8000
+      TEST_OUTPUT_DIR: artifacts/portal-ci
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,8 +42,8 @@ jobs:
       - name: Install app and Playwright
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt playwright==1.64.1
-          python -m playwright install --with-deps chromium
+          pip install -r requirements-dev.txt
+          python -m playwright install --with-deps chromium firefox webkit
       - name: Start Baltigo Games
         env:
           BOT_TOKEN: ""
@@ -53,8 +56,8 @@ jobs:
           done
           cat /tmp/baltigo.log
           exit 1
-      - name: Browser smoke tests
-        run: python tests/e2e_smoke.py
+      - name: Portal journeys in Chromium, Firefox and WebKit
+        run: python tests/e2e_portal.py
       - name: Upload visual snapshots
         if: always()
         uses: actions/upload-artifact@v4

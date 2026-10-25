@@ -1,0 +1,32 @@
+{
+  "reason": "Original checkerboard placeholders identified by SHA-256 and selected assets with baked English or ideographic lettering. Replaced by original SVG backgrounds, localized candy artwork and Flappy instructions; game objects and mechanics retained.",
+  "source_sha256": "a4afe96f5bf819da23a85837fd79c99ba5501148906fede6b3f0ecd687fdd070",
+  "assets": {
+    "games/word-quiz/math-quest/assets/space.png": "game-art/workshop.svg",
+    "games/sports/basketball/assets/background.png": "game-art/court.svg",
+    "games/shooter/shooter/assets/bg1.png": "game-art/night.svg",
+    "games/racing/road-fighter/assets/background.png": "game-art/night.svg",
+    "games/puzzle/four-dots/assets/space.png": "game-art/workshop.svg",
+    "games/puzzle/colour-pour/assets/bg1.png": "game-art/workshop.svg",
+    "games/puzzle/cargo-stack/assets/background.png": "game-art/workshop.svg",
+    "games/puzzle/2048/assets/bg1.png": "game-art/workshop.svg",
+    "games/platformer/parkour/assets/images/bg1.png": "game-art/night.svg",
+    "games/arcade/snake/assets/bg1.png": "game-art/grid.svg",
+    "games/arcade/glass-step/assets/space.png": "game-art/night.svg",
+    "games/arcade/demon/assets/bg1.png": "game-art/night.svg",
+    "games/arcade/breakoid/assets/space.png": "game-art/workshop.svg",
+    "games/arcade/bomb-blast/assets/bg1.png": "game-art/night.svg",
+    "games/arcade/demon/assets/background.png": "game-art/dungeon.svg",
+    "games/shooter/thunder-god/assets/background.png": "game-art/dungeon.svg",
+    "games/casual/candy-crush/assets/obj2.png": "game-art/recycle-bag.svg",
+    "games/casual/candy-crusher/assets/bg1.png": "game-art/candy-crusher.svg",
+    "games/casual/candy-crusher/assets/tctitle.png": "game-art/candy-crusher.svg",
+    "games/arcade/flappy/assets/message.png": "game-art/flappy-ready.svg",
+    "games/arcade/abhita/assets/image1.png": "game-art/abhita-flight.svg",
+    "games/casual/candy-crusher/assets/complete.png": "game-art/candy-complete.svg",
+    "games/casual/candy-crusher/assets/over.png": "game-art/candy-over.svg",
+    "games/puzzle/shape-fitter/assets/level_complete.png": "game-art/result-panel.svg",
+    "games/arcade/dodge-enemy/assets/levelcomplete_bg.png": "game-art/result-panel.svg",
+    "games/shooter/tee-shooter/assets/levelcomplete_bg.png": "game-art/result-panel.svg"
+  }
+}

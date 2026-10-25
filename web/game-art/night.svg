@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#0d1534"/><stop offset=".6" stop-color="#172545"/><stop offset="1" stop-color="#202543"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#5b6aaf" stop-opacity=".2"/><stop offset="1" stop-color="#5b6aaf" stop-opacity="0"/></radialGradient>
+    <pattern id="stars" width="270" height="430" patternUnits="userSpaceOnUse"><path d="M48 95h3v3h-3zm153 237h3v3h-3zm37-288h2v2h-2zM114 240h2v2h-2z" fill="#b6c5e4" opacity=".2"/></pattern>
+    <pattern id="windows" width="36" height="54" patternUnits="userSpaceOnUse"><path d="M10 12h6v11h-6z" fill="#82afbc" opacity=".12"/></pattern>
+    <linearGradient id="horizon" x2="0" y2="1"><stop stop-color="#395075" stop-opacity=".22"/><stop offset="1" stop-color="#395075" stop-opacity="0"/></linearGradient>
+    <clipPath id="city"><path d="M0 1530h55v-77h74v-101h59v-81h63v159h39v59h91v-176h85v-49h67v177h57v-218h62v-95h36v95h62v155h47v-85h64v-112h76v168h54v123h62v-204h42v-29h76v248h29v433H0Z"/></clipPath>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1080v1920H0z"/>
+  <ellipse cx="540" cy="710" rx="750" ry="950" fill="url(#halo)"/>
+  <path fill="url(#stars)" d="M0 0h1080v1400H0z"/>
+  <g fill="none" stroke="#8097ba" stroke-width="2" opacity=".12">
+    <path d="M0 380h83v-16h126m662 154h117v18h92"/>
+    <path d="M0 837h52v-14h77m822 183h77v14h52"/>
+  </g>
+  <g fill="#8da3c8" opacity=".22"><path d="M194 212h5v5h-5zm-6 6h17v2h-17zm8-6h2v17h-2z"/><path d="M881 688h4v4h-4zm-4 5h12v2h-12z"/></g>
+  <path d="M0 1570h93v-103h62v-61h90v139h89v-38h58v-191h39v-97h59v288h78v-71h98v-104h75v116h101v-161h74v-30h52v191h72v-132h40v-59h63v208h37v94H0z" fill="#1b2a48" opacity=".85"/>
+  <path d="M0 1530h55v-77h74v-101h59v-81h63v159h39v59h91v-176h85v-49h67v177h57v-218h62v-95h36v95h62v155h47v-85h64v-112h76v168h54v123h62v-204h42v-29h76v248h29v433H0Z" fill="#111c35"/>
+  <path fill="url(#windows)" clip-path="url(#city)" d="M0 1140h1080v780H0z"/>
+  <path d="M0 1725h1080v195H0z" fill="#10192f"/>
+  <path d="M0 1724h1080v3H0z" fill="#7e92bd" opacity=".14"/>
+  <path d="M0 1727h1080v193H0z" fill="url(#horizon)"/>
+  <g fill="none" stroke="#5c7395" stroke-width="2" opacity=".12"><path d="M540 1727 290 1920m250-193 250 193m-250-193L0 1877m540-150 540 150M0 1782h1080M0 1854h1080"/></g>
+  <g fill="#6a8ca9" opacity=".22"><path d="M137 1459h12v8h-12zm281-115h15v7h-15zm226-99h12v7h-12zm292 188h14v7h-14z"/></g>
+</svg>

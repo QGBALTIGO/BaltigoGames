@@ -13,17 +13,37 @@ import httpx
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from .leaderboard import create_leaderboard_router
+from .source_repairs import apply_source_repairs
+
+from .game_runtime import prepare_game_response
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB_DIR = ROOT / "web"
 CATALOG_FILE = Path(os.getenv("CATALOG_FILE", ROOT / "data" / "registry.json"))
 UPSTREAM_BASE = os.getenv("UPSTREAM_GAMES_BASE", "https://sausi-7.github.io/games").rstrip("/")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
+UPSTREAM_LOCAL_DIR = Path(os.environ["UPSTREAM_LOCAL_DIR"]).resolve() if os.getenv("UPSTREAM_LOCAL_DIR") else None
 CONFIG_OVERRIDES_FILE = ROOT / "data" / "config-overrides.json"
 CONFIG_OVERRIDES = (
     json.loads(CONFIG_OVERRIDES_FILE.read_text(encoding="utf-8")).get("configs", {})
     if CONFIG_OVERRIDES_FILE.exists() else {}
 )
+ASSET_REPLACEMENTS_FILE = ROOT / "data" / "asset-replacements.json"
+ASSET_REPLACEMENTS = (
+    json.loads(ASSET_REPLACEMENTS_FILE.read_text(encoding="utf-8")).get("assets", {})
+    if ASSET_REPLACEMENTS_FILE.exists() else {}
+)
+
+
+def adapt_game_content(path: str, content: bytes, media_type: str) -> bytes:
+    content = apply_source_repairs(path, content, media_type)
+    if Path(path).suffix.lower() in {".html", ".js"}:
+        vendors_path = ROOT / "data/vendor-map.json"
+        if vendors_path.exists():
+            for remote, local in json.loads(vendors_path.read_text(encoding="utf-8")).items():
+                content = content.replace(remote.encode(), local.encode())
+    return prepare_game_response(path, content, media_type)
 
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 logger = logging.getLogger("baltigogames")
@@ -55,7 +75,23 @@ def load_catalog() -> dict[str, Any]:
     if not CATALOG_FILE.exists():
         return {"version": 1, "categories": [], "games": []}
     with CATALOG_FILE.open("r", encoding="utf-8") as fh:
-        return json.load(fh)
+        catalog = json.load(fh)
+    metadata_path = ROOT / "data" / "catalog-pt.json"
+    if metadata_path.exists():
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if isinstance(metadata, dict):
+            metadata = metadata.get("games", metadata)
+        if isinstance(metadata, list):
+            metadata = {game["slug"]: game for game in metadata}
+        for game in catalog.get("games", []):
+            if isinstance(metadata.get(game.get("slug")), dict):
+                game.update(metadata[game["slug"]])
+    focus_path = ROOT / 'data' / 'cover-focus.json'
+    cover_focus = json.loads(focus_path.read_text(encoding='utf-8')) if focus_path.exists() else {}
+    for game in catalog.get("games", []):
+        game.setdefault("cover", f"/static/covers/{game['slug']}.webp")
+        game['cover_position'] = cover_focus.get(game['slug'], '50% 50%')
+    return catalog
 
 
 def sanitize_proxy_path(raw_path: str) -> str:
@@ -106,6 +142,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Baltigo Games", version="1.0.0", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+app.include_router(create_leaderboard_router(load_catalog, BOT_TOKEN))
 
 
 @app.get("/health")
@@ -138,10 +175,19 @@ async def config() -> dict[str, Any]:
         "app_url": public_app_url(),
         "telegram_enabled": bool(BOT_TOKEN),
         "brand": "Baltigo Games",
+        "access": {"mode": "free", "lives_limited": False},
+        "features": {
+            "leaderboard": True,
+            "versus": False,
+            "lives": False,
+            "store": False,
+            "payments": False,
+        },
     }
 
 
 @app.get("/play/{asset_path:path}")
+@app.get("/play-v2/{asset_path:path}")
 async def play_proxy(asset_path: str, request: Request) -> Response:
     global _proxy_client
     try:
@@ -149,8 +195,31 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
+    if safe_path in ASSET_REPLACEMENTS:
+        replacement = (WEB_DIR / ASSET_REPLACEMENTS[safe_path]).resolve()
+        if WEB_DIR not in replacement.parents or not replacement.is_file():
+            raise HTTPException(status_code=503, detail="game artwork unavailable")
+        return FileResponse(replacement, media_type="image/svg+xml", headers={
+            "Cache-Control": "public, max-age=3600", "X-Content-Type-Options": "nosniff",
+        })
+
     if safe_path in CONFIG_OVERRIDES:
-        return JSONResponse(CONFIG_OVERRIDES[safe_path], headers={"Cache-Control": "public, max-age=3600"})
+        content = json.dumps(CONFIG_OVERRIDES[safe_path], ensure_ascii=False).encode("utf-8")
+        return Response(adapt_game_content(safe_path, content, "application/json"), media_type="application/json", headers={"Cache-Control": "public, max-age=3600"})
+
+    cache_headers = {"Cache-Control": "public, max-age=3600", "X-Content-Type-Options": "nosniff"}
+    if UPSTREAM_LOCAL_DIR is not None:
+        candidate = (UPSTREAM_LOCAL_DIR / safe_path).resolve()
+        if UPSTREAM_LOCAL_DIR not in candidate.parents:
+            raise HTTPException(status_code=400, detail="invalid game path")
+        if not candidate.is_file() and candidate.name == "outfit.ttf":
+            candidate = UPSTREAM_LOCAL_DIR / "games/arcade/snake/outfit.ttf"
+        if candidate.is_file():
+            media_type = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
+            if candidate.suffix.lower() in {".html", ".js", ".json"}:
+                content = adapt_game_content(safe_path, candidate.read_bytes(), media_type)
+                return Response(content, media_type=media_type, headers=cache_headers)
+            return FileResponse(candidate, media_type=media_type, headers=cache_headers)
 
     if _proxy_client is None:
         raise HTTPException(status_code=503, detail="proxy not ready")
@@ -186,7 +255,7 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
             headers[header.title()] = upstream.headers[header]
 
     return Response(
-        content=upstream.content,
+        content=adapt_game_content(safe_path, upstream.content, content_type),
         status_code=200,
         media_type=content_type.split(";", 1)[0],
         headers=headers,

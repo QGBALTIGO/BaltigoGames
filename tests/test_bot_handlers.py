@@ -13,6 +13,7 @@ def fake_application(monkeypatch):
     application.start = AsyncMock()
     application.updater.start_polling = AsyncMock()
     application.bot.get_me = AsyncMock(return_value=SimpleNamespace(username="ExampleBot", has_main_web_app=False))
+    application.bot.set_my_name = AsyncMock()
     application.bot.set_my_commands = AsyncMock()
     application.bot.set_chat_menu_button = AsyncMock()
     builder = MagicMock()

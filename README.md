@@ -1,84 +1,103 @@
-# 🎮 Baltigo Games
+# Baltigo Games
 
-Telegram Mini App de jogos web baseada no catálogo open-source **sausi-7/games** (MIT), reconstruída para uma experiência mobile-first dentro do Telegram.
+Fliperama gratuito para navegador e Telegram Mini App, com 142 jogos, identidade retrô, imagens dos próprios jogos e interface em português brasileiro.
 
-## O que já vem pronto
+O catálogo oferece busca sem distinção de acentos, categorias, favoritos e histórico por dispositivo, tutoriais por jogo, controles por toque, pausa real, orientação por jogo e classificação geral. Os jogos seguem gratuitos, sem limite de vidas. **Versus, vidas, loja e pagamentos são a próxima etapa; não estão ativos.**
 
-- **142 jogos** do catálogo Sausi-7, em 10 categorias.
-- Busca por nome, categoria, tags e descrição.
-- Favoritos e histórico recente separados por usuário Telegram no armazenamento local.
-- Player imersivo com Telegram Back Button, fullscreen, haptics e bloqueio de swipe vertical durante a partida.
-- Deep link por jogo via `?startapp=<slug>`.
-- Compartilhamento pelo modo inline com `switchInlineQuery`.
-- Bot com `/start`, `/jogar`, `/games`, botão de menu WebApp e resultados inline.
-- Proxy próprio `/play/...` para manter os jogos dentro do domínio do Mini App.
-- Docker e Railway prontos, com healthcheck em `/health`.
-- Testes automatizados para backend, segurança básica do proxy, hooks do Telegram e integridade do catálogo.
+## Executar
 
-## Configuração de produção
-
-O único **segredo** obrigatório no ambiente é:
-
-```env
-BOT_TOKEN=123456:ABC...
+```sh
+python -m pip install -r requirements.txt
+python scripts/sync_upstream.py --help
 ```
 
-No Railway, `RAILWAY_PUBLIC_DOMAIN` é detectado automaticamente. `APP_URL` só é necessário se você quiser forçar um domínio diferente.
-
-Variáveis opcionais:
+Baixe a versão fixada da fonte dos jogos com `sync_upstream.py` e defina o diretório resultante como `UPSTREAM_LOCAL_DIR`. O comando mostra as opções de destino e versão. Na instalação VPS, o mirror está em `/opt/baltigogames/upstream/c97ef8b`.
 
 ```env
 APP_URL=https://games.seudominio.com
-UPSTREAM_GAMES_BASE=https://sausi-7.github.io/games
+UPSTREAM_LOCAL_DIR=/caminho/do/mirror
+DATABASE_PATH=/caminho/privado/leaderboard.sqlite
+BOT_TOKEN=definido_apenas_no_ambiente_privado
 ```
 
-## Rodar localmente
-
-```bash
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+```sh
+uvicorn app.main:app --port 8190 --workers 1
 ```
 
-Sem `BOT_TOKEN`, a interface web e as APIs funcionam normalmente e o processo do bot é ignorado.
+Sem `BOT_TOKEN`, funciona como site de jogos; o ranking autenticado exige Telegram. Nunca iniciar dois processos com o mesmo token de long polling. O ambiente de desenvolvimento não deve usar o token de produção. Railway e Render também são reconhecidos pelas variáveis públicas da plataforma; `APP_URL` tem prioridade.
 
-## Testes
+## Jogos e adaptação
 
-```bash
-pip install pytest
+A fonte MIT `sausi-7/games` está fixada em `data/upstream-version.json`, com SHA-256 do arquivo baixado. `scripts/sync_upstream.py` verifica a versão e extrai com validação de caminhos. O mirror e suas imagens não precisam ser enviados ao Git.
+
+- `data/registry.json`: catálogo de origem; `data/catalog-pt.json`: nomes, descrições, regras, controles e orientação revisados por jogo.
+- `app/source_repairs.py`: correções pontuais da mecânica e dos caminhos dos assets, sem editar a cópia original do mirror.
+- `app/game_runtime.py` e `web/game-runtime.js`: adaptação de resposta, tradução de DOM/canvas/Phaser, tutoriais, pausa, início e resultados.
+- `data/word-games-pt.json`: palavras, dicas e dicionário em português; não traduz nomes de variáveis, eventos ou caminhos de arquivos.
+- `web/covers/`: capturas WebP dos próprios jogos; `data/cover-focus.json` define o enquadramento de cada capa quando necessário. `web/game-art/`: SVGs originais para fundos provisórios e imagens com texto incorporado, nos caminhos explícitos de `data/asset-replacements.json`.
+- `web/vendor/`: versões exatas das bibliotecas dos jogos, com mapa e licenças; fontes locais em `web/fonts/`.
+
+O player mantém a barra de ferramentas fora da área nativa do Telegram. Jogos horizontais têm orientação própria e opção de girar a área da partida; o documento do jogo recebe largura e altura reais de paisagem. O mundo do jogo mantém sua proporção. Xadrez é apresentado como versão casual com regras simplificadas.
+
+O player usa a rota versionada `/play-v2/`; `/play/` permanece compatível. O novo prefixo impede que dispositivos reaproveitem documentos e scripts antigos do cache HTTP. O mirror local é preferido. Se faltar um arquivo, a rota `/play/` ainda consulta `UPSTREAM_GAMES_BASE`, por padrão a fonte original. Cookies e credenciais do usuário não são encaminhados ao upstream.
+
+## Classificação e dados
+
+A classificação mede **participação**, não compara pontuações brutas de jogos diferentes. O servidor concede um ponto por 15 segundos ativos, até 10 pontos por partida e 100 por dia. O cliente informa atividade; isso não equivale a validação antitrapaça da mecânica.
+
+`/api/session` valida a assinatura e a idade do `initData` do Telegram. Sessões possuem token opaco, expiram e mantêm isolamento entre usuários. Há limite de requisições, apenas uma partida ativa, finalização idempotente e validação de pontuação não finita. Pontuação local do jogo é apenas diagnóstico e não concede pontos diretamente.
+
+SQLite em modo WAL guarda os dados do ranking em `DATABASE_PATH`. Favoritos e histórico continuam no armazenamento local do dispositivo. Não expor o banco por HTTP. Para backup consistente, usar a API `sqlite3.Connection.backup()`; copiar somente o arquivo principal durante uso pode perder dados do WAL.
+
+## Verificação
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m playwright install chromium firefox webkit
 python scripts/validate_catalog.py
 pytest -q
+python tests/e2e_portal.py
+python scripts/audit_games.py --base http://127.0.0.1:8190 --profiles preferred,desktop --covers --workers 2 --output artifacts/qualification-preferred
+python scripts/audit_round_transitions.py --base http://127.0.0.1:8190 --phaser-only --workers 2 --out artifacts/terminal-rounds
+python tests/e2e_native_rounds.py
+python tests/e2e_native_football_hex.py --base http://127.0.0.1:8190
+python tests/e2e_authored_campaigns.py --base http://127.0.0.1:8190
+python tests/e2e_authored_remaining_campaigns.py --base http://127.0.0.1:8190
+python tests/touch_control_audit.py
 ```
 
-A suíte verifica healthcheck, catálogo, validação contra path traversal no proxy, detecção automática do domínio Railway, ranking da busca inline, presença dos hooks do Telegram e ausência de token hardcoded.
+`TEST_BASE_URL` seleciona o endereço usado pelos testes do portal. `tests/e2e_smoke.py` e `tests/e2e_matrix.py` são entradas compatíveis para a mesma suíte do portal. `tests/e2e_gameplay.py` executa o auditor completo, por padrão em orientação preferida e desktop.
 
-## Telegram
+O auditor abre **cada jogo**, inicia a partida por eventos reais de navegador quando há botão inicial, envia controles de teclado/toque, confere avanço do motor, erros JavaScript, respostas HTTP, menus presos, controles com textura ausente, transbordamento e candidatos de texto em inglês. Retém JSON e imagem de cada caso. Há limite de tempo por jogo; uma página travada falha explicitamente.
 
-Quando o token é configurado, o bot registra automaticamente:
+O auditor de entrada verifica início e uma sequência curta de comandos. A verificação de transições cobre separadamente os 120 jogos Phaser de rodada única, dois jogos de canvas próprio, 13 fluxos nativos e sete campanhas. Os testes de resultados acionam funções reais do jogo com estado de teste próximo da vitória e usam gestos reais nos botões; isso não equivale a um jogador concluir integralmente todas as fases. As campanhas verificam a progressão que existe no código; uma rodada única não é apresentada como uma fase inédita.
 
-- comandos `/jogar` e `/games`;
-- botão de menu **🎮 Jogos**;
-- botão WebApp na conversa privada;
-- handler de pesquisa inline;
-- resultados inline com botão **▶️ Jogar**;
-- deep links como `https://t.me/<bot>?startapp=snake`.
+O ensaio de transições exige a versão do runtime na abertura e depois de cada confirmação. Retém o estado do motor, documento, pausa, resultado e novo início. `scripts/collect_qualification.py` reúne os casos de entrada e substituições pontuais, conservando as evidências que falharam. Não usar apenas HTTP 200, um menu aberto ou uma contagem de quadros como prova de uma campanha funcional.
 
-### Configurações únicas no @BotFather
+Os testes do portal simulam o cliente Telegram e a autenticação em banco isolado; não substituem teste em celular físico com Telegram aberto. Relatórios e capturas ficam em `artifacts/`, fora do Git.
 
-O token é o único segredo que o código precisa, mas duas permissões da plataforma continuam sendo configuradas uma única vez no **@BotFather**:
+`tests/e2e_live_ranking.py` faz a integração adicional do portal com a API e o SQLite reais da instância isolada `tests/load_app.py`: identidade sintética assinada, intervalo de atividade real, resultado nativo, confirmação de nova rodada, nova partida distinta e pontos persistidos visíveis na classificação. Apenas o SDK do Telegram é substituído; as rotas da API não são interceptadas. Usar porta e banco exclusivos, nunca a instância pública.
 
-1. habilitar **Inline Mode** (`/setinline`);
-2. cadastrar a **Main Mini App** do bot para que os links `?startapp=...` abram diretamente a Mini App.
+`tests/e2e_native_ranking.py` verifica a continuidade da classificação nos replays próprios de Sudoku e Pênaltis. O primeiro prepara uma grade quase resolvida e usa a última tecla real; o segundo abre o ramo nativo de vitória já verificado na campanha. Cada replay precisa criar outra partida por HTTP, sem substituir respostas da API.
 
-Essas opções não são habilitadas pelo token via Bot API.
+O GitHub Actions executa a suíte completa, as jornadas do portal nos três navegadores e a inicialização da imagem Docker em pushes para `main`, branches `codex/**` e pull requests. As dependências de teste estão fixadas nas versões utilizadas. A matriz completa dos jogos e a carga isolada têm seus comandos próprios acima; não são substituídas pela verificação do portal no CI.
 
-## Arquitetura dos jogos
+## Capacidade e tempo de abertura
 
-O catálogo fica versionado em `data/registry.json`. Por padrão, os assets dos jogos são buscados do upstream Sausi-7 e retransmitidos pelo endpoint `/play/...`. Isso deixa o repositório leve e mantém URLs relativas dos jogos funcionando no mesmo domínio do player.
+`scripts/load_test_k6.js` usa identidades sintéticas assinadas, sessões e partidas reais da API, banco isolado e perfis dos arquivos realmente carregados pelos jogos. `tests/load_app.py` recusa o token de produção e exige `BALTIGO_LOAD_TEST=1`. Os geradores aceitam apenas endereços locais. Não executar carga contra usuários ou dados públicos.
 
-A fonte pode ser trocada depois por um mirror/CDN próprio alterando `UPSTREAM_GAMES_BASE`, sem mudar a interface ou o bot.
+O perfil de qualificação tem 1.200 usuários, rampa de 60 segundos, 180 segundos de permanência, atividade a cada dez segundos, ranking a cada 30 segundos e finalização distribuída em 30 segundos. Todos devem começar e terminar sem erros, com pontos persistidos. As metas são p95 abaixo de 500 ms e p99 abaixo de 1.500 ms para atividade e ranking; p95 abaixo de 2.500 ms para abertura HTTP com cache inicialmente vazio. Manter as metas e guardar também os resultados reprovados.
 
-## Fonte e licença
+Registrar versão do código, hardware, limites de CPU/memória, Python, SQLite e gerador junto com o resultado. Esse perfil verifica HTTP, autenticação e persistência; não simula 1.200 renderizadores gráficos, aparelhos físicos, tráfego público da internet ou polling do Telegram. O tempo de abertura registrado no navegador inclui inicialização gráfica; o tempo HTTP da carga mede outra parte do fluxo.
 
-Catálogo/jogos de origem: **sausi-7/games** — MIT.
+## Telegram e operação
 
-A licença original é mantida em `LICENSE`. A interface, integração Telegram, backend, proxy, persistência local e experiência mobile foram adaptados para o Baltigo Games.
+O bot registra comandos, botão de menu, botão WebApp e pesquisa inline em português, sem emojis. `/health` falha se o bot configurado não estiver em execução. Inline Mode e Main Mini App são opções da conta no BotFather e não podem ser habilitadas pelo token. O compartilhamento mantém alternativa por `/start game_<slug>` quando necessário.
+
+Consulte `deploy/README.md` para publicação, persistência e recuperação. Não colocar o token no repositório, nas capturas ou nos logs.
+
+## Licenças e referências
+
+A licença MIT da fonte está em `LICENSE`; licenças das bibliotecas e fontes estão em `web/vendor/LICENSES.json`, `web/fonts/` e `licenses/`. As capas são capturas da versão MIT dos jogos; os SVGs de fundo e da interface são originais.
+
+Referências de navegação e apresentação: [Poki Brasil](https://poki.com/br), [CrazyGames Brasil](https://www.crazygames.com/br/), [PICO-8](https://www.lexaloffle.com/pico-8.php) e [Playdate](https://play.date/). A integração segue a documentação de [Telegram Mini Apps](https://core.telegram.org/bots/webapps).

@@ -12,7 +12,7 @@ Group=baltigogames
 WorkingDirectory=/opt/baltigogames/current
 EnvironmentFile=/opt/baltigogames/.env
 Environment=PYTHONUNBUFFERED=1
-ExecStart=/opt/baltigogames/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8056 --workers 1 --limit-concurrency 100
+ExecStart=/opt/baltigogames/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8056 --workers 1 --limit-concurrency 2048 --timeout-keep-alive 2
 Restart=on-failure
 RestartSec=10
 TimeoutStopSec=45
@@ -20,10 +20,13 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
+StateDirectory=baltigogames
+StateDirectoryMode=0700
 UMask=0077
 MemoryMax=768M
 CPUQuota=100%
 TasksMax=128
+LimitNOFILE=8192
 
 [Install]
 WantedBy=multi-user.target

@@ -1,0 +1,996 @@
+{
+  "2048": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "6oct": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "rock-paper-scissors": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "sudoku": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "authored-message"
+  },
+  "abhita": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "alien-battle": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "antigravity": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "archer": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "authored-message"
+  },
+  "balance-stack": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "basketball": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "bird-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "bomb-blast": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "boom-dots": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "bowling": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "breakoid": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "bubble-pop": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "bubble-shooter": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "bug-smasher": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "buttermilk": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "candy-crush": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "candy-crusher": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "cannon-blaster": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "cargo-stack": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "car-race": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "carrom": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "chess": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "circle-path": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "circuit-bulb": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "catch-me-if-you-can": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "collector": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "color-dash": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "colour-pour": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "connected": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "cooking": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "cool-platformer": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "cosmic-cleaner": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "cricket-123": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "crossy-road": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "authored-message"
+  },
+  "crowd-control": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "curve-snake": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "cut-rope": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "demon": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "devil-king": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "dodge-enemy": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "dodge-master": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "doodle-jump": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "dream-weaver": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "ellars": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "endless-mafia": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "endless-runner": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "fighter-fury": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "fighter-jet": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "flappy": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "flip-jump": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "fly-monkey": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "football": {
+    "orientation": "landscape",
+    "authored_orientation": null,
+    "logical_width": 960,
+    "logical_height": 540,
+    "orientation_source": "logical-size"
+  },
+  "forest-runner": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "four-dots": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "fruit-basket": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "fruit-cosmics": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "fruit-merge": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "luma-bounce": {
+    "orientation": "landscape",
+    "authored_orientation": null,
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "logical-size"
+  },
+  "glass-step": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "gunman": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "gun-run": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "hex-puzzle": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "hungry-player": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "jump-dot": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "kaiju-krush": {
+    "orientation": "landscape",
+    "authored_orientation": null,
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "logical-size"
+  },
+  "laser-bounce": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "link": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "ludo": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "mario": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "math-quest": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "memory": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "memory-cards": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "number-merge": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "one-car": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "orbital-outpost": {
+    "orientation": "portrait",
+    "authored_orientation": "landscape",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size-overrides-message"
+  },
+  "pacman": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "pairing": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "parkour": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "pathfinder": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "perfect-square": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "pirates": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "planet-visitor": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "planet-war": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "projectile-enemy": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "quiz": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "red-light-green-light": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "road-cross": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "road-fighter": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "robot-destruction": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "screw-master": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "shadow-runner": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "shadow-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "shape-collector": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "shape-fitter": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "shoot-enemy": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "signal-circuit": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "sky-high": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "slide-puzzle": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "snake": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "snake-and-ladder": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "sniper": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "space-fighter": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "spaceman": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "space-waves": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "square-one": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "stack-tower": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "stick-game": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "stick-toss": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "straight-rush": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "survival-run": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "survivor": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "table-tennis": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "tap-target": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "tee-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "tetris": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "that-level-again-1": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "that-level-again-2": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "that-level-again-3": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "that-level-again-4": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "that-level-again-5": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "thunder-god": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "tic-tac-toe": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "tile-tap": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "tower-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "trench-defence": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "two-cars": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "two-cars-ai": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "unruly": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "vaccine-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": "landscape",
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "authored-message"
+  },
+  "whack-a-bug": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "wordle": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "words-of-wonder": {
+    "orientation": "portrait",
+    "authored_orientation": "portrait",
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "authored-message"
+  },
+  "penalty": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": 1080,
+    "logical_height": 1920,
+    "orientation_source": "logical-size"
+  },
+  "swipe-assassin": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "level-devil": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "line-trap": {
+    "orientation": "portrait",
+    "authored_orientation": null,
+    "logical_width": null,
+    "logical_height": null,
+    "orientation_source": "responsive-default"
+  },
+  "window-shooter": {
+    "orientation": "landscape",
+    "authored_orientation": null,
+    "logical_width": 1920,
+    "logical_height": 1080,
+    "orientation_source": "logical-size"
+  }
+}

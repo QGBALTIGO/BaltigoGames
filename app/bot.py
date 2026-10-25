@@ -69,6 +69,7 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     application = Application.builder().token(token).build()
     await application.initialize()
     me = await application.bot.get_me()
+    await application.bot.set_my_name(name="Baltigo Games")
     username = me.username
 
     def game_link(slug: str) -> str:
@@ -81,21 +82,21 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
                          if game.get("slug") == slug), None)
         launch_url = _launch_url(app_url, selected["slug"] if selected else None)
         text = (
-            "🎮 *Baltigo Games*\n\n"
+            "*Baltigo Games*\n\n"
             "Seu fliperama dentro do Telegram. Abra o catálogo, escolha um jogo e jogue sem instalar nada."
         )
         if selected:
-            text = f"🎮 {selected['name']}\n\nToque abaixo para abrir o jogo no Baltigo Games."
+            text = f"{selected['name']}\n\nToque abaixo para abrir o jogo no Baltigo Games."
         private_chat = update.effective_chat and update.effective_chat.type == "private"
         open_button = (
-            InlineKeyboardButton("🎮 Abrir Baltigo Games", web_app=WebAppInfo(url=launch_url))
+            InlineKeyboardButton("Abrir Baltigo Games", web_app=WebAppInfo(url=launch_url))
             if private_chat else InlineKeyboardButton(
-                "🎮 Abrir Baltigo Games", url=f"https://t.me/{username}?start={argument if selected else 'games'}")
+                "Abrir Baltigo Games", url=f"https://t.me/{username}?start={argument if selected else 'games'}")
         )
         keyboard = InlineKeyboardMarkup(
             [
                 [open_button],
-                [InlineKeyboardButton("🔎 Buscar um jogo aqui", switch_inline_query_current_chat="")],
+                [InlineKeyboardButton("Buscar um jogo aqui", switch_inline_query_current_chat="")],
             ]
         )
         if update.effective_message:
@@ -113,19 +114,19 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
             results.append(
                 InlineQueryResultArticle(
                     id=str(slug),
-                    title=f"🎮 {name}",
+                    title=name,
                     description=description,
                     input_message_content=InputTextMessageContent(
-                        f"🎮 {name}\nAbra e jogue agora no Baltigo Games.",
+                        f"{name}\nAbra e jogue agora no Baltigo Games.",
                     ),
                     reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("▶️ Jogar", url=game_link(str(slug)))]]
+                        [[InlineKeyboardButton("Jogar", url=game_link(str(slug)))]]
                     ),
                 )
             )
 
         button = InlineQueryResultsButton(
-            text="🎮 Abrir catálogo completo",
+            text="Abrir catálogo completo",
             web_app=WebAppInfo(url=app_url),
         )
         await update.inline_query.answer(
@@ -145,7 +146,7 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
         ]
     )
     await application.bot.set_chat_menu_button(
-        menu_button=MenuButtonWebApp(text="🎮 Jogos", web_app=WebAppInfo(url=app_url))
+        menu_button=MenuButtonWebApp(text="Jogos", web_app=WebAppInfo(url=app_url))
     )
     await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
     await application.start()

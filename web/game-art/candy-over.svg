@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<title>Castelo dos doces ao anoitecer</title>
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#354a8b"/><stop offset=".5" stop-color="#bac5d9"/><stop offset="1" stop-color="#d6bccd"/></linearGradient>
+ <linearGradient id="stone" x2="1" y2=".3"><stop stop-color="#c4b8d3"/><stop offset="1" stop-color="#8c80ae"/></linearGradient>
+ <linearGradient id="roof" x2=".5" y2="1"><stop stop-color="#b87fb1"/><stop offset="1" stop-color="#745c98"/></linearGradient>
+ <linearGradient id="gold" x2=".7" y2="1"><stop stop-color="#fff3b6"/><stop offset=".5" stop-color="#ffd36d"/><stop offset="1" stop-color="#c88741"/></linearGradient>
+ <linearGradient id="fog" x2="0" y2="1"><stop stop-color="#bac5d9"/><stop offset=".35" stop-color="#bac5d9" stop-opacity=".9"/><stop offset="1" stop-color="#bac5d9" stop-opacity="0"/></linearGradient>
+ <g id="cloud" fill="#cbd9df"><ellipse rx="116" ry="35"/><circle cx="-50" cy="-22" r="45"/><circle cx="19" cy="-41" r="60"/><circle cx="79" cy="-10" r="40"/></g>
+ <g id="sweet"><path d="m-28-17-30-17v65l30-16m56-32 30-17v65L28 15" fill="#ffc3cf"/><rect x="-30" y="-23" width="60" height="46" rx="18" fill="#ed89af"/><path d="m-9-21 19 42m0-42 17 32" stroke="#ffedef" stroke-width="7"/></g>
+ <g id="coin"><ellipse rx="24" ry="13" fill="#a8733f"/><ellipse cy="-5" rx="24" ry="13" fill="url(#gold)"/><ellipse cy="-5" rx="17" ry="8" fill="none" stroke="#fff4bd" stroke-width="2"/></g>
+ <g id="star"><path d="m0-17 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z" fill="#fff3b8"/></g>
+</defs>
+<path d="M0 0h1080v1920H0Z" fill="url(#sky)"/>
+<circle cx="825" cy="202" r="101" fill="#e2ddbf" opacity=".75"/>
+<circle cx="825" cy="202" r="125" fill="none" stroke="#e2ddbf" stroke-width="2" opacity=".23"/>
+<use href="#cloud" transform="translate(75 231) scale(1.35)" opacity=".7"/><use href="#cloud" transform="translate(1018 365) scale(.9)" opacity=".6"/><use href="#cloud" transform="translate(613 91) scale(.55)" opacity=".6"/>
+<g opacity=".85">
+ <path d="M167 441h194v329H167Zm551-32h169v361H718Z" fill="url(#stone)"/>
+ <path d="m145 443 117-181 119 181Zm552-31 103-178 110 178Z" fill="url(#roof)"/>
+ <path d="M342 355h396v415H342Z" fill="url(#stone)"/>
+ <path d="m318 357 223-219 218 219Z" fill="url(#roof)"/>
+ <path d="M428 321h218v449H428Z" fill="#c4b8d3"/>
+ <path d="m412 324 123-204 130 204Z" fill="url(#roof)"/>
+ <path d="M531 123V68m3 0 91 23-91 24" fill="#d7ac7d" stroke="#d7ac7d" stroke-width="7"/>
+ <g fill="#585e8d" stroke="#8c80ae" stroke-width="6"><path d="M238 505v-48a24 24 0 0 1 48 0v48Z"/><path d="M777 490v-45a22 22 0 0 1 44 0v45Z"/><path d="M509 397v-51a27 27 0 0 1 54 0v51Z"/><path d="M365 549v-40a21 21 0 0 1 42 0v40Z"/><path d="M668 549v-40a21 21 0 0 1 42 0v40Z"/></g>
+ <path d="M483 770V613a56 56 0 0 1 112 0v157Z" fill="#585e8d" opacity=".55"/>
+ <path d="M537 570v197m-341-226h139m409-17h115" fill="none" stroke="#8c80ae" stroke-width="4" opacity=".5"/>
+</g>
+<path d="M0 718q215 94 413 49 340-81 667-6v381H0Z" fill="url(#fog)"/>
+<path d="M0 1603q253-66 505 0 294-82 575-3v320H0Z" fill="#7c96ad" opacity=".34"/>
+<path d="M0 1771q155-52 310 20 402-87 770-9v138H0Z" fill="#7c96ad" opacity=".42"/>
+<g transform="translate(-32 1728) rotate(-8 141 95)">
+ <path d="M14 97Q27 2 253 17l29 84Z" fill="#e4a86a" stroke="#8f543d" stroke-width="7"/>
+ <path d="M18 99h263l-14 173H35Z" fill="#b96848" stroke="#8f4939" stroke-width="7"/>
+ <path d="M64 111v144m167-144v144" stroke="#f0be7e" stroke-width="22"/><path d="M22 103h255" stroke="#ffe1a3" stroke-width="15"/>
+ <rect x="130" y="126" width="43" height="59" rx="6" fill="url(#gold)"/><circle cx="151" cy="146" r="7" fill="#9b6339"/>
+ <use href="#coin" transform="translate(86 87)"/><use href="#coin" transform="translate(130 72)"/><use href="#coin" transform="translate(183 88)"/>
+ <use href="#sweet" transform="translate(151 28) rotate(17)"/>
+</g>
+<g transform="translate(884 1779) rotate(9)"><use href="#sweet" transform="translate(0 0) rotate(-18) scale(1.2)"/><use href="#coin" transform="translate(33 61)"/><use href="#coin" transform="translate(-37 79)"/><path d="m59-70 39-25 33 34-36 46Z" fill="#61cec8" stroke="#c5f7e2" stroke-width="5"/></g>
+<use href="#coin" transform="translate(386 1878)"/><use href="#coin" transform="translate(691 1889)"/>
+<use href="#star" transform="translate(133 126)"/><use href="#star" transform="translate(942 600) scale(.7)"/><use href="#star" transform="translate(91 1361) scale(.6)"/><use href="#star" transform="translate(970 1230) scale(.7)"/>
+</svg>

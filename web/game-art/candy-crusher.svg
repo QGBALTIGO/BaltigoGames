@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="553" height="998" viewBox="0 0 553 998">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#4267ff"/><stop offset=".38" stop-color="#58c1ef"/><stop offset=".82" stop-color="#a2f5db"/><stop offset="1" stop-color="#c9f5bd"/></linearGradient>
+<linearGradient id="sign" x2="0" y2="1"><stop stop-color="#7c335e"/><stop offset="1" stop-color="#4a214d"/></linearGradient>
+<linearGradient id="edge" x2="0" y2="1"><stop stop-color="#ffda7a"/><stop offset="1" stop-color="#e79338"/></linearGradient>
+<linearGradient id="chest" x2="0" y2="1"><stop stop-color="#da7941"/><stop offset="1" stop-color="#9e412d"/></linearGradient>
+<linearGradient id="coin" x2="1" y2="1"><stop stop-color="#fff09a"/><stop offset=".5" stop-color="#ffd34f"/><stop offset="1" stop-color="#eaa02b"/></linearGradient>
+<pattern id="stars" width="91" height="113" patternUnits="userSpaceOnUse"><circle cx="17" cy="29" r="1.4" fill="#fff" opacity=".14"/><circle cx="63" cy="83" r="1" fill="#fff" opacity=".17"/></pattern>
+<g id="cloud" fill="#fff"><ellipse rx="58" ry="20" cy="9"/><circle cx="-25" cy="0" r="26"/><circle cx="10" cy="-10" r="34"/><circle cx="42" cy="6" r="23"/></g>
+<g id="sweet"><rect x="-20" y="-12" width="40" height="25" rx="10" fill="#f483b1"/><path d="M-20-8L-34-16V16L-20 9M20-8L34-16V16L20 9" fill="#ffb7ce"/><path d="M-6-11L5 12M4-12L15 10" stroke="#ffe5ed" stroke-width="5"/></g>
+<g id="gold"><ellipse rx="15" ry="8" fill="#ba781d"/><ellipse cy="-3" rx="15" ry="8" fill="url(#coin)"/><ellipse cy="-3" rx="11" ry="5" fill="none" stroke="#fff3a2" stroke-width="1.3"/></g>
+</defs>
+<rect width="553" height="998" fill="url(#sky)"/><rect width="553" height="998" fill="url(#stars)"/>
+<use href="#cloud" transform="translate(20 80) scale(1.25)" opacity=".92"/><use href="#cloud" transform="translate(494 112) scale(.9)" opacity=".87"/><use href="#cloud" transform="translate(324 57) scale(.42)" opacity=".7"/>
+<path d="M31 143Q277 120 521 143L532 225Q277 249 20 226Z" fill="#3c397b" opacity=".2"/>
+<path d="M30 134Q277 116 523 134L532 218Q277 242 21 219Z" fill="url(#edge)" stroke="#d27e38" stroke-width="3"/>
+<path d="M37 144Q277 127 516 144L523 211Q277 230 30 212Z" fill="url(#sign)" stroke="#ffdd82" stroke-width="1.5"/>
+<path d="M44 150Q277 136 509 150" fill="none" stroke="#bc657f" stroke-width="2" opacity=".7"/>
+<text x="277" y="177" text-anchor="middle" fill="#fff5de" font-family="Arial, sans-serif" font-size="27" font-weight="800">Junte os doces</text><text x="277" y="205" text-anchor="middle" fill="#ffd99a" font-family="Arial, sans-serif" font-size="20" font-weight="700">e alcance a meta!</text>
+<path d="M0 939Q120 904 234 949Q403 902 553 938V998H0Z" fill="#86cfbb" opacity=".36"/>
+<g transform="translate(-24 854) rotate(-9 83 70)"><path d="M11 66Q19 3 143 12L164 65Z" fill="#e9a04f" stroke="#a05234" stroke-width="4"/><path d="M14 65L161 65L155 155H26Z" fill="url(#chest)" stroke="#934232" stroke-width="4"/><path d="M36 70V147M132 70V147" stroke="#f2bf68" stroke-width="14"/><path d="M15 67L162 67" stroke="#ffd67b" stroke-width="10"/><rect x="76" y="83" width="24" height="33" rx="4" fill="#ffdb72"/><circle cx="88" cy="95" r="4" fill="#aa6130"/><use href="#gold" transform="translate(45 58)"/><use href="#gold" transform="translate(77 51)"/><use href="#gold" transform="translate(111 61)"/><use href="#sweet" transform="translate(94 30) rotate(13) scale(.7)"/></g>
+<g transform="translate(426 847) rotate(9 72 80)"><path d="M-14 69Q6 4 127 14L147 70Z" fill="#7394aa" stroke="#41677b" stroke-width="4"/><path d="M-13 69H145L137 163H-5Z" fill="url(#chest)" stroke="#884130" stroke-width="4"/><path d="M13 73V154M114 74V156" stroke="#98c4c4" stroke-width="15"/><path d="M-13 69H145" stroke="#bfe1cf" stroke-width="10"/><rect x="53" y="85" width="25" height="34" rx="4" fill="#ffdc79"/><circle cx="65" cy="97" r="4" fill="#9f612d"/><use href="#gold" transform="translate(13 59)"/><use href="#gold" transform="translate(46 52)"/><use href="#gold" transform="translate(80 57)"/><use href="#gold" transform="translate(106 61)"/><path d="M19 21L32 5L49 24L31 46Z" fill="#6fe2ec" stroke="#c4fbec" stroke-width="2"/></g>
+<use href="#gold" transform="translate(186 975) rotate(-9)"/><use href="#gold" transform="translate(356 986)"/><use href="#sweet" transform="translate(264 963) rotate(-14) scale(.6)"/>
+</svg>

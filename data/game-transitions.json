@@ -1,0 +1,854 @@
+{
+  "2048": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "6oct": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "rock-paper-scissors": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "sudoku": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "abhita": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "alien-battle": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "antigravity": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "archer": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "balance-stack": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "basketball": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bird-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bomb-blast": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "boom-dots": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bowling": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "breakoid": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bubble-pop": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bubble-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "bug-smasher": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "buttermilk": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "candy-crush": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "candy-crusher": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cannon-blaster": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cargo-stack": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "car-race": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "carrom": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "chess": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "circle-path": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "circuit-bulb": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "catch-me-if-you-can": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "collector": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "color-dash": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "colour-pour": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "connected": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cooking": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cool-platformer": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cosmic-cleaner": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cricket-123": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "crossy-road": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "crowd-control": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "curve-snake": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "cut-rope": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "demon": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "devil-king": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "dodge-enemy": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "dodge-master": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "doodle-jump": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "dream-weaver": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "ellars": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "endless-mafia": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "endless-runner": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fighter-fury": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fighter-jet": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "flappy": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "flip-jump": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fly-monkey": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "football": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "forest-runner": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "four-dots": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fruit-basket": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fruit-cosmics": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "fruit-merge": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "luma-bounce": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "glass-step": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "gunman": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "gun-run": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "hex-puzzle": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "hungry-player": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "jump-dot": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "kaiju-krush": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "laser-bounce": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "link": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "ludo": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "mario": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "math-quest": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "memory": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "memory-cards": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "number-merge": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "one-car": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "orbital-outpost": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "pacman": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "pairing": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "parkour": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "pathfinder": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "perfect-square": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "pirates": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "planet-visitor": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "planet-war": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "projectile-enemy": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "quiz": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "red-light-green-light": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "road-cross": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "road-fighter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "robot-destruction": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "screw-master": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shadow-runner": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shadow-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shape-collector": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shape-fitter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shoot-enemy": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "signal-circuit": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "sky-high": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "slide-puzzle": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "snake": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "snake-and-ladder": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "sniper": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "space-fighter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "spaceman": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "space-waves": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "square-one": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "stack-tower": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "stick-game": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "stick-toss": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "straight-rush": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "survival-run": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "survivor": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "table-tennis": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tap-target": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tee-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tetris": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "that-level-again-1": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "that-level-again-2": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "that-level-again-3": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "that-level-again-4": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "that-level-again-5": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "thunder-god": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tic-tac-toe": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tile-tap": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "tower-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "trench-defence": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "two-cars": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "two-cars-ai": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "unruly": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "vaccine-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "whack-a-bug": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "wordle": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "words-of-wonder": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "penalty": {
+    "mode": "campaign",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "preserved"
+  },
+  "swipe-assassin": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "level-devil": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "line-trap": {
+    "mode": "single_round",
+    "replay_policy": "source",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  },
+  "window-shooter": {
+    "mode": "single_round",
+    "replay_policy": "document",
+    "final_confirmation": "new_round",
+    "internal_progression": "not_authored"
+  }
+}

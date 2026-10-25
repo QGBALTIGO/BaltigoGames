@@ -1,0 +1,10 @@
+.git
+.venv
+.deploy
+.private-data
+artifacts
+.pytest_cache
+**/__pycache__
+**/*.pyc
+.env
+web/covers/*.png

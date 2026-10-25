@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="914" height="524" viewBox="0 0 914 524">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#182b53"/><stop offset=".55" stop-color="#0e1834"/><stop offset="1" stop-color="#080e24"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#4ce6ec" stop-opacity=".13"/><stop offset="1" stop-color="#4ce6ec" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b0cefa" opacity=".09"/></pattern>
+  </defs>
+  <path d="M20 0h874v20h20v484h-20v20H20v-20H0V20h20z" fill="url(#bg)"/>
+  <path d="M20 0h874v20h20v484h-20v20H20v-20H0V20h20z" fill="url(#dots)"/>
+  <ellipse cx="457" cy="160" rx="440" ry="280" fill="url(#glow)"/>
+  <path d="M38 12h838v20h26v460h-26v20H38v-20H12V32h26z" fill="none" stroke="#5979b0" stroke-width="2" opacity=".65"/>
+  <path d="M42 48H22v72M872 48h20v72M22 404v72h64M892 404v72h-64" fill="none" stroke="#57e6eb" stroke-width="4"/>
+  <path d="M418 32h28v8h-28zm36 0h28v8h-28zm36 0h8v8h-8z" fill="#cbff51"/>
+  <path d="M408 492h98" stroke="#cbff51" stroke-width="3"/>
+  <path d="M50 168h814M50 356h814" stroke="#87a8d5" stroke-opacity=".08"/>
+</svg>

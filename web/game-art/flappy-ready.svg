@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="206" height="177" viewBox="0 0 206 177">
+<rect x="3" y="3" width="200" height="171" rx="10" fill="#101e35" fill-opacity=".96" stroke="#77d8d0" stroke-width="2"/>
+<path d="M14 15h15m-15 0v15m178-15h-15m15 0v15M14 162h15m-15 0v-15m178 15h-15m15 0v-15" fill="none" stroke="#baf33b" stroke-width="2"/>
+<text x="103" y="34" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Prepare-se!</text>
+<g fill="none" stroke="#edf6ff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path d="M91 108V72c0-8 12-8 12 0v18c0-6 11-6 11 0v3c0-5 11-5 11 0v5c0-4 10-4 10 1v15c0 10-5 14-8 18H99l-20-25c-5-7 2-13 7-8l5 5"/>
+<path d="M87 62v-9m-10 14-6-6m41 1 7-6" stroke="#baf33b"/>
+</g>
+<text x="103" y="151" text-anchor="middle" fill="#baf33b" font-family="Arial,sans-serif" font-size="14" font-weight="700">Toque para subir</text>
+</svg>

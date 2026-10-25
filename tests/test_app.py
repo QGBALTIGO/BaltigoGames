@@ -141,6 +141,9 @@ def test_config_has_no_token(client, monkeypatch):
     response = c.get("/api/config")
     assert response.json()["telegram_enabled"] is True
     assert "test-only-secret" not in response.text
+    assert response.json()["access"] == {"mode": "free", "lives_limited": False}
+    assert response.json()["features"]["payments"] is False
+    assert response.json()["features"]["versus"] is False
 
 
 def test_bot_http_logs_suppressed(client):

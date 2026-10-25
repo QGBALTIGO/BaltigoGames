@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="arena" x2="0" y2="1"><stop stop-color="#101a37"/><stop offset=".48" stop-color="#17233d"/><stop offset="1" stop-color="#162a41"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#73c7df" stop-opacity=".14"/><stop offset="1" stop-color="#73c7df" stop-opacity="0"/></radialGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop stop-color="#1d3047"/><stop offset="1" stop-color="#2c3949"/></linearGradient>
+    <pattern id="seats" width="84" height="56" patternUnits="userSpaceOnUse"><path d="M12 10h48v8h8v21H4V18h8z" fill="#36425d" opacity=".23"/><path d="M12 40h48v5H12z" fill="#53617a" opacity=".1"/></pattern>
+    <pattern id="floorboards" width="120" height="230" patternUnits="userSpaceOnUse"><path d="M0 0v230m120-230v230M0 72h120m-120 158h120" fill="none" stroke="#9bb0b6" stroke-width="1" opacity=".045"/></pattern>
+  </defs>
+  <path fill="url(#arena)" d="M0 0h1080v1920H0z"/>
+  <ellipse cx="540" cy="780" rx="840" ry="950" fill="url(#light)"/>
+  <path fill="url(#seats)" d="M0 188h1080v336H0z"/>
+  <g fill="#344468" opacity=".3"><path d="M0 145h1080v13H0zm0 385h1080v18H0z"/><path d="M0 265h1080v3H0zm0 113h1080v3H0z"/></g>
+  <path d="M0 564h1080v1356H0z" fill="url(#floor)"/>
+  <path d="M0 564h1080v1356H0z" fill="url(#floorboards)"/>
+  <path d="M0 564h1080" stroke="#9b7385" stroke-width="4" opacity=".17"/>
+  <path d="M0 577h1080" stroke="#73b4c6" stroke-width="2" opacity=".15"/>
+  <g fill="none" stroke="#9baeb7" stroke-width="4" opacity=".15">
+    <path d="M77 714h926v1118H77z"/>
+    <path d="M77 1267h926"/>
+    <ellipse cx="540" cy="1267" rx="167" ry="128"/>
+    <path d="M323 714v260h434V714m-434 1118v-260h434v260"/>
+    <path d="M323 974a217 146 0 0 0 434 0m-434 598a217 146 0 0 1 434 0"/>
+    <path d="M115 714v86c0 189 190 334 425 334s425-145 425-334v-86M115 1832v-86c0-189 190-334 425-334s425 145 425 334v86"/>
+  </g>
+  <g fill="#93c1d0" opacity=".23">
+    <path d="M100 69h127v9H100zm753 0h127v9H853z"/>
+    <path d="M41 43h39v12H41zm127 0h39v12h-39zm705 0h39v12h-39zm127 0h39v12h-39z"/>
+  </g>
+  <g fill="#a881af" opacity=".15"><path d="M0 449h142v11H0zm938 0h142v11H938z"/><path d="M40 485h58v7H40zm942 0h58v7h-58z"/></g>
+  <path d="M0 1905h1080v15H0z" fill="#0b142b" opacity=".6"/>
+</svg>
