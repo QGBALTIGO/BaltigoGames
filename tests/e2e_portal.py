@@ -11,6 +11,7 @@ import asyncio
 from functools import wraps
 import json
 import os
+import re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -20,6 +21,7 @@ BASE_URL = os.getenv("TEST_BASE_URL", "http://127.0.0.1:8190").rstrip("/")
 OUTPUT_DIR = Path(os.getenv("TEST_OUTPUT_DIR", "artifacts/portal-e2e"))
 VIEWPORTS = [(360, 740), (390, 844), (844, 390), (1440, 1000)]
 DIAGNOSTIC_TIMEOUT_SECONDS = 10
+PLAY_ROUTE = re.compile(r"/play(?:-v[23])?/")
 
 
 async def capture_failure(page, filename: str) -> dict:
@@ -107,7 +109,7 @@ async def intercept_telegram(page, authenticated: bool):
 
     await page.route("**/api/session", session)
     await page.route("**/api/runs**", runs)
-    await page.route("**/play-v2/**", lambda route: route.fulfill(
+    await page.route(PLAY_ROUTE, lambda route: route.fulfill(
         status=200, content_type="text/html", body=GAME_FIXTURE))
     return requests
 
@@ -308,7 +310,7 @@ async def run_orientation(browser, name):
     touch_fixture = GAME_FIXTURE.replace('<canvas width="100" height="100" aria-label="Área de teste"></canvas>',
         '<button id="touchTarget" style="position:absolute;left:20px;top:20px;width:60px;height:60px" '
         'onpointerdown="window.lastTouch={x:event.clientX,y:event.clientY};window.touchCount=(window.touchCount||0)+1">Toque</button>')
-    await page.route("**/play-v2/**", lambda route: route.fulfill(status=200, content_type="text/html", body=touch_fixture))
+    await page.route(PLAY_ROUTE, lambda route: route.fulfill(status=200, content_type="text/html", body=touch_fixture))
 
     async def catalog_with_orientation(route):
         response = await route.fetch()

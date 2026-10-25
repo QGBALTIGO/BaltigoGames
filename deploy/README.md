@@ -15,7 +15,7 @@ DATABASE_PATH=/var/lib/baltigogames/leaderboard.sqlite
 
 O bot e o site compartilham um processo; não aumentar `--workers`. Dois processos com o mesmo token causam conflito no Telegram. `/health` retorna 503 se o catálogo estiver vazio ou o bot configurado parar. O processo aborta se não conseguir iniciar o bot. A unidade permite 2.048 conexões concorrentes, keep-alive de dois segundos e 8.192 descritores, mantendo um único worker, CPU máxima de um núcleo e memória de 768 MiB.
 
-O Nginx usa `/etc/nginx/sites-available/baltigogames`. O cache público está em `/var/cache/baltigogames-v2`, até 512 MiB, reservado a `/play/` e `/play-v2/`. O cache v2 substitui o anterior para impedir reaproveitamento de documentos antigos em inglês. O player usa `/play-v2/` para que o cache HTTP dos dispositivos também carregue a versão nova, incluindo scripts e configurações relativos. APIs autenticadas e o banco não entram no cache. O certificado Let's Encrypt tem renovação automática; manter acessível `/.well-known/acme-challenge/` no HTTP.
+O Nginx usa `/etc/nginx/sites-available/baltigogames`. O cache público está em `/var/cache/baltigogames-v2`, até 512 MiB, reservado a `/play/`, `/play-v2/` e `/play-v3/`. O player usa `/play-v3/` para que o cache HTTP dos dispositivos carregue os documentos atuais, incluindo scripts e configurações relativos. A chave inclui o URI; a atualização do prefixo dispensa apagar o cache das partidas anteriores. APIs autenticadas e o banco não entram no cache. O certificado Let's Encrypt tem renovação automática; manter acessível `/.well-known/acme-challenge/` no HTTP.
 
 ## Atualização e recuperação
 
@@ -45,6 +45,7 @@ python tests/e2e_native_football_hex.py --base http://127.0.0.1:8190
 python tests/e2e_authored_campaigns.py --base http://127.0.0.1:8190
 python tests/e2e_authored_remaining_campaigns.py --base http://127.0.0.1:8190
 python tests/touch_control_audit.py
+python scripts/prove_scoped_hud_release.py --base http://127.0.0.1:8190 --out artifacts/hud-release
 ```
 
 Os navegadores Playwright devem estar instalados. `TEST_BASE_URL` seleciona o endereço dos testes do portal. Manter dados sintéticos apenas em bancos de teste isolados; não semear o ranking público com usuários falsos.

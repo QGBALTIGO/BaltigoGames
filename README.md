@@ -39,7 +39,7 @@ A fonte MIT `sausi-7/games` está fixada em `data/upstream-version.json`, com SH
 
 O player mantém a barra de ferramentas fora da área nativa do Telegram. Jogos horizontais têm orientação própria e opção de girar a área da partida; o documento do jogo recebe largura e altura reais de paisagem. O mundo do jogo mantém sua proporção. Xadrez é apresentado como versão casual com regras simplificadas.
 
-O player usa a rota versionada `/play-v2/`; `/play/` permanece compatível. O novo prefixo impede que dispositivos reaproveitem documentos e scripts antigos do cache HTTP. O mirror local é preferido. Se faltar um arquivo, a rota `/play/` ainda consulta `UPSTREAM_GAMES_BASE`, por padrão a fonte original. Cookies e credenciais do usuário não são encaminhados ao upstream.
+O player usa a rota versionada `/play-v3/`; `/play/` e `/play-v2/` permanecem compatíveis. O novo prefixo impede que dispositivos reaproveitem documentos, configurações e scripts antigos do cache HTTP. O mirror local é preferido. Se faltar um arquivo, a rota ainda consulta `UPSTREAM_GAMES_BASE`, por padrão a fonte original. Cookies e credenciais do usuário não são encaminhados ao upstream.
 
 ## Classificação e dados
 
@@ -64,6 +64,9 @@ python tests/e2e_native_football_hex.py --base http://127.0.0.1:8190
 python tests/e2e_authored_campaigns.py --base http://127.0.0.1:8190
 python tests/e2e_authored_remaining_campaigns.py --base http://127.0.0.1:8190
 python tests/touch_control_audit.py
+python scripts/prove_scoped_hud_release.py --base http://127.0.0.1:8190 --out artifacts/hud-release
+python scripts/prove_scoped_native_release.py --base http://127.0.0.1:8190 --out artifacts/native-release
+python tests/e2e_rotated_gameplay.py --base http://127.0.0.1:8190 --out artifacts/rotated-gameplay
 ```
 
 `TEST_BASE_URL` seleciona o endereço usado pelos testes do portal. `tests/e2e_smoke.py` e `tests/e2e_matrix.py` são entradas compatíveis para a mesma suíte do portal. `tests/e2e_gameplay.py` executa o auditor completo, por padrão em orientação preferida e desktop.
@@ -75,6 +78,10 @@ O auditor de entrada verifica início e uma sequência curta de comandos. A veri
 O ensaio de transições exige a versão do runtime na abertura e depois de cada confirmação. Retém o estado do motor, documento, pausa, resultado e novo início. `scripts/collect_qualification.py` reúne os casos de entrada e substituições pontuais, conservando as evidências que falharam. Não usar apenas HTTP 200, um menu aberto ou uma contagem de quadros como prova de uma campanha funcional.
 
 Os testes do portal simulam o cliente Telegram e a autenticação em banco isolado; não substituem teste em celular físico com Telegram aberto. Relatórios e capturas ficam em `artifacts/`, fora do Git.
+
+`tests/e2e_cache_release.py` verifica a atualização de uma sessão com arquivos da versão anterior em cache: mantém a partida aberta, recebe o portal novo e confirma que a próxima abertura usa o prefixo atual também nas dependências relativas. Essa prova usa o cache HTTP real do navegador, sem interceptar requisições com `page.route`. O ensaio de HUD mede os textos e placas dos jogos revisados em três tamanhos de tela, com cobertura separada dos resultados e reinícios.
+
+`tests/e2e_rotated_gameplay.py` abre quatro jogos reais pelo portal em um celular de 390×844, aceita o diálogo para girar a área e envia gestos de navegador. Confere deslocamento do canhão, encaixe de peça, movimento no futebol e subida/descida sustentada da raquete. A imagem, o estado do jogo e as amostras por quadro ficam no relatório; o ensaio usa o SDK do Telegram em modo visitante, sem substituir API ou mecânica.
 
 `tests/e2e_live_ranking.py` faz a integração adicional do portal com a API e o SQLite reais da instância isolada `tests/load_app.py`: identidade sintética assinada, intervalo de atividade real, resultado nativo, confirmação de nova rodada, nova partida distinta e pontos persistidos visíveis na classificação. Apenas o SDK do Telegram é substituído; as rotas da API não são interceptadas. Usar porta e banco exclusivos, nunca a instância pública.
 

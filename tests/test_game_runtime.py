@@ -171,3 +171,98 @@ def test_transition_policy_covers_all_games_and_keeps_authored_campaigns():
     assert campaigns=={'crowd-control','cut-rope','demon','gunman','perfect-square','road-cross','penalty'}
     assert all(policies[slug]['replay_policy']=='source' for slug in campaigns)
     assert sum(policy['replay_policy']=='document' for policy in policies.values())==122
+
+
+def test_reviewed_hud_layout_follows_native_values_only_in_the_five_scoped_sources():
+    fragments = {
+        'games/platformer/antigravity/mechanics.js': ('// collisions & overlaps', 'this.scorebar, [this.coreText]'),
+        'games/racing/endless-runner/mechanics.js': ('this.timerEvent = null;', 'this.pointBox, [this.coinText]'),
+        'games/sports/table-tennis/Scenes/GameScene.js': ("this.add.image(960, 100, 'scoreback');\n// --- Audio ---", 'this.__baltigoScorePlate, [this.ui.scoreText]'),
+        'games/shooter/sniper/Scenes/GameScene.js': ("this.add.image(960, 70, 'timerbar');this.add.text(830, 40, 'TIME: ');this._refreshTimerUI();", 'this.__baltigoTimerLabel, this.ui.timer'),
+        'games/shooter/trench-defence/mechanics.js': ('// Config-driven variables', 'this.scorebar, [this.scoreText, this.timerText]'),
+    }
+    mechanics = 'this.score++;this.coinCount++;this.player.setVelocityY(-400);'
+    for path, (fragment, binding) in fragments.items():
+        rendered = prepare_game_response(path, (fragment + mechanics).encode()).decode()
+        assert binding in rendered
+        assert '14 / ratio' in rendered and "events.off('postupdate', layout)" in rendered
+        assert mechanics in rendered
+        assert prepare_game_response('games/other/untouched.js', (fragment + mechanics).encode()).decode().endswith(mechanics)
+        assert '__baltigoPill' not in prepare_game_response('games/other/untouched.js', fragment.encode()).decode()
+
+
+def test_planet_hud_keeps_health_fill_fraction_and_only_changes_its_presentation():
+    source = b'  createUI() {\nthis.healthBarFill.width = width;\n}\nconst caption=`Pictures Taken: ${this.picturesTaken}/${this.requiredPictures}`;'
+    rendered = prepare_game_response('games/3d/planet-visitor/mechanics.js', source).decode()
+    assert 'this.healthBarFill.width = width' in rendered
+    assert 'x - 110 + this.healthBarFill.width / 2' in rendered
+    assert 'labels = [this.healthText, this.pictureCounterText, this.timerText]' in rendered
+    assert '`Fotos: ${this.picturesTaken}/${this.requiredPictures}`' in rendered
+    assert '14 / ratio' in rendered
+    assert 'this.picturesTaken++' not in rendered
+
+
+def test_football_help_tracks_the_real_canvas_below_the_native_score_and_timer():
+    source = b'<html><head><style>#overlay { position:absolute; }</style></head><body><script>canvas.style.height = ch + "px";scoreLeft++;matchTime -= dt;</script></body></html>'
+    rendered = prepare_game_response('games/sports/football/index.html', source).decode()
+    assert 'width: max-content' in rendered
+    assert '(__footballHud.timerY + __footballHud.time) * ratio + 6' in rendered
+    assert 'score: Math.max(32, 16 / ratio)' in rendered
+    assert 'time: Math.max(22, 14 / ratio)' in rendered
+    assert 'scoreLeft++;matchTime -= dt;' in rendered
+    assert 'overlayEl.style.maxWidth' not in prepare_game_response('games/other/index.html', source).decode()
+
+
+def test_penalty_status_wraps_without_changing_turns_or_controls():
+    source = b'this._createGameplayUI();if (this.ui.statusText) this.ui.statusText.setText(msg);this._setTurn("CPU_AIM");this._pressAction();'
+    rendered = prepare_game_response('games/sports/penalty/gamescene.js', source).decode()
+    assert '.setWordWrapWidth(this.W - pad * 2, true)' in rendered
+    assert 'this.goal.getBounds().bottom + pad * 2' in rendered
+    assert 'this._setTurn("CPU_AIM");this._pressAction();' in rendered
+
+
+def test_cooking_translates_recipe_names_without_changing_ingredient_sequences():
+    config = json.loads((ROOT / 'data/config-overrides.json').read_text(encoding='utf-8'))['configs']['games/casual/cooking/config.json']
+    assert config['gameplay']['recipes'] == [
+        {'name': 'Bolo', 'sequence': ['obj1', 'obj3', 'obj7', 'obj9'], 'decoys': ['obj4', 'obj6', 'obj8']},
+        {'name': 'Hambúrguer', 'sequence': ['obj2', 'obj5', 'obj4', 'obj6'], 'decoys': ['obj1', 'obj10', 'obj11']},
+        {'name': 'Pizza', 'sequence': ['obj10', 'obj11', 'obj12', 'obj13'], 'decoys': ['obj2', 'obj3', 'obj7']},
+    ]
+    assert config['gameplay']['randomRecipe'] is True
+
+
+def test_small_hud_adaptation_is_scoped_and_uses_real_existing_scene_labels():
+    anchors = {
+        'games/puzzle/6oct/Scenes/GameScene.js': "this._timerText.setShadow(0, 2, '#0b1222', 4, true, true);",
+        'games/arcade/pacman/Scenes/GameScene.js': 'this.state.lastThinkAt = this.time.now;',
+        'games/racing/shadow-runner/Scenes/GameScene.js': '// Audio\r\n    this._playBgm();',
+        'games/shooter/shooter/Scenes/GameScene.js': '// Timers\r\n    this.state.timeLeft',
+        'games/shooter/tower-shooter/Scenes/GameScene.js': 'this.refreshHealthBar();',
+        'games/shooter/vaccine-shooter/Scenes/GameScene.js': '// Controls\r\n    this.keys',
+        'games/casual/cooking/Scenes/GameScene.js': '// Audio wiring',
+    }
+    for path, anchor in anchors.items():
+        source = (anchor + '\nthis.player.setVelocityX(200);').encode()
+        rendered = prepare_game_response(path, source).decode()
+        assert rendered.count('function __baltigoHUDRow(') == 1
+        assert rendered.count('__baltigoHUDRow(this, ') == 1
+        assert 'this.player.setVelocityX(200)' in rendered
+        assert "events.off('postupdate', layout)" in rendered
+        assert '__baltigoHUDRow' not in prepare_game_response('games/other/Scenes/GameScene.js', source).decode()
+
+
+def test_collector_caption_has_one_colon_and_battery_remains_a_battery_after_collection():
+    source = b"chip.lbl.setText(String(label) + ':');"
+    collector = prepare_game_response('games/arcade/collector/Scenes/GameScene.js', source).decode()
+    assert r"String(label).replace(/:\s*$/, '') + ':'" in collector
+    source = b'this.battery = Math.min(this.battery + 10, 100);this.batteryBar.setText(`Shield: ${this.battery.toFixed(0)}%`);'
+    cleaner = prepare_game_response('games/3d/cosmic-cleaner/mechanics.js', source).decode()
+    assert 'this.battery = Math.min(this.battery + 10, 100)' in cleaner
+    assert 'this.batteryBar.setText(`Battery: ${this.battery.toFixed(0)}%`)' in cleaner
+
+
+def test_duplicate_penalty_footer_is_hidden_without_removing_the_actual_controls():
+    source = b'<html><head><style>.hint {position:fixed;bottom:12px}</style></head><body><div class="hint">Mobile buttons included.</div><script>this.controls.action.setInteractive();</script></body></html>'
+    rendered = prepare_game_response('games/sports/penalty/index.html', source).decode()
+    assert '.hint { display: none;' in rendered
+    assert 'this.controls.action.setInteractive()' in rendered

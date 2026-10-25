@@ -1102,7 +1102,7 @@
         "randomRecipe": true,
         "recipes": [
           {
-            "name": "Cake",
+            "name": "Bolo",
             "sequence": [
               "obj1",
               "obj3",
@@ -1116,7 +1116,7 @@
             ]
           },
           {
-            "name": "Burger",
+            "name": "Hambúrguer",
             "sequence": [
               "obj2",
               "obj5",

@@ -71,7 +71,7 @@ INSPECT = r"""() => {
 }"""
 
 
-async def exercise(browser, game, base, profile, out, covers, play_prefix='play-v2'):
+async def exercise(browser, game, base, profile, out, covers, play_prefix='play-v3'):
     width,height = ((844,390) if game.get('orientation')=='landscape' else (390,780)) if profile=='preferred' else (390,780) if profile=='mobile' else (1280,800) if profile=='desktop' else (844,390)
     context=await browser.new_context(viewport={'width':width,'height':height},has_touch=profile!='desktop',is_mobile=profile!='desktop',device_scale_factor=2 if covers and profile!='desktop' else 1,locale='pt-BR')
     page=await context.new_page()
@@ -85,6 +85,7 @@ async def exercise(browser, game, base, profile, out, covers, play_prefix='play-
         opening_started=time.monotonic()
         response=await page.goto(base+'/'+play_prefix+'/'+game['path'],wait_until='domcontentloaded',timeout=45000)
         assert response and response.status==200,'game document did not load'
+        assert await page.locator('meta[name="baltigo-adapter"]').get_attribute('content'),'game adapter missing; possible portal fallback'
         result['document_ms']=round((time.monotonic()-opening_started)*1000,1)
         try:
             await page.wait_for_load_state('networkidle',timeout=18000)
@@ -249,7 +250,7 @@ async def main():
     parser.add_argument('--output',default='artifacts/all-games')
     parser.add_argument('--covers',action='store_true')
     parser.add_argument('--cover-slugs',default='',help='Only replace covers for these slugs; preserve separately selected active frames for other games')
-    parser.add_argument('--play-prefix',choices=['play','play-v2'],default='play-v2')
+    parser.add_argument('--play-prefix',choices=['play','play-v2','play-v3'],default='play-v3')
     args=parser.parse_args()
     catalog=json.loads((ROOT/'data/registry.json').read_text(encoding='utf-8'))['games']
     localized=ROOT/'data/catalog-pt.json'

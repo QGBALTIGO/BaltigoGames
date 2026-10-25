@@ -133,6 +133,246 @@ def _localize_archer_result_art(source: str) -> str:
     return source
 
 
+# This helper is copied only into the five reviewed sources below. The game
+# keeps its native values and visibility; the pill follows the measured text
+# instead of assuming English captions have the same width as Portuguese.
+_PILL_LAYOUT_JS = '''
+function __baltigoPill(scene, plate, labels, baseFont = 50) {
+  const originalWidth = plate.displayWidth, originalHeight = plate.displayHeight;
+  let previous = '';
+  const layout = () => {
+    if (!plate.scene || labels.some(label => !label.scene)) return;
+    const ratio = scene.game.canvas.getBoundingClientRect().width / scene.scale.width;
+    if (!(ratio > 0)) return;
+    const size = Math.max(baseFont, 14 / ratio), gap = 8 / ratio, padding = 10 / ratio;
+    const signature = [ratio, ...labels.map(label => label.text)].join('|');
+    if (signature === previous) return;
+    previous = signature;
+    labels.forEach(label => label.setFontSize(size).setOrigin(.5).setScrollFactor(0));
+    const total = labels.reduce((sum, label) => sum + label.width, 0) + gap * (labels.length - 1);
+    const height = Math.max(...labels.map(label => label.height));
+    plate.setScrollFactor(0).setDisplaySize(Math.max(originalWidth, total + padding * 2), Math.max(originalHeight, height + padding));
+    plate.x = Math.max(plate.displayWidth / 2 + padding, Math.min(scene.scale.width - plate.displayWidth / 2 - padding, plate.x));
+    plate.y = Math.max(plate.y, plate.displayHeight / 2 + 6 / ratio);
+    let x = plate.x - total / 2;
+    labels.forEach(label => { label.setPosition(x + label.width / 2, plate.y); x += label.width + gap; });
+  };
+  scene.events.on('postupdate', layout);
+  scene.events.once('shutdown', () => scene.events.off('postupdate', layout));
+  layout();
+}
+'''
+
+
+_HUD_ROW_JS = '''
+function __baltigoHUDRow(scene, labels, options = {}) {
+  const plates = labels.map(() => scene.add.rectangle(0, 0, 1, 1, 0x081824, .84).setDepth(100).setScrollFactor(0).setVisible(options.background !== false));
+  scene.__baltigoHudGroups = labels.map((label, i) => ({plate: plates[i], labels: [label]}));
+  let previous = '';
+  const layout = () => {
+    if (labels.some(label => !label.scene)) return;
+    const ratio = scene.game.canvas.getBoundingClientRect().width / scene.scale.width;
+    if (!(ratio > 0)) return;
+    const signature = [ratio, ...labels.map(label => label.text)].join('|');
+    if (signature === previous) return;
+    previous = signature;
+    const pad = 3 / ratio, size = Math.max(36, 14 / ratio);
+    const width = (scene.scale.width - (options.reserveRight || 0)) / labels.length;
+    labels.forEach(label => label.setFontSize(size).setOrigin(.5, 0).setScrollFactor(0).setDepth(101).setAlign('center').setWordWrapWidth(width - pad * 4, true));
+    const height = Math.max(...labels.map(label => label.height)) + pad * 2;
+    labels.forEach((label, index) => {
+      label.setPosition(width * (index + .5), pad);
+      plates[index].setPosition(label.x, height / 2).setSize(width - pad, height);
+    });
+  };
+  scene.events.on('postupdate', layout);
+  scene.events.once('shutdown', () => scene.events.off('postupdate', layout));
+  layout();
+}
+'''
+
+
+def _reviewed_small_hud_fixes(path: str, source: str) -> str:
+    rows = {
+        '/6oct/Scenes/GameScene.js': ("this._timerText.setShadow(0, 2, '#0b1222', 4, true, true);", '[this._scoreText, this._progressText, this._timerText]'),
+        '/pacman/Scenes/GameScene.js': ('this.state.lastThinkAt = this.time.now;', '[this.ui.scoreText, this.ui.livesText, this.ui.levelText]'),
+        '/shadow-runner/Scenes/GameScene.js': ('// Audio\n    this._playBgm();', '[this.ui.score, this.ui.charges, this.ui.timer]'),
+        '/shooter/Scenes/GameScene.js': ('// Timers\n    this.state.timeLeft', '[this.hud.hp, this.hud.kills, this.hud.timer, this.hud.weapon]'),
+        '/tower-shooter/Scenes/GameScene.js': ('this.refreshHealthBar();', '[this.ui.scoreText, this.ui.timerText], {reserveRight: 320, background: false}'),
+        '/vaccine-shooter/Scenes/GameScene.js': ('// Controls\n    this.keys', '[this.ui.score, this.ui.timer, this.ui.health, this.ui.charges]'),
+        '/cooking/Scenes/GameScene.js': ('// Audio wiring', '[this.scoreText, this.timerText, this.mistakeText, this.recipeTitleText]'),
+        '/kaiju-krush/index.html': ('this.survivalTimerEvent = this.time.addEvent({', '[this.scoreText, this.timeText], {background: false}'),
+    }
+    for suffix, (anchor, labels) in rows.items():
+        if path.endswith(suffix):
+            pattern = r'\s+'.join(re.escape(part) for part in re.split(r'\s+', anchor))
+            source = re.sub(pattern, lambda match: '__baltigoHUDRow(this, ' + labels + ');\n    ' + match[0], source, count=1)
+            # Function declarations inside an HTML script are needed before its
+            # closing tag; placing JS before <!doctype> would turn it into text.
+            if path.endswith('.html'):
+                source = re.sub(r'(<script\b[^>]*>)', lambda match: match[0] + _HUD_ROW_JS, source, count=1) if '<script src=' not in source else source.replace('class GameScene extends Phaser.Scene', _HUD_ROW_JS + '\nclass GameScene extends Phaser.Scene', 1)
+            else:
+                source = _HUD_ROW_JS + source
+            break
+    if path.endswith('/cooking/Scenes/GameScene.js'):
+        source = re.sub(r'this\._hover\(this\.recipeTitleText,\s*3,\s*1600\);', '', source, count=1)
+    if path.endswith('/cosmic-cleaner/mechanics.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace("this.add.image(960, 50, 'scorebar')", "this.__baltigoHudPlate = this.add.image(960, 50, 'scorebar')", 1)
+        source = source.replace('this.createUI();', 'this.createUI();\n        __baltigoPill(this, this.__baltigoHudPlate, [this.batteryBar, this.scoreText, this.shieldBar], 36);', 1)
+        source = source.replace('this.batteryBar.setText(`Shield:', 'this.batteryBar.setText(`Battery:')
+    if path.endswith('/collector/Scenes/GameScene.js'):
+        source = source.replace("String(label) + ':'", r"String(label).replace(/:\s*$/, '') + ':'")
+        source = source.replace('this._buildHud();', '''this._buildHud();
+    const __layoutHud = () => {
+      const ratio = this.game.canvas.getBoundingClientRect().width / this.scale.width;
+      if (!(ratio > 0)) return;
+      const pad = 6 / ratio, gap = 5 / ratio, width = this.scale.width / 3;
+      const chips = [this.timerChip, this.scoreChip, this.altChip];
+      chips.forEach((chip, i) => {
+        const font = Math.max(28, 14 / ratio);
+        [chip.lbl, chip.val].forEach(label => { if (parseFloat(label.style.fontSize) !== font) label.setFontSize(font); label.setOrigin(0, 0); });
+        const height = Math.max(chip.lbl.height, chip.val.height) + pad * 2;
+        chip.baseY = pad; chip.setPosition(width * i + pad, chip.baseY);
+        chip.bg.setDisplaySize(width - pad * 2, height);
+        chip.lbl.setPosition(pad, pad);
+        chip.val.setPosition(pad + chip.lbl.width + gap, pad);
+      });
+      const cont = this.scoreBarContainer, track = cont.list[0], target = cont.list.find(o => typeof o.text === 'string');
+      const barWidth = this.scoreChip.bg.displayWidth;
+      this.scoreBarBaseY = this.scoreChip.baseY + this.scoreChip.bg.displayHeight + pad;
+      cont.setPosition(this.scoreChip.x, this.scoreBarBaseY);
+      track.setDisplaySize(barWidth, 6 / ratio);
+      cont._maxW = barWidth - 8;
+      cont._fill.setPosition(4, 2).setSize(Math.max(1, cont._maxW * Math.min(1, this.score / this.TARGET_SCORE)), Math.max(2, track.displayHeight - 4));
+      const targetFont = Math.max(20, 14 / ratio);
+      if (parseFloat(target.style.fontSize) !== targetFont) target.setFontSize(targetFont);
+      target.setOrigin(0, 0).setPosition(0, track.displayHeight + gap);
+      this.__baltigoHudGroups = chips.map(chip => ({plate: chip.bg, labels: [chip.lbl, chip.val]}));
+    };
+    this.events.on('postupdate', __layoutHud);
+    this.events.once('shutdown', () => this.events.off('postupdate', __layoutHud));
+    __layoutHud();''', 1)
+    if path.endswith('/cricket-123/Scenes/GameScene.js'):
+        source = source.replace("this._lastStationPrompt = '';", '''this._lastStationPrompt = '';
+    const __hudPlate = this.add.rectangle(0, 0, 1, 1, 0x081824, .84).setOrigin(0).setDepth(49);
+    let __previousHud = '';
+    const __layoutHud = () => {
+      const ratio = this.game.canvas.getBoundingClientRect().width / this.scale.width;
+      if (!(ratio > 0)) return;
+      const pad = 6 / ratio, gap = 3 / ratio, font = Math.max(28, 14 / ratio);
+      const stats = [this.ui.speed, this.ui.time, this.ui.stat, this.ui.hp, this.ui.pax];
+      const signature = [ratio, ...Object.values(this.ui).map(label => label.text)].join('|');
+      if (signature === __previousHud) return;
+      __previousHud = signature;
+      let leftY = pad, rightY = pad;
+      stats.forEach(label => { label.setFontSize(font).setOrigin(0).setPosition(pad, leftY); leftY += label.height + gap; });
+      [this.ui.hint, this.ui.stationHint, this.ui.doorMsg].forEach(label => {
+        label.setFontSize(Math.max(24, 14 / ratio)).setWordWrapWidth(this.W * .52 - pad * 2, true).setAlign('left').setOrigin(0).setPosition(this.W * .48, rightY);
+        if (label.text) rightY += label.height + gap;
+      });
+      __hudPlate.setSize(this.W, Math.max(leftY, rightY) + pad);
+      this.__baltigoHudGroups = stats.map(label => ({plate: __hudPlate, labels: [label]}));
+    };
+    this.events.on('postupdate', __layoutHud);
+    this.events.once('shutdown', () => this.events.off('postupdate', __layoutHud));
+    __layoutHud();''', 1)
+    return source
+
+
+def _reviewed_hud_fixes(path: str, source: str) -> str:
+    if path.endswith('/antigravity/mechanics.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace('// collisions & overlaps', '__baltigoPill(this, this.scorebar, [this.coreText]);\n        // collisions & overlaps', 1)
+    elif path.endswith('/endless-runner/mechanics.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace('this.timerEvent = null;', '__baltigoPill(this, this.pointBox, [this.coinText]);\n    __baltigoPill(this, this.timeBox, [this.timerText]);\n    this.timerEvent = null;', 1)
+    elif path.endswith('/table-tennis/Scenes/GameScene.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace("this.add.image(960, 100, 'scoreback')", "this.__baltigoScorePlate = this.add.image(960, 100, 'scoreback')", 1)
+        source = source.replace('// --- Audio ---', '__baltigoPill(this, this.__baltigoScorePlate, [this.ui.scoreText]);\n    // --- Audio ---', 1)
+    elif path.endswith('/sniper/Scenes/GameScene.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace("this.add.image(960, 70, 'timerbar')", "this.__baltigoTimerPlate = this.add.image(960, 70, 'timerbar')", 1)
+        source = source.replace('this.add.text(830, 40,', 'this.__baltigoTimerLabel = this.add.text(830, 40,', 1)
+        source = source.replace('this._refreshTimerUI();', '__baltigoPill(this, this.__baltigoTimerPlate, [this.__baltigoTimerLabel, this.ui.timer], 40);\n    this._refreshTimerUI();', 1)
+    elif path.endswith('/trench-defence/mechanics.js'):
+        source = _PILL_LAYOUT_JS + source
+        source = source.replace('// Config-driven variables', '__baltigoPill(this, this.scorebar, [this.scoreText, this.timerText]);\n    // Config-driven variables', 1)
+    elif path.endswith('/planet-visitor/mechanics.js'):
+        # Three fixed columns replace the overlapping tiny captions. Preserve
+        # the native health fill and all health/photo/timer updates.
+        source = source.replace('Pictures Taken:', 'Fotos:').replace('Health:', 'Vida:')
+        source = source.replace('  createUI() {', '''  createUI() {
+    const plates = [0, 1, 2].map(() => this.add.rectangle(0, 0, 1, 1, 0x081824, .88).setDepth(99).setScrollFactor(0));
+    let previous = '';
+    const layout = () => {
+      if (!this.healthText?.scene || !this.timerText?.scene || !this.pictureCounterText?.scene) return;
+      const ratio = this.game.canvas.getBoundingClientRect().width / this.scale.width;
+      if (!(ratio > 0)) return;
+      const labels = [this.healthText, this.pictureCounterText, this.timerText];
+      const signature = [ratio, ...labels.map(label => label.text)].join('|');
+      if (signature === previous) return;
+      previous = signature;
+      const font = Math.max(40, 14 / ratio), pad = 6 / ratio, width = this.scale.width / 3;
+      labels.forEach(label => label.setFontSize(font).setOrigin(.5, 0).setScrollFactor(0));
+      const height = Math.max(...labels.map(label => label.height)) + 34 + pad * 3;
+      labels.forEach((label, index) => {
+        const x = width * (index + .5);
+        label.setPosition(x, pad * 2);
+        plates[index].setPosition(x, pad + height / 2).setSize(width - pad, height);
+      });
+      const x = width / 2, y = this.healthText.y + this.healthText.height + pad + 17;
+      [this.healthBarBg, this.healthBarBorder].forEach(bar => bar.setPosition(x, y));
+      this.healthBarFill.setPosition(x - 110 + this.healthBarFill.width / 2, y);
+    };
+    this.events.on('postupdate', layout);
+    this.events.once('shutdown', () => this.events.off('postupdate', layout));''', 1)
+    elif path.endswith('/football/index.html'):
+        source = source.replace('#overlay {', '#overlay {\n      width: max-content;\n      max-width: calc(100vw - 24px);', 1)
+        source = source.replace('function resizeCanvas() {', 'let __footballHud = {};\n    function resizeCanvas() {', 1)
+        source = source.replace('canvas.style.height = ch + "px";', '''canvas.style.height = ch + "px";
+      const ratio = cw / GAME_WIDTH;
+      __footballHud = {score: Math.max(32, 16 / ratio), time: Math.max(22, 14 / ratio), names: Math.max(16, 14 / ratio)};
+      __footballHud.timerY = 16 + __footballHud.score + 8 / ratio;
+      const bounds = canvas.getBoundingClientRect();
+      overlayEl.style.top = (bounds.top + (__footballHud.timerY + __footballHud.time) * ratio + 6) + "px";
+      overlayEl.style.maxWidth = Math.max(160, cw - 24) + "px";''', 1)
+        start = source.index('function drawHUD() {') if 'function drawHUD() {' in source else -1
+        end = source.index('function drawGoalFX()', start) if start >= 0 and 'function drawGoalFX()' in source[start:] else -1
+        if end >= 0:
+            hud = source[start:end]
+            for size, field in [('32', 'score'), ('22', 'time'), ('16', 'names')]:
+                hud = hud.replace('"' + size + 'px system-ui, sans-serif"', '`' + '${__footballHud.' + field + '}' + 'px system-ui, sans-serif`')
+            hud = hud.replace('GAME_WIDTH / 2, 56)', 'GAME_WIDTH / 2, __footballHud.timerY)')
+            source = source[:start] + hud + source[end:]
+    elif path.endswith('/penalty/gamescene.js'):
+        source = source.replace('this._createGameplayUI();', '''this._createGameplayUI();
+    let __previousHud = '';
+    const __layoutHud = () => {
+      const ratio = this.game.canvas.getBoundingClientRect().width / this.scale.width;
+      if (!(ratio > 0)) return;
+      const signature = [ratio, ...Object.values(this.ui).map(label => label.text)].join('|');
+      if (signature === __previousHud) return;
+      __previousHud = signature;
+      const pad = 6 / ratio, gap = 3 / ratio, font = Math.max(40, 14 / ratio);
+      this.ui.scoreText.setFontSize(font).setOrigin(.5, 0).setPosition(this.W / 2, pad);
+      const rowY = pad + this.ui.scoreText.height + gap;
+      this.ui.roundText.setFontSize(font).setOrigin(0, 0).setPosition(pad, rowY);
+      this.ui.timerText.setFontSize(font).setOrigin(1, 0).setPosition(this.W - pad, rowY);
+      this.ui.statusText.setFontSize(Math.max(44, 14 / ratio)).setWordWrapWidth(this.W - pad * 2, true).setAlign('center').setOrigin(.5, 0)
+        .setPosition(this.W / 2, this.goal.getBounds().bottom + pad * 2);
+    };
+    this.events.on('postupdate', __layoutHud);
+    this.events.once('shutdown', () => this.events.off('postupdate', __layoutHud));
+    __layoutHud();''', 1)
+    elif path.endswith('/penalty/index.html'):
+        # The native aim/defense instruction and portal tutorial replace this
+        # duplicated HTML footer, which crossed all three touch buttons.
+        source = source.replace('.hint {', '.hint { display: none;', 1)
+    return _reviewed_small_hud_fixes(path, source)
+
+
 def _reviewed_visual_fixes(path: str, source: str) -> str:
     """Scoped presentation fixes verified in the final screenshot inventory."""
     if path.endswith('/fruit-cosmics/mechanics.js'):
@@ -191,7 +431,7 @@ def _reviewed_visual_fixes(path: str, source: str) -> str:
     overlay.on("pointerdown", () => {
       window.__baltigo.completeAndRestart({result: 'lose', score: this.score});
     });''')
-    return source
+    return _reviewed_hud_fixes(path, source)
 
 
 def prepare_game_response(path: str, content: bytes, media_type: str = '') -> bytes:

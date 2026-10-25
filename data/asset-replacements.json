@@ -27,6 +27,7 @@
     "games/casual/candy-crusher/assets/over.png": "game-art/candy-over.svg",
     "games/puzzle/shape-fitter/assets/level_complete.png": "game-art/result-panel.svg",
     "games/arcade/dodge-enemy/assets/levelcomplete_bg.png": "game-art/result-panel.svg",
-    "games/shooter/tee-shooter/assets/levelcomplete_bg.png": "game-art/result-panel.svg"
+    "games/shooter/tee-shooter/assets/levelcomplete_bg.png": "game-art/result-panel.svg",
+    "games/3d/planet-visitor/assets/warning.png": "game-art/warning-pt.svg"
   }
 }

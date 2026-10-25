@@ -188,6 +188,7 @@ async def config() -> dict[str, Any]:
 
 @app.get("/play/{asset_path:path}")
 @app.get("/play-v2/{asset_path:path}")
+@app.get("/play-v3/{asset_path:path}")
 async def play_proxy(asset_path: str, request: Request) -> Response:
     global _proxy_client
     try:

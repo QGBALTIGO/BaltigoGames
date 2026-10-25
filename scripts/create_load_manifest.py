@@ -15,6 +15,7 @@ async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base', default='http://127.0.0.1:8190')
     parser.add_argument('--output', default='artifacts/capacity/asset-manifest.json')
+    parser.add_argument('--play-prefix', choices=['play', 'play-v2', 'play-v3'], default='play-v3')
     args = parser.parse_args()
     catalog = json.loads((ROOT/'data/registry.json').read_text(encoding='utf8'))['games']
     shell = (ROOT/'web/index.html').read_text(encoding='utf8')
@@ -38,13 +39,15 @@ async def main():
                     else:
                         failures.append({'path': path, 'status': response.status})
             page.on('response', response_seen)
-            await page.goto(args.base+'/play-v2/'+game['path'], wait_until='domcontentloaded', timeout=45000)
+            opening_url = args.base.rstrip('/')+'/'+args.play_prefix+'/'+game['path']
+            await page.goto(opening_url, wait_until='domcontentloaded', timeout=45000)
+            assert await page.locator('meta[name="baltigo-adapter"]').get_attribute('content'), 'Expected an adapted game, not the portal fallback'
             try:
                 await page.wait_for_load_state('networkidle', timeout=30000)
             except Exception:
                 pass
             await page.wait_for_timeout(800)
-            profiles.append({'slug': slug, 'paths': sorted(paths), 'failed_responses': failures, 'scope': 'Real opening network responses plus public portal shell/font/cover requests; graphics and interactivity are qualified separately'})
+            profiles.append({'slug': slug, 'play_prefix': args.play_prefix, 'opening_url': opening_url, 'paths': sorted(paths), 'failed_responses': failures, 'scope': 'Real opening network responses plus public portal shell/font/cover requests; graphics and interactivity are qualified separately'})
             print(json.dumps({'slug': slug, 'requests': len(paths), 'failures': failures}), flush=True)
             await context.close()
         await browser.close()

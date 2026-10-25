@@ -105,7 +105,8 @@ def test_proxy_network_failure(client, monkeypatch):
     assert c.get("/play/games/arcade/snake/index.html").status_code == 502
 
 
-def test_proxy_asset_and_private_headers(client, monkeypatch):
+@pytest.mark.parametrize("prefix", ["play", "play-v2", "play-v3"])
+def test_proxy_asset_and_private_headers(client, monkeypatch, prefix):
     c, main = client
     seen = []
     def respond(request):
@@ -115,7 +116,7 @@ def test_proxy_asset_and_private_headers(client, monkeypatch):
             "set-cookie": "private=value", "last-modified": "Wed, 21 Oct 2026 07:28:00 GMT",
         })
     monkeypatch.setattr(main, "_proxy_client", httpx.AsyncClient(transport=httpx.MockTransport(respond)))
-    response = c.get("/play/games/arcade/snake/main.js?v=2", headers={
+    response = c.get(f"/{prefix}/games/arcade/snake/main.js?v=2", headers={
         "Cookie": "session=private", "Authorization": "Bearer private",
     })
     assert response.status_code == 200
@@ -126,6 +127,37 @@ def test_proxy_asset_and_private_headers(client, monkeypatch):
     assert "cookie" not in seen[0].headers
     assert "authorization" not in seen[0].headers
     assert seen[0].url.query == b"v=2"
+
+
+@pytest.mark.parametrize("prefix", ["play", "play-v2", "play-v3"])
+def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_path, monkeypatch, prefix):
+    c, main = client
+    mirror = tmp_path / "mirror"
+    game = mirror / "games/arcade/cache-proof"
+    game.mkdir(parents=True)
+    (game / "index.html").write_text(
+        '<html lang="en"><head><title>Cache route proof</title></head>'
+        '<body data-actual-game="cache-proof"><script src="mechanics.js"></script></body></html>',
+        encoding="utf-8",
+    )
+    (game / "mechanics.js").write_text("window.actualGameAsset='cache-proof';", encoding="utf-8")
+    (game / "config.json").write_text('{"actual_config":"cache-proof"}', encoding="utf-8")
+    monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
+
+    document = c.get(f"/{prefix}/games/arcade/cache-proof/index.html")
+    assert document.status_code == 200
+    assert '<meta name="baltigo-adapter"' in document.text
+    assert 'data-actual-game="cache-proof"' in document.text
+    assert '<html lang="pt-BR">' in document.text
+    assert 'src="mechanics.js"' in document.text
+    assert document.headers["cache-control"] == "public, max-age=3600"
+    script = c.get(f"/{prefix}/games/arcade/cache-proof/mechanics.js")
+    assert script.status_code == 200
+    assert "window.actualGameAsset='cache-proof'" in script.text
+    assert script.headers["content-type"].startswith("text/javascript")
+    config = c.get(f"/{prefix}/games/arcade/cache-proof/config.json")
+    assert config.status_code == 200
+    assert config.json() == {"actual_config": "cache-proof"}
 
 
 @pytest.mark.parametrize("path", ["assets/main.js", "secret.env", "games/../secret", "games\\..\\secret"])

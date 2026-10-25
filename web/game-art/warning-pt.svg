@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="186" height="301" viewBox="0 0 186 301" role="img" aria-labelledby="title desc">
+<title id="title">Placa de perigo</title><desc id="desc">Placa amarela com a palavra PERIGO em letras de pixel, sustentada por um poste inclinado com vegetação na base.</desc>
+<path d="M88 77 102 75 125 299 109 301Z" fill="#465f5b"/>
+<path d="m93 82 6-1 21 216-5 1Z" fill="#a9c1ab"/>
+<path d="m100 83 3-1 22 217-4 1Z" fill="#263d37"/>
+<g transform="rotate(-8 93 48)">
+ <path d="M4 16h178v65H4z" fill="#47351e"/>
+ <path d="M8 20h170v57H8z" fill="#ffcf38"/>
+ <path d="M8 20h170v5H8z" fill="#ffe784"/>
+ <path d="M8 72h170v5H8z" fill="#b68420"/>
+ <path d="M12 26h5v5h-5zm156 0h5v5h-5zM12 64h5v5h-5zm156 0h5v5h-5z" fill="#635025"/>
+ <path d="M23 31h4v4h-4zM27 31h4v4h-4zM31 31h4v4h-4zM35 31h4v4h-4zM23 35h4v4h-4zM39 35h4v4h-4zM23 39h4v4h-4zM39 39h4v4h-4zM23 43h4v4h-4zM27 43h4v4h-4zM31 43h4v4h-4zM35 43h4v4h-4zM23 47h4v4h-4zM23 51h4v4h-4zM23 55h4v4h-4zM47 31h4v4h-4zM51 31h4v4h-4zM55 31h4v4h-4zM59 31h4v4h-4zM63 31h4v4h-4zM47 35h4v4h-4zM47 39h4v4h-4zM47 43h4v4h-4zM51 43h4v4h-4zM55 43h4v4h-4zM59 43h4v4h-4zM47 47h4v4h-4zM47 51h4v4h-4zM47 55h4v4h-4zM51 55h4v4h-4zM55 55h4v4h-4zM59 55h4v4h-4zM63 55h4v4h-4zM71 31h4v4h-4zM75 31h4v4h-4zM79 31h4v4h-4zM83 31h4v4h-4zM71 35h4v4h-4zM87 35h4v4h-4zM71 39h4v4h-4zM87 39h4v4h-4zM71 43h4v4h-4zM75 43h4v4h-4zM79 43h4v4h-4zM83 43h4v4h-4zM71 47h4v4h-4zM79 47h4v4h-4zM71 51h4v4h-4zM83 51h4v4h-4zM71 55h4v4h-4zM87 55h4v4h-4zM95 31h4v4h-4zM99 31h4v4h-4zM103 31h4v4h-4zM107 31h4v4h-4zM111 31h4v4h-4zM103 35h4v4h-4zM103 39h4v4h-4zM103 43h4v4h-4zM103 47h4v4h-4zM103 51h4v4h-4zM95 55h4v4h-4zM99 55h4v4h-4zM103 55h4v4h-4zM107 55h4v4h-4zM111 55h4v4h-4zM123 31h4v4h-4zM127 31h4v4h-4zM131 31h4v4h-4zM135 31h4v4h-4zM119 35h4v4h-4zM119 39h4v4h-4zM119 43h4v4h-4zM127 43h4v4h-4zM131 43h4v4h-4zM135 43h4v4h-4zM119 47h4v4h-4zM135 47h4v4h-4zM119 51h4v4h-4zM135 51h4v4h-4zM123 55h4v4h-4zM127 55h4v4h-4zM131 55h4v4h-4zM135 55h4v4h-4zM147 31h4v4h-4zM151 31h4v4h-4zM155 31h4v4h-4zM143 35h4v4h-4zM159 35h4v4h-4zM143 39h4v4h-4zM159 39h4v4h-4zM143 43h4v4h-4zM159 43h4v4h-4zM143 47h4v4h-4zM159 47h4v4h-4zM143 51h4v4h-4zM159 51h4v4h-4zM147 55h4v4h-4zM151 55h4v4h-4zM155 55h4v4h-4z" fill="#273122"/>
+ <path d="M10 63h7v4h-7zm5 5h6v5h-6zm146-4h8v5h-8zm7-7h5v5h-5z" fill="#828139" opacity=".65"/>
+</g>
+<path d="m96 301-7-33 12 12-3-31 17 28 2-35 11 32 12-34-1 40 19-24-8 31 24-12-12 26Z" fill="#294c2d"/>
+<path d="m108 301-5-28 15 20 8-39 3 36 13-20-4 31zm36 0 13-18-2 18z" fill="#476d3b"/>
+<path d="m104 300 14-4h39l12 5z" fill="#172d25"/>
+</svg>

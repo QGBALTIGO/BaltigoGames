@@ -18,7 +18,7 @@ async def main():
    async def fixture(route):
     slug=route.request.url.split('?')[0].split('/')[-2]
     await route.fulfill(content_type='text/html',body=ui.GAME_FIXTURE.replace("slug:'snake'","slug:"+json.dumps(slug)))
-   await page.route('**/play-v2/**',fixture)
+   await page.route(ui.PLAY_ROUTE,fixture)
    await page.goto(ui.BASE_URL,wait_until='domcontentloaded')
    await ui.choose_view(page,'explore')
    for game in catalog:
