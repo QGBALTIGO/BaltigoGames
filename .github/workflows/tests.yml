@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -24,4 +24,41 @@ jobs:
       - name: Unit and integration tests
         env:
           BOT_TOKEN: ""
-        run: pytest -q
+        run: pytest -q tests/test_app.py tests/test_static.py
+
+  e2e:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install app and Playwright
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt playwright==1.64.1
+          python -m playwright install --with-deps chromium
+      - name: Start Baltigo Games
+        env:
+          BOT_TOKEN: ""
+        run: |
+          uvicorn app.main:app --host 127.0.0.1 --port 8000 > /tmp/baltigo.log 2>&1 &
+          echo $! > /tmp/baltigo.pid
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:8000/health && exit 0
+            sleep 1
+          done
+          cat /tmp/baltigo.log
+          exit 1
+      - name: Browser smoke tests
+        run: python tests/e2e_smoke.py
+      - name: Upload visual snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baltigo-games-visual-snapshots
+          path: artifacts/
+          if-no-files-found: warn
