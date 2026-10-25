@@ -157,9 +157,9 @@ async def run(args):
                 start_index = len(requests)
                 await page.goto(origin, wait_until="domcontentloaded")
                 await expect(page.locator("#homeGrid .game-card").first).to_be_visible()
-                assert await page.locator('script[src*="/static/app.js"]').get_attribute("src") == "/static/app.js?v=20261025-arcade-6"
+                assert await page.locator('script[src*="/static/app.js"]').get_attribute("src") == "/static/app.js?v=20261025-arcade-7"
                 assert await page.locator('link[rel="stylesheet"]').get_attribute("href") == "/static/styles.css?v=20261025-arcade-5"
-                report["checks"].append("new_home_loads_app6_and_styles5")
+                report["checks"].append("new_home_loads_app7_and_styles5")
                 covers = await page.locator('img[src^="/static/covers/"]').evaluate_all("images=>images.map(image=>image.getAttribute('src'))")
                 planet = [url for url in covers if url.startswith("/static/covers/planet-visitor.webp")]
                 assert planet and all(url.endswith("?v=20261025-arcade-5") for url in planet), planet

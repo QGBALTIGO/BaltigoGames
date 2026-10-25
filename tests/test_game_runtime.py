@@ -261,6 +261,79 @@ def test_collector_caption_has_one_colon_and_battery_remains_a_battery_after_col
     assert 'this.batteryBar.setText(`Battery: ${this.battery.toFixed(0)}%`)' in cleaner
 
 
+def test_cosmic_hud_layers_above_later_world_sprites_below_native_results():
+    gameplay = 'this.spawnJunk();this.spawnAsteroids();this.spawnSatellites();this.physics.add.collider(this.player,this.asteroidGroup,this.hitObstacle,null,this);'
+    source = ("this.add.image(960, 50, 'scorebar');this.createUI();" + gameplay +
+              "this.add.image(960,540,'lvlbox').setDepth(5);this.add.image(960,540,'ovrbox').setDepth(5);").encode()
+    fixed = prepare_game_response('games/3d/cosmic-cleaner/mechanics.js', source).decode()
+    assert 'this.__baltigoHudPlate.setDepth(1);' in fixed
+    assert '[this.batteryBar, this.scoreText, this.shieldBar].forEach(label => label.setDepth(2));' in fixed
+    assert fixed.index('this.__baltigoHudPlate.setDepth(1)') < fixed.index('this.spawnJunk()')
+    assert gameplay in fixed
+    assert "this.add.image(960,540,'lvlbox').setDepth(5)" in fixed
+    assert "this.add.image(960,540,'ovrbox').setDepth(5)" in fixed
+    other = prepare_game_response('games/other/mechanics.js', source).decode()
+    assert '__baltigoHudPlate.setDepth' not in other
+    assert gameplay in other
+
+
+def test_only_cosmic_module_import_uses_the_revised_hud_cache_key():
+    source = b'''<html><head></head><body><script type="module">import GamePlayScene from './mechanics.js';const speed=300;</script></body></html>'''
+    cosmic = prepare_game_response('games/3d/cosmic-cleaner/index.html', source).decode()
+    other = prepare_game_response('games/3d/planet-visitor/index.html', source).decode()
+    assert "from './mechanics.js?v=20261025-hud2'" in cosmic
+    assert cosmic.count('20261025-hud2') == 1
+    assert 'game-runtime.js?v=20261025-7' in cosmic
+    assert 'game-localization.js?v=20261025-8' in cosmic
+    assert "from './mechanics.js';const speed=300" in other
+    assert '20261025-hud2' not in other
+
+
+def test_spaceman_uses_its_real_fontface_without_requesting_ttf_as_a_stylesheet():
+    source = b"window.WebFont.load({custom:{families: ['Outfit'],urls: ['outfit.ttf']},active:()=>{addHTPPopup(this);}});this.gameStarted=true;"
+    fixed = prepare_game_response('games/arcade/spaceman/mechanics.js', source).decode()
+    assert "families: ['Outfit'],urls: []" in fixed
+    assert 'active:()=>{addHTPPopup(this);}' in fixed
+    assert 'this.gameStarted=true' in fixed
+    assert "urls: ['outfit.ttf']" in prepare_game_response('games/other/mechanics.js', source).decode()
+    html = b'''<html><head></head><body><script>loadFont("Outfit", "./outfit.ttf");</script><script type="module">import GamePlayScene from './mechanics.js';</script></body></html>'''
+    fixed_html = prepare_game_response('games/arcade/spaceman/index.html', html).decode()
+    assert 'loadFont("Outfit", "./outfit.ttf")' in fixed_html
+    assert "from './mechanics.js?v=20261025-font2'" in fixed_html
+    assert '20261025-font2' not in prepare_game_response('games/arcade/flappy/index.html', html).decode()
+
+
+def test_cosmic_reviewed_tutorial_is_four_readable_lines_without_the_move_homograph():
+    source = b"this.menuContainer = this.add.container(0, 0);const htpbox=this.add.image(960,500,'htpbox').setOrigin(0.5).setScale(1).setDepth(10);const howToPlay = this.add.text(860, 500, 'Use joystick to move.', {\r\n            font: '50px outfit',\r\n            fill: '#ffffff',\r\n            lineSpacing: 15\r\n        });this.menuContainer.destroy();this.gameStarted=true;this.player.setVelocityX(200);"
+    fixed = prepare_game_response('games/3d/cosmic-cleaner/mechanics.js', source).decode()
+    assert r"Pilote pelo controle.\nDestroços dão pontos e carga.\nDesvie dos obstáculos.\nMover a nave gasta bateria." in fixed
+    assert '14 / Math.max(.05, this.game.canvas.getBoundingClientRect().width / this.scale.width)' in fixed
+    assert 'this.add.text(960, 550,' in fixed
+    assert "'htpbox').setOrigin(0.5).setDisplaySize(1600, 655)" in fixed
+    assert 'this.__baltigoHudPlate.setVisible(false)' in fixed
+    assert 'this.__baltigoHudPlate.setVisible(true)' in fixed
+    assert 'this.gameStarted=true' in fixed
+    assert 'this.player.setVelocityX(200)' in fixed
+    assert 'Mover a nave gasta bateria' not in prepare_game_response('games/other/mechanics.js', source).decode()
+
+
+def test_cosmic_menu_font_tracks_resize_and_removes_only_its_own_listener():
+    source = b"const playButton = this.add.image(960, 930, 'playbtn').setInteractive();this.input.on('pointerdown', control);"
+    fixed = prepare_game_response('games/3d/cosmic-cleaner/mechanics.js', source).decode()
+    assert "this.scale.on('resize', __resizeCosmicTutorial)" in fixed
+    assert "this.scale.off('resize', __resizeCosmicTutorial)" in fixed
+    assert "this.menuContainer.once('destroy', __clearCosmicTutorialResize)" in fixed
+    assert "this.events.once('shutdown', __clearCosmicTutorialResize)" in fixed
+    assert "this.events.off('shutdown', __clearCosmicTutorialResize)" in fixed
+    assert 'howToPlay.setFontSize(Math.max(50, 14 / ratio))' in fixed
+    assert 'const buttonHeight = Math.max(136, 44 / ratio)' in fixed
+    assert 'playButton.input.hitArea.setSize(1291, buttonHeight)' in fixed
+    assert '__cosmicPlayLabel.setFontSize(Math.max(44, 16 / ratio))' in fixed
+    assert "this.add.rectangle(960, 930, 1291, 136, 0xff8557)" in fixed
+    assert "this.input.on('pointerdown', control)" in fixed
+    assert '__resizeCosmicTutorial' not in prepare_game_response('games/other/mechanics.js', source).decode()
+
+
 def test_duplicate_penalty_footer_is_hidden_without_removing_the_actual_controls():
     source = b'<html><head><style>.hint {position:fixed;bottom:12px}</style></head><body><div class="hint">Mobile buttons included.</div><script>this.controls.action.setInteractive();</script></body></html>'
     rendered = prepare_game_response('games/sports/penalty/index.html', source).decode()

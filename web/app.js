@@ -283,7 +283,7 @@
     if($('skipGameTutorial')?.checked){state.tutorials.add(game.slug);saveUserData();}
     state.helpMode=null;if(els.dialog.open)els.dialog.close();state.playerStatus='loading';els.loader.hidden=false;els.pause.hidden=true;els.playerError.hidden=true;
     state.recent=[game.slug,...state.recent.filter(s=>s!==game.slug)].slice(0,30);saveUserData();renderRecent();
-    const version=state.playVersion;clearTimeout(beginGame.timer);els.frame.src=`/play-v3/${game.path}?v=20261025-7`;
+    const version=state.playVersion;const gameVersion=['cosmic-cleaner','spaceman'].includes(game.slug)?'20261025-8':'20261025-7';clearTimeout(beginGame.timer);els.frame.src=`/play-v3/${game.path}?v=${gameVersion}`;
     beginGame.timer=setTimeout(()=>{if(state.playVersion===version&&state.playerStatus==='loading'){els.loader.hidden=true;els.playerError.hidden=false;state.playerStatus='error';}},30000);
   }
   function markGameReady(){if(!state.activeGame||!['loading','paused'].includes(state.playerStatus))return;clearTimeout(beginGame.timer);els.loader.hidden=true;if(state.playerStatus==='loading'){state.playerStatus='playing';beginRankedRun();if(state.helpMode==='game-help'||document.hidden)pauseGame(state.helpMode==='game-help');}else sendGameMessage('baltigo:pause',{paused:true});}

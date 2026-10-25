@@ -12,6 +12,7 @@ import importlib.metadata
 import json
 import os
 from pathlib import Path
+import traceback
 from playwright.async_api import async_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -225,7 +226,7 @@ async def main():
     browser=await getattr(p,name).launch(headless=True)
     for scenario in [sdk_async,sdk_failure,sdk_old,browser_actual,sdk_timeout]:
      try:result=await scenario(browser,name)
-     except Exception as error:result={'scenario':scenario.__name__,'passed':False,'error':str(error)}
+     except Exception as error:result={'scenario':scenario.__name__,'passed':False,'error':str(error),'traceback':traceback.format_exc()}
      result['browser']=name;result['browser_version']=browser.version;results.append(result)
      print(json.dumps(result,ensure_ascii=False),flush=True)
      (OUT/'partial.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')

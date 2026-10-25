@@ -220,8 +220,67 @@ def _reviewed_small_hud_fixes(path: str, source: str) -> str:
     if path.endswith('/cosmic-cleaner/mechanics.js'):
         source = _PILL_LAYOUT_JS + source
         source = source.replace("this.add.image(960, 50, 'scorebar')", "this.__baltigoHudPlate = this.add.image(960, 50, 'scorebar')", 1)
-        source = source.replace('this.createUI();', 'this.createUI();\n        __baltigoPill(this, this.__baltigoHudPlate, [this.batteryBar, this.scoreText, this.shieldBar], 36);', 1)
+        # Moving hazards are created after the UI at depth zero. Keep the HUD
+        # above that world, below the source's result panels (depth five).
+        source = source.replace('this.createUI();', 'this.createUI();\n        __baltigoPill(this, this.__baltigoHudPlate, [this.batteryBar, this.scoreText, this.shieldBar], 36);\n        this.__baltigoHudPlate.setDepth(1);\n        [this.batteryBar, this.scoreText, this.shieldBar].forEach(label => label.setDepth(2));', 1)
         source = source.replace('this.batteryBar.setText(`Shield:', 'this.batteryBar.setText(`Battery:')
+        # Keep these four reviewed lines readable in an upright narrow frame.
+        # Avoid the Portuguese homograph "move", which the generic game label
+        # translator legitimately uses as the English label for a board move.
+        source = re.sub(
+            r"const howToPlay = this\.add\.text\(860, 500, '(?:\\.|[^'\\])*', \{",
+            lambda _: r"const howToPlay = this.add.text(960, 550, 'Pilote pelo controle.\nDestroços dão pontos e carga.\nDesvie dos obstáculos.\nMover a nave gasta bateria.', {",
+            source, count=1,
+        )
+        source = re.sub(
+            r"(const howToPlay = this\.add\.text\(960, 550, '[^\r\n]*', \{\s*font:\s*)'50px outfit'",
+            lambda match: match[1] + "`${Math.max(50, 14 / Math.max(.05, this.game.canvas.getBoundingClientRect().width / this.scale.width))}px Outfit`",
+            source, count=1,
+        )
+        source = source.replace("'htpbox').setOrigin(0.5).setScale(1).setDepth(10)", "'htpbox').setOrigin(0.5).setDisplaySize(1600, 655).setDepth(10)", 1)
+        source = source.replace("this.add.image(960, 500, 'htpbox')", "this.add.image(960, 450, 'htpbox')", 1)
+        source = source.replace("const playButton = this.add.image(960, 930, 'playbtn')", '''const __resizeCosmicTutorial = () => {
+            if (!howToPlay.scene) return;
+            const ratio = this.game.canvas.getBoundingClientRect().width / this.scale.width;
+            if (!(ratio > 0)) return;
+            howToPlay.setFontSize(Math.max(50, 14 / ratio));
+            const buttonHeight = Math.max(136, 44 / ratio);
+            playButton.setSize(1291, buttonHeight);
+            playButton.input.hitArea.setSize(1291, buttonHeight);
+            __cosmicPlayLabel.setFontSize(Math.max(44, 16 / ratio));
+        };
+        const __clearCosmicTutorialResize = () => {
+            this.scale.off('resize', __resizeCosmicTutorial);
+            this.events.off('shutdown', __clearCosmicTutorialResize);
+        };
+        this.scale.on('resize', __resizeCosmicTutorial);
+        this.menuContainer.once('destroy', __clearCosmicTutorialResize);
+        this.events.once('shutdown', __clearCosmicTutorialResize);
+        const playButton = this.add.image(960, 930, 'playbtn')''', 1)
+        source = re.sub(
+            r"const playButton = this\.add\.image\(960, 930, 'playbtn'\)[^;]*;",
+            lambda _: '''const playButton = this.add.rectangle(960, 930, 1291, 136, 0xff8557)
+            .setStrokeStyle(3, 0xffd2b7).setName('playbtn').setOrigin(0.5).setDepth(20).setInteractive();
+        const __cosmicPlayLabel = this.add.text(960, 930, 'Jogar', {
+            fontFamily: 'Outfit, Arial, sans-serif', fontSize: '44px', fontStyle: 'bold', color: '#08251e'
+        }).setName('cosmic-play-label').setOrigin(0.5).setDepth(21);
+        __resizeCosmicTutorial();''', source, count=1,
+        )
+        source = source.replace('this.menuContainer.add([htpbox, howToPlay, playButton]);', 'this.menuContainer.add([htpbox, howToPlay, playButton, __cosmicPlayLabel]);', 1)
+        source = source.replace('this.menuContainer = this.add.container(0, 0);', '''this.menuContainer = this.add.container(0, 0);
+        this.__baltigoHudPlate.setVisible(false);
+        [this.batteryBar, this.scoreText, this.shieldBar].forEach(label => label.setVisible(false));''', 1)
+        source = source.replace('this.menuContainer.destroy();', '''this.menuContainer.destroy();
+            this.__baltigoHudPlate.setVisible(true);
+            [this.batteryBar, this.scoreText, this.shieldBar].forEach(label => label.setVisible(true));''', 1)
+    if path == 'games/3d/cosmic-cleaner/index.html':
+        source = source.replace("from './mechanics.js'", "from './mechanics.js?v=20261025-hud2'", 1)
+    if path == 'games/arcade/spaceman/mechanics.js':
+        # The index already loads Outfit through FontFace. WebFont custom URLs
+        # are stylesheets, so requesting its TTF here caused a MIME rejection.
+        source = source.replace("urls: ['outfit.ttf']", "urls: []", 1)
+    if path == 'games/arcade/spaceman/index.html':
+        source = source.replace("from './mechanics.js'", "from './mechanics.js?v=20261025-font2'", 1)
     if path.endswith('/collector/Scenes/GameScene.js'):
         source = source.replace("String(label) + ':'", r"String(label).replace(/:\s*$/, '') + ':'")
         source = source.replace('this._buildHud();', '''this._buildHud();
