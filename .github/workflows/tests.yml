@@ -30,20 +30,22 @@ jobs:
     needs: unit
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.64.1-noble@sha256:330d401ae23c905896a0c26c66c36fc971b621519e7b11b435a8328d7bf6e031
+      options: --ipc=host
+    defaults:
+      run:
+        shell: bash
     env:
       TEST_BASE_URL: http://127.0.0.1:8000
       TEST_OUTPUT_DIR: artifacts/portal-ci
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
       - name: Install app and Playwright
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
-          python -m playwright install --with-deps chromium firefox webkit
+          python -c 'import os, sys; assert sys.version_info[:2] == (3, 12), sys.version; assert os.environ.get("PLAYWRIGHT_BROWSERS_PATH") == "/ms-playwright"; print(sys.version)'
+          python -m pip install -r requirements-dev.txt
+          python -c 'from importlib.metadata import version; assert version("playwright") == "1.64.1"; print("Playwright", version("playwright"))'
       - name: Start Baltigo Games
         env:
           BOT_TOKEN: ""
