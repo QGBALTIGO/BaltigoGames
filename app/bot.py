@@ -51,6 +51,7 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     from telegram.ext import Application, CommandHandler, ContextTypes, InlineQueryHandler
 
     application = Application.builder().token(token).build()
+    await application.initialize()
     me = await application.bot.get_me()
     username = me.username
 
@@ -109,7 +110,6 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     application.add_handler(CommandHandler(["start", "jogar", "games"], send_home))
     application.add_handler(InlineQueryHandler(inline_query))
 
-    await application.initialize()
     await application.bot.set_my_commands(
         [
             BotCommand("jogar", "Abrir o catálogo de jogos"),
@@ -119,6 +119,6 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     await application.bot.set_chat_menu_button(
         menu_button=MenuButtonWebApp(text="🎮 Jogos", web_app=WebAppInfo(url=app_url))
     )
-    await application.start()
     await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
+    await application.start()
     return application
