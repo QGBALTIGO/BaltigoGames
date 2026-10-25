@@ -59,7 +59,11 @@ jobs:
           cat /tmp/baltigo.log
           exit 1
       - name: Portal journeys in Chromium, Firefox and WebKit
-        run: python tests/e2e_portal.py
+        env:
+          HOME: /root
+        run: |
+          python -c 'import os; from pathlib import Path; assert Path.home().stat().st_uid == os.geteuid(), "HOME ownership mismatch"; print("Browser HOME ownership OK; uid", os.geteuid())'
+          python tests/e2e_portal.py
       - name: Upload visual snapshots
         if: always()
         uses: actions/upload-artifact@v4
