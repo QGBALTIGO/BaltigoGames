@@ -8,6 +8,7 @@ The actual 142-game mechanics audit is scripts/audit_games.py, not this UI suite
 from __future__ import annotations
 
 import asyncio
+from functools import wraps
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,41 @@ from playwright.async_api import async_playwright, expect
 BASE_URL = os.getenv("TEST_BASE_URL", "http://127.0.0.1:8190").rstrip("/")
 OUTPUT_DIR = Path(os.getenv("TEST_OUTPUT_DIR", "artifacts/portal-e2e"))
 VIEWPORTS = [(360, 740), (390, 844), (844, 390), (1440, 1000)]
+DIAGNOSTIC_TIMEOUT_SECONDS = 10
+
+
+async def capture_failure(page, filename: str) -> dict:
+    """A failed diagnostic must never replace the failed interaction."""
+    try:
+        await asyncio.wait_for(page.screenshot(path=str(OUTPUT_DIR / filename), timeout=10000), DIAGNOSTIC_TIMEOUT_SECONDS)
+        return {"failure_screenshot": filename}
+    except Exception as error:
+        return {"screenshot_error": f"{type(error).__name__}: {error}"}
+
+
+def isolated_contexts(function):
+    """Close every context created by a serial scenario, preserving its result."""
+    @wraps(function)
+    async def wrapped(browser, *args):
+        previous = list(browser.contexts)
+        result = None
+        try:
+            result = await function(browser, *args)
+        except Exception as error:
+            result = {"passed": False, "checks": [], "error": str(error), "error_type": type(error).__name__}
+        finally:
+            cleanup_errors = []
+            for context in [context for context in browser.contexts if context not in previous]:
+                try:
+                    await asyncio.wait_for(context.close(), DIAGNOSTIC_TIMEOUT_SECONDS)
+                except Exception as error:
+                    cleanup_errors.append(f"{type(error).__name__}: {error}")
+            if cleanup_errors and result is not None:
+                result["cleanup_errors"] = cleanup_errors
+                result["passed"] = False
+        return result
+    return wrapped
+
 TELEGRAM_FIXTURE = """
 window.__tgHandlers = {};
 window.Telegram = {WebApp:{
@@ -95,6 +131,7 @@ async def assert_box_inside(page, selector: str, top: int, bottom: int):
     return box
 
 
+@isolated_contexts
 async def run_viewport(browser, name: str, width: int, height: int):
     context = await browser.new_context(viewport={"width": width, "height": height})
     page = await context.new_page()
@@ -197,13 +234,12 @@ async def run_viewport(browser, name: str, width: int, height: int):
                 "checks": checks, "safe_top": header["y"], "frame_bottom": frame["y"] + frame["height"],
                 "tutorial_top": dialog["y"], "errors": errors}
     except Exception as error:
-        await page.screenshot(path=str(OUTPUT_DIR / f"FAIL-{name}-{width}x{height}.png"))
+        diagnostic = await capture_failure(page, f"FAIL-{name}-{width}x{height}.png")
         return {"browser": name, "viewport": f"{width}x{height}", "passed": False,
-                "checks": checks, "error": str(error), "errors": errors}
-    finally:
-        await context.close()
+                "checks": checks, "error": str(error), "error_type": type(error).__name__, "errors": errors, **diagnostic}
 
 
+@isolated_contexts
 async def run_guest_and_ranking(browser):
     context = await browser.new_context(viewport={"width": 390, "height": 844})
     page = await context.new_page()
@@ -259,12 +295,11 @@ async def run_guest_and_ranking(browser):
         return {"scenario": "guest_and_ranking", "passed": True, "checks": checks,
                 "isolation": "SDK, player and ranking responses mocked; no real database writes"}
     except Exception as error:
-        await page.screenshot(path=str(OUTPUT_DIR / "FAIL-guest-and-ranking.png"))
-        return {"scenario": "guest_and_ranking", "passed": False, "checks": checks, "error": str(error)}
-    finally:
-        await context.close()
+        diagnostic = await capture_failure(page, "FAIL-guest-and-ranking.png")
+        return {"scenario": "guest_and_ranking", "passed": False, "checks": checks, "error": str(error), "error_type": type(error).__name__, **diagnostic}
 
 
+@isolated_contexts
 async def run_orientation(browser, name):
     context = await browser.new_context(viewport={"width": 390, "height": 844}, has_touch=True)
     page = await context.new_page()
@@ -347,12 +382,11 @@ async def run_orientation(browser, name):
         return {"browser": name, "scenario": "landscape_rotation", "passed": True, "checks": checks,
                 "scope": "Real CSS iframe dimensions and real touch events with isolated game fixture"}
     except Exception as error:
-        await page.screenshot(path=str(OUTPUT_DIR / f"FAIL-{name}-orientation.png"))
-        return {"browser": name, "scenario": "landscape_rotation", "passed": False, "checks": checks, "error": str(error)}
-    finally:
-        await context.close()
+        diagnostic = await capture_failure(page, f"FAIL-{name}-orientation.png")
+        return {"browser": name, "scenario": "landscape_rotation", "passed": False, "checks": checks, "error": str(error), "error_type": type(error).__name__, **diagnostic}
 
 
+@isolated_contexts
 async def run_desktop_orientation(browser, name):
     """A narrow mouse window must not inherit a sideways mobile preference."""
     context = await browser.new_context(viewport={"width": 430, "height": 880}, has_touch=False)
@@ -398,12 +432,11 @@ async def run_desktop_orientation(browser, name):
         await page.locator("#playerBack").click()
         return {"browser": name, "scenario": "desktop_orientation", "passed": True, "checks": checks}
     except Exception as error:
-        await page.screenshot(path=str(OUTPUT_DIR / f"FAIL-{name}-desktop-orientation.png"))
-        return {"browser": name, "scenario": "desktop_orientation", "passed": False, "checks": checks, "error": str(error)}
-    finally:
-        await context.close()
+        diagnostic = await capture_failure(page, f"FAIL-{name}-desktop-orientation.png")
+        return {"browser": name, "scenario": "desktop_orientation", "passed": False, "checks": checks, "error": str(error), "error_type": type(error).__name__, **diagnostic}
 
 
+@isolated_contexts
 async def run_cover_focus(browser):
     context = await browser.new_context(viewport={"width": 390, "height": 844})
     page = await context.new_page()
@@ -445,44 +478,86 @@ async def run_cover_focus(browser):
         return {"scenario": "cover_focus_validation", "passed": True, "checks": checks,
                 "scope": "Real catalog; only focus values overridden inside isolated browser. Invalid CSS, types and out-of-range percentages must fall back."}
     except Exception as error:
-        return {"scenario": "cover_focus_validation", "passed": False, "checks": checks, "error": str(error)}
+        return {"scenario": "cover_focus_validation", "passed": False, "checks": checks, "error": str(error), "error_type": type(error).__name__}
+
+
+def scenario_plan(name):
+    plan = [({"browser": name, "viewport": f"{width}x{height}"}, run_viewport, (name, width, height)) for width, height in VIEWPORTS]
+    if name == "chromium":
+        plan.extend([({"browser": name, "scenario": "cover_focus_validation"}, run_cover_focus, ()),
+                     ({"browser": name, "scenario": "guest_and_ranking"}, run_guest_and_ranking, ())])
+    plan.extend([({"browser": name, "scenario": "landscape_rotation"}, run_orientation, (name,)),
+                 ({"browser": name, "scenario": "desktop_orientation"}, run_desktop_orientation, (name,))])
+    return plan
+
+
+async def run_engine(browser_type, name):
+    plan = scenario_plan(name)
+    browser = None
+    results = []
+    infrastructure_errors = []
+    unavailable_reason = None
+    try:
+        browser = await browser_type.launch(headless=True)
+        for identity, function, arguments in plan:
+            if unavailable_reason or not browser.is_connected():
+                result = {**identity, "passed": False, "status": "blocked", "checks": [],
+                          "error": unavailable_reason or "Browser disconnected before this scenario started"}
+            else:
+                try:
+                    result = {**identity, **await function(browser, *arguments)}
+                except Exception as error:
+                    result = {**identity, "passed": False, "checks": [],
+                              "error": str(error), "error_type": type(error).__name__}
+                result["status"] = "passed" if result["passed"] else "failed"
+                if result.get("cleanup_errors"):
+                    unavailable_reason = "Previous context could not close; clean scenario isolation is unavailable"
+            results.append(result)
+            print(json.dumps(result, ensure_ascii=False), flush=True)
+    except Exception as error:
+        # A browser that could not launch, or stopped responding, must not turn
+        # the scenarios abandoned afterward into successful/omitted results.
+        for identity, _, _ in plan[len(results):]:
+            results.append({**identity, "passed": False, "status": "blocked", "checks": [],
+                            "error": str(error), "error_type": type(error).__name__})
     finally:
-        await context.close()
+        if browser is not None:
+            try:
+                await asyncio.wait_for(browser.close(), DIAGNOSTIC_TIMEOUT_SECONDS)
+            except Exception as error:
+                infrastructure_errors.append({"browser": name, "operation": "browser.close",
+                                              "error": str(error), "error_type": type(error).__name__})
+    return results, infrastructure_errors
+
+
+def summarize(results, prepared, infrastructure_errors):
+    executed = sum(result["status"] != "blocked" for result in results)
+    failed = sum(result["status"] == "failed" for result in results)
+    blocked = sum(result["status"] == "blocked" for result in results)
+    return {"base_url": BASE_URL, "passed": bool(prepared) and len(results) == prepared and not failed and not blocked and not infrastructure_errors,
+              "prepared": prepared, "executed": executed, "passed_scenarios": sum(result["status"] == "passed" for result in results),
+              "failed": failed, "blocked": blocked,
+              "scenarios": len(results), "checks": sum(len(result.get("checks", [])) for result in results),
+              "infrastructure_errors": infrastructure_errors,
+              "scope": "Portal UI and isolated Telegram integration; no physical Telegram or 142-game mechanics claim",
+              "results": results}
 
 
 async def main():
     assert urlparse(BASE_URL).scheme in {"http", "https"}
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     results = []
-    engines = os.getenv("TEST_BROWSERS", "chromium,firefox,webkit").split(",")
+    infrastructure_errors = []
+    engines = [name.strip() for name in os.getenv("TEST_BROWSERS", "chromium,firefox,webkit").split(",") if name.strip()]
+    prepared = sum(len(scenario_plan(name)) for name in engines)
     async with async_playwright() as playwright:
         for name in engines:
-            try:
-                browser = await getattr(playwright, name.strip()).launch(headless=True)
-                for width, height in VIEWPORTS:
-                    result = await run_viewport(browser, name, width, height)
-                    results.append(result)
-                    print(json.dumps(result, ensure_ascii=False), flush=True)
-                if name == "chromium":
-                    result = await run_cover_focus(browser)
-                    results.append(result)
-                    print(json.dumps(result, ensure_ascii=False), flush=True)
-                    result = await run_guest_and_ranking(browser)
-                    results.append(result)
-                    print(json.dumps(result, ensure_ascii=False), flush=True)
-                result = await run_orientation(browser, name)
-                results.append(result)
-                print(json.dumps(result, ensure_ascii=False), flush=True)
-                result = await run_desktop_orientation(browser, name)
-                results.append(result)
-                print(json.dumps(result, ensure_ascii=False), flush=True)
-                await browser.close()
-            except Exception as error:
-                results.append({"browser": name, "passed": False, "error": str(error)})
-    report = {"base_url": BASE_URL, "passed": all(result["passed"] for result in results),
-              "scenarios": len(results), "checks": sum(len(result.get("checks", [])) for result in results),
-              "scope": "Portal UI and isolated Telegram integration; no physical Telegram or 142-game mechanics claim",
-              "results": results}
+            records, errors = await run_engine(getattr(playwright, name, None), name)
+            results.extend(records)
+            infrastructure_errors.extend(errors)
+            report = summarize(results, prepared, infrastructure_errors)
+            (OUTPUT_DIR / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    report = summarize(results, prepared, infrastructure_errors)
     (OUTPUT_DIR / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({key: value for key, value in report.items() if key != "results"}, ensure_ascii=False), flush=True)
     return 0 if report["passed"] else 1
