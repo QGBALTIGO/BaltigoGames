@@ -145,6 +145,7 @@ def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_pa
     )
     (game / "mechanics.js").write_text("window.actualGameAsset='cache-proof';", encoding="utf-8")
     (game / "config.json").write_text('{"actual_config":"cache-proof"}', encoding="utf-8")
+    (game / "styles.css").write_text("body{background:#123456}", encoding="utf-8")
     monkeypatch.setattr(main, "UPSTREAM_LOCAL_DIR", mirror)
 
     document = c.get(f"/{prefix}/games/arcade/cache-proof/index.html")
@@ -164,6 +165,11 @@ def test_game_aliases_return_adapted_document_and_relative_assets(client, tmp_pa
     assert config.status_code == 200
     assert config.json() == {"actual_config": "cache-proof"}
     assert "x-accel-redirect" not in config.headers
+    styles = c.get(f"/{prefix}/games/arcade/cache-proof/styles.css")
+    assert styles.status_code == 200 and styles.text == "body{background:#123456}"
+    assert styles.headers["content-type"].startswith("text/css")
+    assert styles.headers["cache-control"] == "public, max-age=3600"
+    assert "x-accel-redirect" not in styles.headers
 
 
 @pytest.mark.parametrize("accelerated", [False, True])

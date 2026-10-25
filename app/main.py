@@ -237,7 +237,7 @@ async def play_proxy(asset_path: str, request: Request) -> Response:
                 raise HTTPException(status_code=400, detail="invalid game path")
         if candidate.is_file():
             media_type = mimetypes.guess_type(candidate.name)[0] or "application/octet-stream"
-            if candidate.suffix.lower() in {".html", ".js", ".json"}:
+            if candidate.suffix.lower() in {".html", ".js", ".json", ".css"}:
                 content = adapt_game_content(safe_path, candidate.read_bytes(), media_type)
                 return Response(content, media_type=media_type, headers=cache_headers)
             return local_game_asset(candidate, UPSTREAM_LOCAL_DIR, "/_baltigo_game_assets/", media_type, cache_headers)

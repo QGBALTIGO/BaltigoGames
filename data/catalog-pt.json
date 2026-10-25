@@ -58,7 +58,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste cada peça com o dedo ou o mouse até sua posição na grade. Solte perto do encaixe correto para fixá-la e complete a imagem."
   },
   "alien-battle": {
     "name": "Batalha alienígena",
@@ -69,7 +70,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure o lado esquerdo da tela para subir e solte para descer. Toque no inimigo, no lado direito, para disparar na direção dele e desvie dos projéteis."
   },
   "antigravity": {
     "name": "Antigravidade",
@@ -80,7 +82,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Mantenha os botões de esquerda ou direita pressionados para andar. Toque no botão de gravidade para alternar entre chão e teto. No teclado, use as setas laterais e espaço para inverter a gravidade."
   },
   "archer": {
     "name": "Arqueiro",
@@ -103,7 +106,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique quando o bloco em movimento estiver alinhado para soltá-lo. Só a parte sobre a torre permanece; alinhe os próximos blocos para continuar empilhando."
   },
   "basketball": {
     "name": "Basquete",
@@ -126,7 +130,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure os botões laterais para mover o personagem e segure Ação para disparar. No computador, mova com as setas laterais ou A/D e atire com espaço."
   },
   "bomb-blast": {
     "name": "Explosão em cadeia",
@@ -277,7 +282,7 @@
     "description": "Troque de faixa, evite os carros e recolha moedas.",
     "tutorial": "Troque de faixa, evite os carros e recolha moedas.",
     "language": "pt-BR",
-    "controls_pt": "Deslize para os lados para trocar de faixa. No computador, use as setas ou A e D.",
+    "controls_pt": "No celular, deslize para a esquerda ou a direita para trocar de faixa. No computador, use as setas laterais ou as teclas A e D. O carro acelera automaticamente.",
     "orientation": "portrait",
     "authored_orientation": null,
     "logical_width": null,
@@ -330,7 +335,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique em uma peça do circuito para girá-la um quarto de volta. Ajuste as conexões até levar energia às lâmpadas."
   },
   "catch-me-if-you-can": {
     "name": "Pegue-me se puder",
@@ -341,7 +347,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular na parte inferior para correr em qualquer direção e solte para parar. No computador, também é possível mover com as quatro setas. Evite os perseguidores e os obstáculos."
   },
   "collector": {
     "name": "Pouso de precisão",
@@ -353,7 +360,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle esquerdo para ajustar o movimento lateral. Segure Ação para ganhar sustentação e solte para voltar a cair; procure uma aterrissagem segura. No teclado, use esquerda/direita ou A/D e espaço, seta para cima ou W para sustentar."
   },
   "color-dash": {
     "name": "Passagem das cores",
@@ -381,14 +389,15 @@
   },
   "connected": {
     "name": "Conectados",
-    "description": "Ligue os pontos iguais sem cruzar os caminhos.",
-    "tutorial": "Ligue os pontos iguais sem cruzar os caminhos.",
+    "description": "Arraste por dois ou mais pontos vizinhos da mesma cor e solte para recolhê-los. Uma sequência inválida é cancelada.",
+    "tutorial": "Arraste por dois ou mais pontos vizinhos da mesma cor e solte para recolhê-los. Uma sequência inválida é cancelada.",
     "language": "pt-BR",
     "orientation": "portrait",
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste sem soltar por pelo menos dois pontos vizinhos da mesma cor e solte para recolhê-los. Passar por uma cor diferente ou por um ponto sem ligação cancela a sequência."
   },
   "cooking": {
     "name": "Cozinha expressa",
@@ -423,7 +432,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque na metade esquerda e arraste para mover a nave em qualquer direção. No computador, também use as quatro setas. Recolha os detritos para pontuar e recarregar a bateria; mover-se consome energia."
   },
   "cricket-123": {
     "name": "Maquinista",
@@ -459,7 +469,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Deslize o dedo ou mova o mouse para os lados para guiar o líder e todo o grupo. Atravesse as passagens que aumentam a equipe e evite as que reduzem sua quantidade."
   },
   "curve-snake": {
     "name": "Cobra em curvas",
@@ -506,7 +517,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para andar para os lados e puxe-o para cima para saltar do chão. Toque no botão de disparo à direita para atacar os inimigos e abrir caminho até a saída."
   },
   "dodge-enemy": {
     "name": "Desvie dos inimigos",
@@ -517,7 +529,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste na metade esquerda da tela para mover o personagem em qualquer direção e solte para parar. No computador, use as quatro setas. Fique longe dos inimigos até terminar a contagem."
   },
   "dodge-master": {
     "name": "Mestre dos desvios",
@@ -528,7 +541,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o dedo ou mova o mouse para os lados: o personagem acompanha a posição horizontal do ponteiro. Desvie dos objetos que caem e alcance a meta antes do tempo acabar."
   },
   "doodle-jump": {
     "name": "Salto nas alturas",
@@ -551,7 +565,8 @@
     "authored_orientation": null,
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "logical-size"
+    "orientation_source": "logical-size",
+    "controls_pt": "Use os botões de esquerda e direita para andar e o botão Saltar para pular. Fique parado por um instante para criar a ponte, depois atravesse antes que ela desabe. No teclado, use as setas laterais e espaço ou seta para cima para saltar."
   },
   "ellars": {
     "name": "Ellars",
@@ -574,7 +589,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para andar para os lados e puxe-o para cima para saltar. Use o botão de tiro à direita para enfrentar os inimigos e recolha o dinheiro pelo caminho."
   },
   "endless-runner": {
     "name": "Corrida infinita",
@@ -585,7 +601,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "A corrida é automática. Deslize para cima para saltar e para baixo para deslizar sob os obstáculos. No computador, use as setas para cima e para baixo."
   },
   "fighter-fury": {
     "name": "Defesa aérea",
@@ -620,7 +637,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Depois de escolher Jogar, toque ou clique na área da partida para iniciar o voo. Continue tocando para ganhar altura; a gravidade faz o pássaro descer entre os toques. Passe pelos espaços entre os canos."
   },
   "flip-jump": {
     "name": "Salto invertido",
@@ -631,7 +649,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique para alternar a gravidade e passar instantaneamente do chão para o teto ou voltar. O personagem avança sozinho; troque de lado antes de alcançar os obstáculos."
   },
   "fly-monkey": {
     "name": "Fuga pelo portal",
@@ -654,7 +673,8 @@
     "authored_orientation": null,
     "logical_width": 960,
     "logical_height": 540,
-    "orientation_source": "logical-size"
+    "orientation_source": "logical-size",
+    "controls_pt": "Segure os botões laterais para correr, use Pular para saltar e Chutar quando a bola estiver próxima. No computador, use as setas laterais, seta para cima e espaço para chutar."
   },
   "forest-runner": {
     "name": "Corrida na floresta",
@@ -665,7 +685,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique para saltar durante a corrida automática. Toque outra vez enquanto estiver no ar para executar o salto duplo. No computador, também use seta para cima ou espaço para saltar."
   },
   "four-dots": {
     "name": "Quatro em linha",
@@ -725,7 +746,8 @@
     "authored_orientation": null,
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "logical-size"
+    "orientation_source": "logical-size",
+    "controls_pt": "Segure os botões laterais para se mover. Com os pés na plataforma, segure o botão de salto para carregar e solte para quicar mais alto. No computador, use esquerda/direita ou A/D e segure e solte espaço para carregar o salto."
   },
   "glass-step": {
     "name": "Ponte de vidro",
@@ -760,7 +782,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle esquerdo para andar e use o botão de salto para atravessar os obstáculos. A arma dispara automaticamente contra o inimigo mais próximo. No teclado, ande com as setas laterais ou A/D e salte com W ou espaço."
   },
   "hex-puzzle": {
     "name": "Blocos hexagonais",
@@ -783,7 +806,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o dedo ou mova o mouse pela área da partida para guiar o tubarão. Ele acompanha o ponteiro nos dois eixos; alcance os peixes e evite os perigos."
   },
   "jump-dot": {
     "name": "Salto lateral",
@@ -843,7 +867,8 @@
     "authored_orientation": null,
     "logical_width": null,
     "logical_height": null,
-    "orientation_source": "responsive-default"
+    "orientation_source": "responsive-default",
+    "controls_pt": "Na sua vez, toque em Lançar dado e depois em uma das peças destacadas para movê-la. Um seis permite tirar uma peça da base; leve as quatro peças até a chegada e aguarde os turnos dos adversários."
   },
   "mario": {
     "name": "Aventura do encanador",
@@ -854,7 +879,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure esquerda ou direita para andar e toque no botão de salto para subir nas plataformas. No computador, use as setas laterais ou A/D e seta para cima ou W para saltar."
   },
   "math-quest": {
     "name": "Desafio de matemática",
@@ -913,7 +939,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque na metade esquerda ou direita da tela para mudar uma faixa nessa direção. Você controla apenas seu carro; recolha os alvos e desvie dos obstáculos. No computador, também use as setas laterais ou A/D."
   },
   "orbital-outpost": {
     "name": "Defesa orbital",
@@ -924,7 +951,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "logical-size-overrides-message"
+    "orientation_source": "logical-size-overrides-message",
+    "controls_pt": "Toque ou clique nos meteoros para disparar o laser. Toque nas cápsulas de suprimentos para recolhê-las e recuperar recursos da estação; impeça que os meteoros atinjam a base."
   },
   "pacman": {
     "name": "Come-pontos",
@@ -935,7 +963,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure os botões de direção da tela ou as quatro setas do teclado para percorrer o labirinto. Recolha os pontos e use as pastilhas especiais para enfrentar os fantasmas enquanto estiverem vulneráveis."
   },
   "pairing": {
     "name": "Pares rápidos",
@@ -958,7 +987,8 @@
     "authored_orientation": null,
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "logical-size"
+    "orientation_source": "logical-size",
+    "controls_pt": "Segure os botões laterais para correr e pressione Ação para saltar quando estiver apoiado. No computador, use as setas laterais e seta para cima ou espaço para saltar entre as plataformas."
   },
   "pathfinder": {
     "name": "Encontre a saída",
@@ -1005,7 +1035,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para andar e puxe-o para cima para saltar. Aproxime-se de uma planta ainda não fotografada: quando o botão de câmera aparecer, toque nele para tirar a foto. Evite os animais."
   },
   "planet-war": {
     "name": "Guerra planetária",
@@ -1016,7 +1047,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle para andar para os lados. Use Pular para saltar e Disparar para atirar; segure Escudo para se proteger e solte para interromper a defesa. No teclado, use esquerda/direita e seta para cima para saltar."
   },
   "projectile-enemy": {
     "name": "Desvio de projéteis",
@@ -1027,7 +1059,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Na metade esquerda da tela, segure acima ou abaixo do arqueiro para movê-lo para cima ou para baixo. Solte para parar e toque na metade direita para lançar uma flecha. No teclado, as setas para cima e para baixo também movem o arqueiro."
   },
   "quiz": {
     "name": "Perguntas e respostas",
@@ -1087,7 +1120,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle para andar para os lados e use Pular para saltar sobre os perigos. Aproxime-se de um robô pelo lado direito e permaneça encostado até concluir a desativação. No teclado, use as setas laterais e seta para cima para saltar."
   },
   "screw-master": {
     "name": "Teclas de precisão",
@@ -1122,7 +1156,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Use os botões para subir e descer e segure o botão de tiro para disparar. Também é possível arrastar o personagem verticalmente. No computador, use as setas para cima/baixo e espaço para atirar."
   },
   "shape-collector": {
     "name": "Coletor de formas",
@@ -1158,7 +1193,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para escolher a direção, mantenha pressionado para carregar a força e solte para disparar. Espere a bola terminar o movimento antes do próximo tiro. No teclado, ajuste a mira com as setas laterais e segure e solte espaço para carregar e atirar."
   },
   "shooter": {
     "name": "Arena de tiro",
@@ -1169,7 +1205,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure esquerda ou direita para andar, toque em Pular para saltar e use o botão de tiro para atacar. No computador, mova com as setas laterais, salte com seta para cima ou espaço e atire com Z. Armas automáticas disparam enquanto o tiro estiver pressionado."
   },
   "signal-circuit": {
     "name": "Circuito de sinais",
@@ -1180,7 +1217,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique em uma peça para girar sua conexão. Continue ajustando as peças até fechar o caminho do circuito; cada toque atualiza as ligações exibidas."
   },
   "sky-high": {
     "name": "Rumo ao céu",
@@ -1191,7 +1229,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para andar e puxe-o para cima para saltar da plataforma. Toque no botão de escudo quando precisar de proteção. No teclado, use as setas laterais, seta para cima para saltar e espaço para ativar o escudo."
   },
   "slide-puzzle": {
     "name": "Quebra-cabeça deslizante",
@@ -1226,7 +1265,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Na sua vez, toque no dado ou pressione espaço ou Enter para lançá-lo. A peça avança sozinha; aguarde a animação e os turnos dos adversários. As escadas fazem subir e as cobras fazem voltar."
   },
   "sniper": {
     "name": "Atirador de precisão",
@@ -1249,7 +1289,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique para disparar um laser. Com o dedo ou botão do mouse pressionado, deslize para esquerda ou direita para mover a nave; solte para interromper o deslocamento lateral e desvie dos asteroides."
   },
   "spaceman": {
     "name": "Astronauta",
@@ -1260,7 +1301,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Mantenha o dedo ou botão do mouse pressionado e deslize para os lados para mover o astronauta. Solte para parar o movimento lateral. No computador, também use as setas esquerda/direita; recolha as peças da nave e evite os obstáculos."
   },
   "space-waves": {
     "name": "Ondas espaciais",
@@ -1332,7 +1374,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Observe a direção da seta, segure o dedo ou botão do mouse para carregar a força e solte para lançar a bola. Ajuste o momento do lançamento para recolher moedas e evitar os inimigos."
   },
   "survival-run": {
     "name": "Portais assombrados",
@@ -1344,7 +1387,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle circular para explorar o labirinto em qualquer direção. Perto de um portal, use Ação para girar suas runas. No computador, mova com as quatro setas ou W/A/S/D e pressione espaço para agir."
   },
   "survivor": {
     "name": "Sobrevivente",
@@ -1355,7 +1399,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Arraste o controle para andar para os lados e puxe-o para cima para saltar. Segure Ação para atirar. No computador, use esquerda/direita ou A/D, seta para cima ou W para saltar e espaço para atirar; seta para baixo ou S inverte o lado para o qual você mira."
   },
   "table-tennis": {
     "name": "Tênis de mesa",
@@ -1366,7 +1411,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure o botão superior da tela para subir a raquete e o inferior para descer. No computador, use as setas para cima/baixo ou W/S. A raquete rebate automaticamente ao tocar na bola; os efeitos dos itens são ativados ao recolhê-los."
   },
   "tap-target": {
     "name": "Toque no alvo",
@@ -1397,7 +1443,7 @@
     "description": "Mova e gire as peças para completar linhas horizontais.",
     "tutorial": "Mova e gire as peças para completar linhas horizontais.",
     "language": "pt-BR",
-    "controls_pt": "Deslize para os lados para mover. Toque no botão de giro e use Baixo para acelerar ou Soltar para encaixar a peça.",
+    "controls_pt": "No celular, deslize para os lados para mover e use os botões inferiores para girar, acelerar e soltar a peça. No computador: setas laterais para mover, seta para cima para girar, seta para baixo para acelerar e espaço para soltar.",
     "orientation": "portrait",
     "authored_orientation": null,
     "logical_width": null,
@@ -1413,7 +1459,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Use os botões laterais para andar e o botão de salto para pular. No computador, use esquerda/direita e seta para cima. Alcance o botão do cenário com o personagem para remover a barreira e siga até a porta."
   },
   "that-level-again-2": {
     "name": "O mesmo nível 2",
@@ -1424,7 +1471,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Mantenha esquerda ou direita para andar e use o botão de salto para pular. No teclado, use as setas laterais e seta para cima. Passe novamente pelo botão do cenário até liberar a barreira e alcançar a saída."
   },
   "that-level-again-3": {
     "name": "O mesmo nível 3",
@@ -1435,7 +1483,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Ande com os botões laterais e salte com o botão de pulo; no teclado, use esquerda/direita e seta para cima. Nesta fase, toque ou clique diretamente no botão do cenário para remover a barreira e chegar à porta."
   },
   "that-level-again-4": {
     "name": "O mesmo nível 4",
@@ -1446,7 +1495,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Use os botões laterais para andar e o de salto para pular; no computador, use as setas laterais e seta para cima. Toque no botão do cenário para liberar a barreira e observe que a saída desta fase fica à esquerda."
   },
   "that-level-again-5": {
     "name": "O mesmo nível 5",
@@ -1457,7 +1507,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure os botões laterais para andar e toque no botão de salto para pular; no teclado, use esquerda/direita e seta para cima. Observe o personagem que fica após tocar nos espinhos: ele também pode acionar o botão do cenário e liberar a passagem."
   },
   "thunder-god": {
     "name": "Labirinto fantasma",
@@ -1469,7 +1520,8 @@
     "authored_orientation": null,
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "logical-size"
+    "orientation_source": "logical-size",
+    "controls_pt": "Use as quatro direções da tela para se mover e toque em Ação para avançar rapidamente na direção escolhida. No computador, use as setas ou W/A/S/D e Shift para a arrancada. Recolha todas as chaves e encontre a saída."
   },
   "tic-tac-toe": {
     "name": "Jogo da velha",
@@ -1505,7 +1557,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Segure os botões laterais para se mover e toque em Ação para saltar entre as plataformas. No computador, use esquerda/direita e seta para cima para saltar. Suba a torre, evite os perigos e recolha as gemas."
   },
   "trench-defence": {
     "name": "Defesa da trincheira",
@@ -1516,7 +1569,8 @@
     "authored_orientation": "landscape",
     "logical_width": 1920,
     "logical_height": 1080,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque ou clique diretamente nos inimigos para acertá-los antes que atravessem a área. Alguns precisam de mais de um acerto; continue tocando no alvo até eliminá-lo."
   },
   "two-cars": {
     "name": "Dois carros",
@@ -1527,7 +1581,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Toque na metade esquerda da tela para alternar a faixa do carro esquerdo e na metade direita para alternar a do carro direito. Controle os dois separadamente, recolha os círculos e evite os quadrados."
   },
   "two-cars-ai": {
     "name": "Duelo de faixas",
@@ -1550,7 +1605,8 @@
     "authored_orientation": "portrait",
     "logical_width": 1080,
     "logical_height": 1920,
-    "orientation_source": "authored-message"
+    "orientation_source": "authored-message",
+    "controls_pt": "Leia cada pedido e toque ou clique em uma das decisões do cartão. Cada escolha muda os recursos do reino; mantenha todos longe dos limites mínimo e máximo para continuar governando."
   },
   "vaccine-shooter": {
     "name": "Defesa antiviral",

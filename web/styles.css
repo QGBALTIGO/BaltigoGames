@@ -38,3 +38,22 @@ body{background-color:var(--bg);background-image:radial-gradient(#3d44702e .7px,
 .player-meta strong{font-size:14px;line-height:1.24;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
 @media(max-width:460px){.player-bar{padding:7px 8px;gap:6px;min-height:60px}.player-actions{gap:4px}.player-meta small{font-size:9px;letter-spacing:.45px}.player-meta strong{font-size:12px;line-height:1.25}}
 @media(max-width:350px){.player-bar{padding-left:6px;padding-right:6px;gap:5px}.player-actions{gap:3px}.player-meta small{font-size:9px;letter-spacing:0}.player-meta strong{font-size:12px}}
+
+/* Fullscreen remains independent from optional game rotation. */
+.player-bar{min-height:52px;padding:4px 10px;gap:8px}
+.player-bar .icon-button{min-width:44px;min-height:44px;width:44px;height:44px}
+#playerFullscreen[aria-pressed="true"]{color:#9ce7ff;background:#173f58;border-color:#67cbe3}
+#playerFullscreen[aria-busy="true"]{opacity:.65;cursor:progress}
+.fullscreen-status{display:flex;flex:none;align-items:center;gap:10px;padding:7px 10px;color:#ffe5ae;background:#352a18;border-bottom:1px solid #77603a;font-size:13px;line-height:1.4}
+.fullscreen-status>span{flex:1;min-width:0}.fullscreen-status .icon-button{width:44px;height:44px;flex:none}
+@media(max-width:480px){
+  .player-bar{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto 44px;column-gap:4px;row-gap:4px;padding:6px 8px}
+  .player-meta{grid-column:1/-1;grid-row:1;display:flex;flex-direction:row;align-items:baseline;gap:7px;min-height:17px}
+  .player-meta small{font-size:9px;flex:none}.player-meta strong{font-size:12px;line-height:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  #playerBack{grid-column:1;grid-row:2}.player-actions{grid-column:2;grid-row:2;display:flex;justify-content:flex-end;gap:4px}
+}
+@media(max-height:450px){.player-bar{padding-top:4px;padding-bottom:4px;min-height:52px}}
+.help-intro,.tutorial-steps p,.controls-box p{font-size:14px;line-height:1.6}
+.controls-box strong{font-size:14px;line-height:1.6}
+/* A moving hover edge can oscillate under a stationary touch-emulated pointer. */
+.help-dialog .primary-button:hover{transform:none}

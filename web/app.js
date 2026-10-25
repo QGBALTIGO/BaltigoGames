@@ -3,6 +3,7 @@
   const tg = window.Telegram?.WebApp;
   const $ = (id) => document.getElementById(id);
   const state = {games:[],categories:[],category:'all',query:'',view:'home',activeGame:null,favorites:new Set(),recent:[],tutorials:new Set(),rotations:{},rotationRequested:false,userId:'guest',displayName:'visitante',token:null,authenticated:false,sessionReady:null,playerStatus:'closed',run:null,runPending:null,playVersion:0,helpMode:null,closing:false,rankPeriod:'all',rankGame:'',rankVersion:0,scrollY:0,heroSlug:null,lastLauncher:null};
+  const fullscreen = {pending:null,sequence:0,timer:null,browserOwned:false,preferBrowser:false,exitOnConfirmation:false,awaitingEnter:false};
   const CATEGORY_LABELS = {puzzle:'Quebra-cabeças',arcade:'Fliperama',shooter:'Tiro',racing:'Corrida',sports:'Esportes',platformer:'Plataforma',casual:'Casuais',board:'Tabuleiro','word-quiz':'Palavras e perguntas','3d':'Jogos em 3D'};
   const FEATURED = ['tetris','snake','2048','pacman','bubble-shooter','car-race','chess','crossy-road'];
   const NAME_FALLBACKS = {'space-fighter':'Combate espacial',snake:'Cobrinha',tetris:'Tetris','car-race':'Corrida de carros',chess:'Xadrez','bubble-shooter':'Estoura-bolhas','crossy-road':'Travessia','tic-tac-toe':'Jogo da velha','memory-cards':'Jogo da memória',flappy:'Voo sem fim',football:'Futebol',basketball:'Basquete',wordle:'Palavra do dia','endless-runner':'Corrida sem fim',sudoku:'Sudoku',pacman:'Pac-Man','2048':'2048'};
@@ -35,24 +36,108 @@
     state.favorites=new Set(Array.isArray(favoriteData)?favoriteData.filter(s=>typeof s==='string'):[]);
     state.recent=Array.isArray(recentData)?recentData.filter(s=>typeof s==='string').slice(0,30):[];
     state.tutorials=new Set(Array.isArray(tutorialData)?tutorialData:[]);
-    const rotations=getStored(storageKey('rotations'),{});state.rotations=rotations&&typeof rotations==='object'&&!Array.isArray(rotations)?rotations:{};
+    // Older versions presented rotation where players expected fullscreen.
+    // Start the new, explicitly chosen rotation preference without changing user data.
+    const rotations=getStored(storageKey('rotations-v2'),{});state.rotations=rotations&&typeof rotations==='object'&&!Array.isArray(rotations)?rotations:{};
     $('welcomeBanner').hidden=getStored('baltigogames:welcome-dismissed',false)===true;
   }
-  function saveUserData(){putStored(storageKey('favorites'),[...state.favorites]);putStored(storageKey('recent'),state.recent);putStored(storageKey('tutorials'),[...state.tutorials]);putStored(storageKey('rotations'),state.rotations);}
+  function saveUserData(){putStored(storageKey('favorites'),[...state.favorites]);putStored(storageKey('recent'),state.recent);putStored(storageKey('tutorials'),[...state.tutorials]);putStored(storageKey('rotations-v2'),state.rotations);}
   function notify(message){clearTimeout(notify.timer);els.toast.textContent=message;els.toast.classList.add('toast--show');notify.timer=setTimeout(()=>els.toast.classList.remove('toast--show'),3500);}
   function haptic(style='light'){try{tg?.HapticFeedback?.impactOccurred(style);}catch{}}
 
+  function confirmedFullscreen(){return Boolean(tg?.isFullscreen||document.fullscreenElement||document.webkitFullscreenElement);}
+  function telegramFullscreenSupported(){
+    if(typeof tg?.requestFullscreen!=='function'||typeof tg?.exitFullscreen!=='function')return false;
+    try{return typeof tg.isVersionAtLeast!=='function'||tg.isVersionAtLeast('8.0');}catch{return false;}
+  }
+  function clearFullscreenRequest(){clearTimeout(fullscreen.timer);fullscreen.timer=null;fullscreen.pending=null;}
+  function syncFullscreenButton(){
+    const active=confirmedFullscreen(),button=$('playerFullscreen');if(!button)return;
+    if(fullscreen.pending&&fullscreen.pending.enter===active){
+      if(active)fullscreen.awaitingEnter=false;
+      else if(!state.activeGame)fullscreen.exitOnConfirmation=false;
+      clearFullscreenRequest();
+    }
+    button.setAttribute('aria-pressed',String(active));button.setAttribute('aria-busy',String(Boolean(fullscreen.pending)));
+    button.disabled=Boolean(fullscreen.pending);
+    button.setAttribute('aria-label',active?'Sair da tela cheia':'Entrar em tela cheia');button.title=active?'Sair da tela cheia':'Tela cheia';
+    button.innerHTML=icon(active?'fullscreen-exit':'fullscreen');
+    els.player.dataset.fullscreen=String(active);els.player.dataset.fullscreenPending=fullscreen.pending?(fullscreen.pending.enter?'enter':'exit'):'';
+    document.body.classList.toggle('is-player-fullscreen',active&&Boolean(state.activeGame));
+  }
+  function fullscreenFailure(code,quiet=false){
+    if(fullscreen.pending?.source==='browser'&&fullscreen.pending.enter&&!document.fullscreenElement&&!document.webkitFullscreenElement)fullscreen.browserOwned=false;
+    if(code!=='TIMEOUT')fullscreen.awaitingEnter=false;
+    clearFullscreenRequest();els.player.dataset.fullscreenError=code;
+    const messages={UNSUPPORTED:'A tela cheia não está disponível neste Telegram. Toque novamente para tentar pelo navegador.',NOT_SUPPORTED:'Este aparelho não oferece tela cheia. Você pode continuar jogando.',NOT_ALLOWED:'O navegador não autorizou a tela cheia. Toque novamente para tentar.',TIMEOUT:'A tela cheia não foi confirmada. Toque novamente para tentar.',FAILED:'Não foi possível mudar a tela cheia. Toque novamente para tentar.'};
+    const message=messages[code]||messages.FAILED;
+    if(!quiet&&state.activeGame){$('playerFullscreenMessage').textContent=message;$('playerFullscreenStatus').hidden=false;notify(message);}
+    updateViewport();
+  }
+  function fullscreenChanged(){
+    const active=confirmedFullscreen();
+    if(active){fullscreen.awaitingEnter=false;$('playerFullscreenStatus').hidden=true;delete els.player.dataset.fullscreenError;}
+    if(!active&&!state.activeGame&&!fullscreen.pending?.enter&&!fullscreen.awaitingEnter)fullscreen.exitOnConfirmation=false;
+    if(!document.fullscreenElement&&!document.webkitFullscreenElement)fullscreen.browserOwned=false;
+    if(fullscreen.exitOnConfirmation&&!state.activeGame&&active){requestPlayerFullscreen(false,{quiet:true});return;}
+    updateViewport();requestAnimationFrame(updateViewport);
+  }
+  function requestPlayerFullscreen(enter,{quiet=false,automatic=false}={}){
+    if(fullscreen.pending||(!state.activeGame&&enter))return;
+    if(confirmedFullscreen()===enter){syncFullscreenButton();return;}
+    const native=tg?.isFullscreen===true||(!fullscreen.preferBrowser&&telegramFullscreenSupported());
+    if(automatic&&!native){syncFullscreenButton();return;}
+    const id=++fullscreen.sequence;fullscreen.pending={id,enter,source:native?'telegram':'browser',quiet};
+    fullscreen.awaitingEnter=enter;
+    $('playerFullscreenStatus').hidden=true;delete els.player.dataset.fullscreenError;
+    fullscreen.timer=setTimeout(()=>{if(fullscreen.pending?.id===id)fullscreenFailure('TIMEOUT',quiet);},5000);
+    syncFullscreenButton();
+    try{
+      let result;
+      if(native){
+        if(!telegramFullscreenSupported())throw new Error('NOT_SUPPORTED');
+        result=enter?tg.requestFullscreen():tg.exitFullscreen();
+      }else if(enter){
+        const method=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;
+        if(typeof method!=='function')throw new Error('NOT_SUPPORTED');
+        fullscreen.browserOwned=true;
+        result=method===document.documentElement.requestFullscreen?method.call(document.documentElement,{navigationUI:'hide'}):method.call(document.documentElement);
+      }else{
+        const method=document.exitFullscreen||document.webkitExitFullscreen;
+        if(typeof method!=='function')throw new Error('NOT_SUPPORTED');
+        result=method.call(document);
+      }
+      // The method returning is not confirmation. Read the real SDK/DOM state.
+      syncFullscreenButton();updateViewport();
+      if(result&&typeof result.then==='function')result.then(()=>fullscreenChanged()).catch(error=>{
+        if(fullscreen.pending?.id!==id)return;
+        fullscreenFailure(error?.name==='NotAllowedError'?'NOT_ALLOWED':'FAILED',quiet);
+      });
+    }catch(error){if(fullscreen.pending?.id===id)fullscreenFailure(error?.message==='NOT_SUPPORTED'?'NOT_SUPPORTED':error?.name==='NotAllowedError'?'NOT_ALLOWED':'FAILED',quiet);}
+  }
+  function togglePlayerFullscreen(){requestPlayerFullscreen(!confirmedFullscreen());}
+  function exitPlayerFullscreen(){
+    const entering=fullscreen.pending?.enter===true||fullscreen.awaitingEnter;
+    fullscreen.sequence++;clearFullscreenRequest();fullscreen.exitOnConfirmation=entering||confirmedFullscreen();
+    $('playerFullscreenStatus').hidden=true;delete els.player.dataset.fullscreenError;
+    if(tg?.isFullscreen||((document.fullscreenElement||document.webkitFullscreenElement)&&fullscreen.browserOwned))requestPlayerFullscreen(false,{quiet:true});
+    syncFullscreenButton();
+  }
   function updateViewport(){
     const safe=tg?.safeAreaInset || {},content=tg?.contentSafeAreaInset || {};
     const inset=(edge)=>Math.max(0,Number(safe[edge])||0)+Math.max(0,Number(content[edge])||0);
     const full=Boolean(tg?.isFullscreen);
-    // Older fullscreen clients lack the content inset events; reserve their native controls.
-    const top=inset('top') || (full?96:0);
+    // The device inset alone does not reserve Telegram's floating controls.
+    // Reserve a separate native control row even when contentSafeArea reports zero.
+    const deviceTop=Math.max(0,Number(safe.top)||0),contentTop=Math.max(0,Number(content.top)||0);
+    const nativeTop=deviceTop+(contentTop>0?contentTop:56);
+    const top=full?(window.innerHeight>=window.innerWidth&&deviceTop===0&&contentTop===0?96:nativeTop):inset('top');
     const root=document.documentElement.style;
     root.setProperty('--tg-safe-top',`${top}px`);root.setProperty('--tg-safe-bottom',`${inset('bottom')}px`);
     root.setProperty('--tg-safe-left',`${inset('left')}px`);root.setProperty('--tg-safe-right',`${inset('right')}px`);
-    const height=Number(tg?.viewportHeight)||window.innerHeight;
+    const height=confirmedFullscreen()?window.innerHeight:(Number(tg?.viewportHeight)||window.innerHeight);
     root.setProperty('--app-height',`${Math.round(height)}px`);
+    syncFullscreenButton();
     updateGameViewport();
     if(state.helpMode==='orientation'&&window.innerWidth>window.innerHeight){state.helpMode=null;if(els.dialog.open)els.dialog.close();continueToGame();}
   }
@@ -62,9 +147,17 @@
       const user=tg.initDataUnsafe?.user;
       if(user){state.userId=String(user.id);state.displayName=cleanName(user.first_name || user.username);}
       try{tg.BackButton?.onClick(()=>{if(els.dialog.open)closeHelp();else closePlayer();});}catch{}
-      ['viewportChanged','safeAreaChanged','contentSafeAreaChanged','fullscreenChanged','fullscreenFailed'].forEach(event=>{try{tg.onEvent(event,updateViewport);}catch{}});
+      ['viewportChanged','safeAreaChanged','contentSafeAreaChanged'].forEach(event=>{try{tg.onEvent(event,updateViewport);}catch{}});
+      try{tg.onEvent('fullscreenChanged',fullscreenChanged);tg.onEvent('fullscreenFailed',event=>{
+        const pending=fullscreen.pending;if(!pending)return;
+        if(event?.error==='ALREADY_FULLSCREEN'&&tg.isFullscreen){fullscreenChanged();return;}
+        if(event?.error==='UNSUPPORTED')fullscreen.preferBrowser=true;
+        fullscreenFailure(event?.error==='UNSUPPORTED'?'UNSUPPORTED':'FAILED',pending.quiet);
+      });}catch{}
     }
     $('profileName').textContent=state.displayName;$('profileInitial').textContent=state.displayName.charAt(0).toLocaleUpperCase('pt-BR');
+    document.addEventListener('fullscreenchange',fullscreenChanged);document.addEventListener('webkitfullscreenchange',fullscreenChanged);
+    document.addEventListener('fullscreenerror',()=>{setTimeout(()=>{if(fullscreen.pending?.source==='browser')fullscreenFailure('FAILED',fullscreen.pending.quiet);},0);});
     updateViewport();window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
   }
   async function api(url,options={}){
@@ -82,7 +175,7 @@
   async function loadCatalog(){
     $('catalogError').hidden=true;$('retryCatalog').disabled=true;
     if(!state.games.length){const skeleton=Array(10).fill('<div class="loading-skeleton" aria-hidden="true"></div>').join('');els.homeGrid.innerHTML=skeleton;}
-    try{const data=await api('/api/catalog?v=20261025-arcade');
+    try{const data=await api('/api/catalog?v=20261025-arcade-6');
       state.games=(Array.isArray(data.games)?data.games:[]).filter(g=>/^[a-z0-9-]+$/.test(g.slug||'') && typeof g.path==='string' && g.path.startsWith('games/') && !g.path.includes('..'));
       state.categories=Array.isArray(data.categories)?data.categories:[];renderAll();configureHero();
       $('heroCatalogCount').textContent=number(state.games.length);
@@ -178,7 +271,9 @@
     state.lastLauncher=document.activeElement;state.scrollY=window.scrollY;state.activeGame=game;state.playerStatus='tutorial';state.rotationRequested=handheldControls()&&state.rotations[slug]===true;state.playVersion++;
     $('playerTitle').textContent=gameName(game);$('playerCategory').textContent=catLabel(game.category).toLocaleUpperCase('pt-BR');els.frame.title=`Jogar ${gameName(game)}`;
     els.player.hidden=false;els.loader.hidden=false;els.pause.hidden=true;els.playerError.hidden=true;document.body.style.overflow='hidden';document.body.classList.add('is-playing');els.app.inert=true;document.querySelector('.bottom-nav').inert=true;syncPlayerFavorite();
-    try{tg?.BackButton?.show();tg?.disableVerticalSwipes?.();tg?.requestFullscreen?.();}catch{}updateViewport();
+    fullscreen.exitOnConfirmation=false;
+    try{tg?.BackButton?.show();tg?.disableVerticalSwipes?.();}catch{}
+    requestPlayerFullscreen(true,{automatic:true,quiet:true});updateViewport();
     history.pushState({player:slug},'',`#play=${encodeURIComponent(slug)}`);haptic('medium');
     updateGameViewport();
     if(landscapeGame(game)&&window.innerHeight>window.innerWidth&&handheldControls()&&!Object.prototype.hasOwnProperty.call(state.rotations,slug))showOrientationHelp();else continueToGame();
@@ -200,7 +295,7 @@
   }
   function closePlayer(){
     if(!state.activeGame)return;state.closing=true;state.playVersion++;clearTimeout(beginGame.timer);finishRun('ended');state.activeGame=null;state.playerStatus='closed';state.helpMode=null;if(els.dialog.open)els.dialog.close();els.player.hidden=true;els.frame.src='about:blank';els.loader.hidden=false;els.pause.hidden=true;document.body.style.overflow='';document.body.classList.remove('is-playing');els.app.inert=false;document.querySelector('.bottom-nav').inert=false;
-    try{tg?.BackButton?.hide();tg?.enableVerticalSwipes?.();if(tg?.isFullscreen)tg.exitFullscreen?.();}catch{}
+    try{tg?.BackButton?.hide();tg?.enableVerticalSwipes?.();}catch{}exitPlayerFullscreen();
     if(location.hash.startsWith('#play='))history.replaceState({},'',location.pathname+location.search);
     window.scrollTo({top:state.scrollY,behavior:'instant'});state.lastLauncher?.focus?.({preventScroll:true});state.closing=false;updateViewport();
   }
@@ -235,7 +330,7 @@
     if(data?.type==='orientation'){if(!state.activeGame.orientation&&['landscape','portrait'].includes(data.value)){state.activeGame.orientation=data.value;updateGameViewport();}return;}
     if(!data||typeof data!=='object'||data.slug!==state.activeGame.slug)return;
     if(data.type==='baltigo:orientation'){if(!state.activeGame.orientation&&['landscape','portrait'].includes(data.orientation))state.activeGame.orientation=data.orientation;updateGameViewport();return;}
-    if(data.type==='baltigo:fullscreen'){try{tg?.requestFullscreen?.();}catch{}updateViewport();return;}
+    if(data.type==='baltigo:fullscreen'){requestPlayerFullscreen(true,{automatic:true,quiet:true});return;}
     if(data.type==='baltigo:ready'){markGameReady();return;}
     if(data.type==='baltigo:start'){if(state.playerStatus==='playing'&&!state.run)beginRankedRun();return;}
     if(data.type==='baltigo:result'){finishRun(['win','completed'].includes(data.outcome)?'completed':'ended',Number.isFinite(data.score)?data.score:undefined);return;}
@@ -269,7 +364,7 @@
     hero.addEventListener('pointermove',event=>{if(!matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches)return;const rect=hero.getBoundingClientRect();stage.style.setProperty('--hero-x',`${((event.clientX-rect.left)/rect.width-.5)*9}px`);stage.style.setProperty('--hero-y',`${((event.clientY-rect.top)/rect.height-.5)*6}px`);},{passive:true});
     hero.addEventListener('pointerleave',()=>{stage.style.setProperty('--hero-x','0px');stage.style.setProperty('--hero-y','0px');});
     $('closeHelp').onclick=closeHelp;els.dialog.addEventListener('cancel',event=>{event.preventDefault();closeHelp();});els.dialog.addEventListener('click',event=>{if(event.target===els.dialog){const box=els.dialog.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)closeHelp();}});
-    $('playerBack').onclick=closePlayer;$('pauseExit').onclick=closePlayer;$('playerErrorBack').onclick=closePlayer;$('playerFavorite').onclick=()=>{if(state.activeGame)toggleFavorite(state.activeGame.slug);};$('playerRotate').onclick=toggleGameRotation;$('playerHelp').onclick=()=>showGameHelp(false);$('playerPause').onclick=()=>pauseGame(false);$('resumeGame').onclick=resumeGame;$('playerReload').onclick=restartGame;$('playerRetry').onclick=restartGame;
+    $('playerBack').onclick=closePlayer;$('pauseExit').onclick=closePlayer;$('playerErrorBack').onclick=closePlayer;$('playerFavorite').onclick=()=>{if(state.activeGame)toggleFavorite(state.activeGame.slug);};$('playerRotate').onclick=toggleGameRotation;$('playerFullscreen').onclick=togglePlayerFullscreen;$('playerFullscreenRetry').onclick=togglePlayerFullscreen;$('playerHelp').onclick=()=>showGameHelp(false);$('playerPause').onclick=()=>pauseGame(false);$('resumeGame').onclick=resumeGame;$('playerReload').onclick=restartGame;$('playerRetry').onclick=restartGame;
     $('shareCatalogButton').onclick=shareCatalog;$('rankingGame').onchange=()=>{state.rankGame=$('rankingGame').value;loadLeaderboard();};
     els.frame.addEventListener('load',()=>{if(!state.activeGame||els.frame.getAttribute('src')==='about:blank')return;try{const doc=els.frame.contentDocument;if(doc&&(/^(Not Found|Internal Server Error)$/i.test(doc.title)||doc.body?.textContent?.trim().startsWith('{"detail":'))){clearTimeout(beginGame.timer);els.loader.hidden=true;els.playerError.hidden=false;state.playerStatus='error';return;}}catch{}markGameReady();});
     window.addEventListener('message',onGameMessage);window.addEventListener('popstate',()=>{if(state.activeGame)closePlayer();});

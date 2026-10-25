@@ -43,6 +43,7 @@ async def run(args):
     out.mkdir(parents=True, exist_ok=True)
     old_html = subprocess.check_output(["git", "show", args.old_commit + ":web/index.html"], cwd=ROOT)
     old_app = subprocess.check_output(["git", "show", args.old_commit + ":web/app.js"], cwd=ROOT)
+    old_localization = subprocess.check_output(["git", "show", args.old_commit + ":web/game-localization.js"], cwd=ROOT)
     assert b"/play-v2/" in old_app
     assert b"app.js?v=20261025-arcade-4" in old_html
     upstream = httpx.Client(timeout=40, follow_redirects=True, headers={"Accept-Encoding": "identity"})
@@ -63,6 +64,8 @@ async def run(args):
                     body, content_type = old_html, "text/html; charset=utf-8"
                 elif self.path == "/static/app.js?v=20261025-arcade-4":
                     body, content_type = old_app, "application/javascript"
+                elif self.path == "/static/game-localization.js?v=20261025-7":
+                    body, content_type = old_localization, "application/javascript"
                 else:
                     previous_asset = path.startswith("/play-v2/") or self.path == "/static/covers/planet-visitor.webp"
                     base = args.old_base if previous_asset else args.base
@@ -130,6 +133,13 @@ async def run(args):
                 assert old_cache_hits, "The previous v2 source was not served from the real browser HTTP cache"
                 report["checks"].append("previous_v2_source_confirmed_in_browser_cache")
                 image_digest = "async path=>{const response=await fetch(path);if(!response.ok)throw Error('cover fetch failed');const digest=await crypto.subtle.digest('SHA-256',await response.arrayBuffer());return [...new Uint8Array(digest)].map(byte=>byte.toString(16).padStart(2,'0')).join('');}"
+                old_dictionary_path = "/static/game-localization.js?v=20261025-7"
+                previous_dictionary_hash = await page.evaluate(image_digest, old_dictionary_path)
+                assert await page.evaluate(image_digest, old_dictionary_path) == previous_dictionary_hash
+                await page.wait_for_timeout(100)
+                dictionary_cache_hits = [by_id.get(request_id) for request_id in cached if by_id.get(request_id) == origin + old_dictionary_path]
+                assert dictionary_cache_hits, "The previous dictionary was not in the real browser HTTP cache"
+                report["checks"].append("previous_localization7_confirmed_in_browser_cache")
                 old_cover = "/static/covers/planet-visitor.webp"
                 previous_cover_hash = await page.evaluate(image_digest, old_cover)
                 assert await page.evaluate(image_digest, old_cover) == previous_cover_hash
@@ -147,9 +157,9 @@ async def run(args):
                 start_index = len(requests)
                 await page.goto(origin, wait_until="domcontentloaded")
                 await expect(page.locator("#homeGrid .game-card").first).to_be_visible()
-                assert await page.locator('script[src*="/static/app.js"]').get_attribute("src") == "/static/app.js?v=20261025-arcade-5"
-                assert await page.locator('link[rel="stylesheet"]').get_attribute("href") == "/static/styles.css?v=20261025-arcade-4"
-                report["checks"].append("new_home_loads_app5_and_preserves_unchanged_styles4")
+                assert await page.locator('script[src*="/static/app.js"]').get_attribute("src") == "/static/app.js?v=20261025-arcade-6"
+                assert await page.locator('link[rel="stylesheet"]').get_attribute("href") == "/static/styles.css?v=20261025-arcade-5"
+                report["checks"].append("new_home_loads_app6_and_styles5")
                 covers = await page.locator('img[src^="/static/covers/"]').evaluate_all("images=>images.map(image=>image.getAttribute('src'))")
                 planet = [url for url in covers if url.startswith("/static/covers/planet-visitor.webp")]
                 assert planet and all(url.endswith("?v=20261025-arcade-5") for url in planet), planet
@@ -159,7 +169,16 @@ async def run(args):
                 expected_cover_hash = hashlib.sha256((ROOT / "web/covers/planet-visitor.webp").read_bytes()).hexdigest()
                 assert new_cover_hash == expected_cover_hash and new_cover_hash != previous_cover_hash
                 report["checks"].append("cached_previous_planet_cover_is_replaced_with_actual_new_bytes")
-                _, new_src = await open_snake("play-v3")
+                new_frame, new_src = await open_snake("play-v3")
+                new_dictionary_path = "/static/game-localization.js?v=20261025-8"
+                assert await new_frame.locator('script[src*="/static/game-localization.js"]').get_attribute('src') == new_dictionary_path
+                new_dictionary_hash = await page.evaluate(image_digest, new_dictionary_path)
+                expected_dictionary_hash = hashlib.sha256((ROOT / 'web/game-localization.js').read_bytes()).hexdigest()
+                assert new_dictionary_hash == expected_dictionary_hash and new_dictionary_hash != previous_dictionary_hash
+                dictionary = json.loads((ROOT / 'data/localization-pt.json').read_text(encoding='utf8'))
+                key = 'Avoid obstacles like        ,      .\nSwipe up to jump, swipe twice for\nan extra bounce'
+                assert await new_frame.locator('body').evaluate('(element,key)=>window.__BALTIGO_PT[key]', key) == dictionary[key]
+                report['checks'].extend(['new_game_uses_localization8_cache_key', 'new_dictionary_actual_bytes_and_correct_forest_instructions'])
                 observed = [urlsplit(url).path for url in requests[start_index:]]
                 required = ["/play-v3/" + GAME + filename for filename in ["index.html", "mechanics.js", "config.json"]]
                 assert all(path in observed for path in required), (required, observed)
@@ -169,6 +188,8 @@ async def run(args):
                 report.update(passed=True, previous_iframe=old_src, new_iframe=new_src, old_browser_cache_hits=old_cache_hits,
                               previous_planet_cache_hits=cover_cache_hits, previous_planet_sha256=previous_cover_hash,
                               new_planet_sha256=new_cover_hash,
+                              previous_dictionary_sha256=previous_dictionary_hash, new_dictionary_sha256=new_dictionary_hash,
+                              previous_dictionary_cache_hits=dictionary_cache_hits,
                               new_game_paths=[path for path in observed if path.startswith("/play-v3/")])
                 await page.screenshot(path=str(out / "v3-player-after-warm-v2.png"))
                 await context.close()

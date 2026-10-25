@@ -42,6 +42,7 @@ async def main(args):
     report = {"base": args.base, "viewport": {"width": 390, "height": 844},
               "scope": "Real portal rotation dialog, real touch/CDP gestures and read-only source state; no game/API mocks, outcome fixtures, handler invocation or score writes.",
               "sdk": "Guest SDK presentation only; initData empty; top safe area 98px, bottom 34px.",
+              "native_browser_fullscreen": args.native_fullscreen,
               "results": [], "cleanup_errors": [], "source_hashes_before": before_hashes}
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch(args=["--use-angle=swiftshader-webgl"])
@@ -56,7 +57,8 @@ async def main(args):
                 page.on("pageerror", lambda error: errors.append(str(error)))
                 page.on("requestfailed", lambda request: failed_requests.append({"url": request.url, "failure": request.failure}))
                 page.on("request", lambda request: writes.append({"method": request.method, "url": request.url}) if request.method not in {"GET", "HEAD"} else None)
-                await page.route("https://telegram.org/js/telegram-web-app.js", lambda route: route.fulfill(content_type="application/javascript", body=SDK))
+                sdk = SDK + ('window.Telegram.WebApp.isVersionAtLeast=()=>false;' if args.native_fullscreen else '')
+                await page.route("https://telegram.org/js/telegram-web-app.js", lambda route: route.fulfill(content_type="application/javascript", body=sdk))
                 try:
                     await page.goto(args.base, wait_until="domcontentloaded")
                     await page.locator('[data-view-target="explore"]:visible').first.tap()
@@ -67,6 +69,12 @@ async def main(args):
                     await page.locator('[data-help-action="start"]').tap()
                     await page.locator("#playerLoader").wait_for(state="hidden")
                     await page.locator(".player-stage.is-rotated").wait_for()
+                    if args.native_fullscreen:
+                        await page.locator('#playerFullscreen').tap()
+                        await page.wait_for_function('document.fullscreenElement===document.documentElement')
+                        assert await page.locator('#playerFullscreen').get_attribute('aria-pressed') == 'true'
+                        result['checks'].append('real_browser_fullscreen_entered_from_an_actual_header_tap')
+                        result['fullscreen_viewport'] = await page.evaluate('({width:innerWidth,height:innerHeight})')
                     frame = await page.locator("#gameFrame").element_handle()
                     frame = await frame.content_frame()
                     assert frame is not None and "/play-v3/" in frame.url, frame.url if frame else None
@@ -76,8 +84,10 @@ async def main(args):
                     async def local_point(x, y):
                         box = await page.locator("#gameFrame").bounding_box()
                         assert box
-                        point = {"x": box["x"] + box["width"] - y, "y": box["y"] + x}
-                        assert 0 <= point["x"] <= 390 and 0 <= point["y"] <= 844, point
+                        rotated = await page.locator('.player-stage').evaluate("el=>el.classList.contains('is-rotated')")
+                        point = {"x": box["x"] + box["width"] - y, "y": box["y"] + x} if rotated else {"x":box['x']+x,"y":box['y']+y}
+                        viewport = await page.evaluate('({width:innerWidth,height:innerHeight})')
+                        assert 0 <= point["x"] <= viewport['width'] and 0 <= point["y"] <= viewport['height'], point
                         return point
 
                     async def object_point(key, expression):
@@ -219,6 +229,15 @@ async def main(args):
                         assert up["y"] < before["y"] - 100 and down["y"] > up["y"] + 100, (before, up, down)
                         assert not released["mobile"]["up"] and not released["mobile"]["down"]
                         result["checks"].append("rotated_real_direction_buttons_move_table_tennis_paddle_both_ways")
+                    if args.native_fullscreen:
+                        before_boot = await frame.evaluate('performance.timeOrigin')
+                        await page.locator('#playerFullscreen').tap()
+                        await page.wait_for_function('document.fullscreenElement===null')
+                        assert await frame.evaluate('performance.timeOrigin') == before_boot
+                        await page.locator('#playerFullscreen').tap()
+                        await page.wait_for_function('document.fullscreenElement===document.documentElement')
+                        assert await frame.evaluate('performance.timeOrigin') == before_boot
+                        result['checks'].append('real_browser_exit_and_reentry_preserve_the_actual_game_document')
                     await page.screenshot(path=str(out / f"{slug}-rotated-active.png"))
                     assert not errors, errors
                     assert not writes, writes
@@ -258,5 +277,6 @@ if __name__ == "__main__":
     parser.add_argument("--base", default="http://127.0.0.1:8195")
     parser.add_argument("--out", default="artifacts/rotated-gameplay-v3")
     parser.add_argument("--slugs", nargs="+", choices=SLUGS, default=SLUGS, help="Narrow retests; default runs all four games")
+    parser.add_argument('--native-fullscreen', action='store_true', help='Use the real browser fullscreen button before exercising unchanged native game controls')
     raise SystemExit(asyncio.run(main(parser.parse_args())))
 

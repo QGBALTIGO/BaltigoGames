@@ -41,7 +41,7 @@ O player mantém a barra de ferramentas fora da área nativa do Telegram. Jogos 
 
 O player usa a rota versionada `/play-v3/`; `/play/` e `/play-v2/` permanecem compatíveis. O novo prefixo impede que dispositivos reaproveitem documentos, configurações e scripts antigos do cache HTTP. O mirror local é preferido. Se faltar um arquivo, a rota ainda consulta `UPSTREAM_GAMES_BASE`, por padrão a fonte original. Cookies e credenciais do usuário não são encaminhados ao upstream.
 
-Na VPS, `GAME_ASSET_ACCEL=1` permite ao Nginx enviar os arquivos públicos que o aplicativo já validou e selecionou, incluindo as artes em português. Isso exige os aliases internos de `deploy/nginx.conf`. Documentos e configurações adaptados continuam no Python; sem a flag, a entrega direta permanece disponível no Docker e no desenvolvimento. Os detalhes de instalação e recuperação estão em `deploy/README.md`.
+Na VPS, o Nginx entrega diretamente os tipos binários públicos permitidos, usando o mirror e os mapas exatos das artes em português. `scripts/render_nginx_assets.py` confere os mapas contra os metadados. Documentos, configurações e estilos continuam no proxy do aplicativo. Arquivos ausentes seguem para o fallback; `GAME_ASSET_ACCEL=1` permite ao Nginx enviá-los depois da validação da aplicação, exigindo os aliases internos de `deploy/nginx.conf`. Sem a flag, a entrega direta permanece disponível no Docker e no desenvolvimento. Os detalhes de instalação e recuperação estão em `deploy/README.md`.
 
 ## Classificação e dados
 

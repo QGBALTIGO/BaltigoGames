@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = '20261025-7'
+LOCALIZATION_VERSION = '20261025-8'
 
 
 @lru_cache(maxsize=1)
@@ -374,6 +375,9 @@ def _reviewed_hud_fixes(path: str, source: str) -> str:
 
 
 def _reviewed_visual_fixes(path: str, source: str) -> str:
+    if path.endswith('/forest-runner/mechanics.js'):
+        # Four localized instruction lines must fit above the native Play button.
+        source = source.replace('font: "60px Outfit", color:', 'font: "50px Outfit", color:', 1)
     """Scoped presentation fixes verified in the final screenshot inventory."""
     if path.endswith('/fruit-cosmics/mechanics.js'):
         for label in ['Time: 00:60', 'Tempo: 00:60']:
@@ -503,7 +507,7 @@ body{display:grid;grid-template-rows:42px minmax(0,1fr) 38px}
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">'
         '<meta name="baltigo-adapter" content="' + VERSION + '">'
         '<script>window.__BALTIGO_GAME=' + config + ';</script>'
-        '<script src="/static/game-localization.js?v=' + VERSION + '"></script>'
+        '<script src="/static/game-localization.js?v=' + LOCALIZATION_VERSION + '"></script>'
         '<script src="/static/game-runtime.js?v=' + VERSION + '"></script>'
         '<style data-baltigo>html,body{overscroll-behavior:none!important;-webkit-text-size-adjust:100%;}'
         'body{margin:0}canvas{touch-action:none}button{touch-action:manipulation;cursor:pointer}'

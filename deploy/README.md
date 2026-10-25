@@ -14,9 +14,11 @@ DATABASE_PATH=/var/lib/baltigogames/leaderboard.sqlite
 GAME_ASSET_ACCEL=1
 ```
 
-`GAME_ASSET_ACCEL=1` exige as duas rotas `internal` do Nginx em `deploy/nginx.conf`, com os aliases correspondentes ao mirror fixado e a `current/web/`. O aplicativo continua validando o caminho e escolhendo a imagem original ou a arte em português; somente a leitura do arquivo é delegada ao Nginx por `X-Accel-Redirect`. HTML, JavaScript e JSON adaptados continuam no Python. O Nginx entrega os bytes com `sendfile`, MIME, intervalos de bytes e validação condicional; as rotas internas retornam 404 ao acesso externo. Instalar e verificar essas rotas antes de ativar a flag no processo. Sem a flag, inclusive no Docker e nos servidores locais, `FileResponse` mantém a entrega direta.
+O Nginx entrega diretamente os tipos binários públicos permitidos do mirror, com `sendfile`, MIME, intervalos de bytes e validação condicional. Os mapas embutidos em `deploy/nginx.conf` encaminham as imagens substituídas para a arte em português em `current/web/`; `scripts/render_nginx_assets.py` verifica sua correspondência com `data/asset-replacements.json`. A raiz fica limitada ao mirror ou ao diretório web confiável, e links simbólicos abaixo dessas raízes não são usados no caminho direto. HTML, JavaScript, JSON e CSS continuam no proxy do aplicativo. Arquivos ausentes ou nomes fora do padrão seguro seguem para o fallback da aplicação.
 
-Os binários acelerados usam o cache HTTP público de uma hora e o cache de arquivos do sistema; a seleção ainda passa pelo aplicativo em cada requisição ao servidor. [Redirecionamentos `X-Accel-Redirect` não são armazenados pelo `proxy_cache`](https://trac.nginx.org/nginx/ticket/2189). O cache Nginx dos documentos adaptados permanece ativo. Verificar os corpos reais, MIME, Range/304, bloqueio das URLs internas e ausência de cookies após qualquer mudança nesse caminho. A flag sem as rotas internas correspondentes não é uma configuração válida.
+No fallback, `GAME_ASSET_ACCEL=1` exige as duas rotas `internal` do Nginx, com os aliases correspondentes ao mirror fixado e a `current/web/`. O aplicativo valida o caminho e seleciona o arquivo resolvido, inclusive a fonte compartilhada ausente, antes do `X-Accel-Redirect`. As rotas internas retornam 404 ao acesso externo. Instalar e verificar essas rotas antes de ativar a flag no processo. Sem a flag, inclusive no Docker e nos servidores locais, `FileResponse` mantém a entrega direta.
+
+Os binários usam o cache HTTP público de uma hora e o cache de arquivos do sistema; `X-Game-Delivery: nginx-file` identifica o caminho direto e não representa um HIT de `proxy_cache`. [Redirecionamentos `X-Accel-Redirect` não são armazenados pelo `proxy_cache`](https://trac.nginx.org/nginx/ticket/2189). O cache Nginx dos documentos adaptados permanece ativo. Verificar os corpos reais, as 27 substituições, MIME, Range/304, bloqueio de caminhos/links e das URLs internas, fallback de fonte e ausência de cookies após qualquer mudança nesse caminho. O gerador opera somente no arquivo local; não instala nem recarrega Nginx.
 
 O bot e o site compartilham um processo; não aumentar `--workers`. Dois processos com o mesmo token causam conflito no Telegram. `/health` retorna 503 se o catálogo estiver vazio ou o bot configurado parar. O processo aborta se não conseguir iniciar o bot. A unidade permite 2.048 conexões concorrentes, keep-alive de dois segundos e 8.192 descritores, mantendo um único worker, CPU máxima de um núcleo e memória de 768 MiB.
 
@@ -41,6 +43,7 @@ Com o mirror pronto, iniciar um servidor isolado **sem o token de produção**:
 
 ```sh
 python scripts/validate_catalog.py
+python scripts/render_nginx_assets.py
 pytest -q
 python tests/e2e_portal.py
 python scripts/audit_games.py --base http://127.0.0.1:8190 --profiles preferred,desktop --covers --workers 2 --output artifacts/qualification-preferred

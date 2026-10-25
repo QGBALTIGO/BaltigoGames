@@ -377,7 +377,7 @@ Car Runner|Corrida no trânsito
 Swipe or use arrow keys to change lanes.\nAvoid traffic cars.\n\nCollect 100 coins to win.|Deslize ou use as setas para trocar de faixa.\nEvite os carros.\n\nRecolha as moedas indicadas na meta para vencer.
 You escaped traffic!|Você escapou do trânsito!
 Crashed into traffic!|Você bateu no trânsito!
-Avoid obstacles like        ,      .\nSwipe up to jump, swipe twice for\nan extra bounce|Evite os obstáculos.\nDeslize para cima para saltar.\nDeslize duas vezes para um salto extra.
+Avoid obstacles like        ,      .\nSwipe up to jump, swipe twice for\nan extra bounce|Evite os obstáculos.\nToque ou clique para saltar.\nToque no ar para o salto duplo.\nTeclado: seta para cima ou espaço.
 Tap LEFT/RIGHT to snap to each side of the rope. Tap ACTION to dash through tight gaps. Avoid obstacles, collect points, and survive until the timer ends.|Toque nos lados para mudar de posição na corda. Use Ação para atravessar espaços apertados. Evite obstáculos, recolha pontos e sobreviva até o tempo acabar.
 You Reached the Sky Summit!|Você alcançou o topo!
 Fell from the Rope!|Você caiu da corda!

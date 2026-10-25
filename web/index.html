@@ -9,7 +9,7 @@
   <title>Baltigo Games — aperte o play</title>
   <link rel="preload" href="/static/fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="preload" href="/static/fonts/Outfit-Variable.ttf" as="font" type="font/ttf" crossorigin />
-  <link rel="stylesheet" href="/static/styles.css?v=20261025-arcade-4" />
+  <link rel="stylesheet" href="/static/styles.css?v=20261025-arcade-5" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -26,6 +26,8 @@
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M3 3h4v4h4v3h2V7h4V3h4v4h-4v4h-3v2h3v4h4v4h-4v-4h-4v-3h-2v3H7v4H3v-4h4v-4h3v-2H7V7H3Z"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 2h4v3h4v3h4v3h4v2h-4v3h-4v3H9v3H5Z"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M4 3h6v18H4Zm10 0h6v18h-6Z"/></symbol>
+    <symbol id="i-fullscreen" viewBox="0 0 24 24"><path d="M3 3h7v3H6v4H3Zm11 0h7v7h-3V6h-4ZM3 14h3v4h4v3H3Zm15 0h3v7h-7v-3h4Z"/></symbol>
+    <symbol id="i-fullscreen-exit" viewBox="0 0 24 24"><path d="M7 3h3v7H3V7h4Zm7 0h3v4h4v3h-7ZM3 14h7v7H7v-4H3Zm11 0h7v3h-4v4h-3Z"/></symbol>
     <symbol id="i-reload" viewBox="0 0 24 24"><path d="M7 2h10v3h3V2h3v10H13V9h5V6h-3V5H8v3H5v8h3v3h8v-3h3v3h-3v3H7v-3H3V6h4Z"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24"><path d="M6 2h12v3h3v7h-3v3h-4v2h-4v-5h5V9h2V6H7v3H3V5h3Zm4 17h4v4h-4Z"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path d="M10 1h4v3h3v3h3v3h-4V7h-2v9h-4V7H8v3H4V7h3V4h3ZM2 12h4v8h12v-8h4v11H2Z"/></symbol>
@@ -74,9 +76,23 @@
     <footer class="site-footer"><a class="footer-brand" href="#inicio" data-go="home">BALTIGO <span>GAMES</span></a><span>Pequenas pausas. Grandes partidas.</span><button id="shareCatalogButton" class="text-button" type="button">Compartilhar<svg class="icon"><use href="#i-share"/></svg></button></footer>
   </div>
   <nav class="bottom-nav" aria-label="Navegação principal no celular"><button class="nav-item nav-item--active" type="button" data-view-target="home" aria-current="page"><svg class="icon"><use href="#i-home"/></svg><span>Início</span></button><button class="nav-item" type="button" data-view-target="explore"><svg class="icon"><use href="#i-grid"/></svg><span>Explorar</span></button><button class="nav-item" type="button" data-view-target="ranking"><svg class="icon"><use href="#i-trophy"/></svg><span>Classificação</span></button><button class="nav-item" type="button" data-view-target="favorites"><svg class="icon"><use href="#i-heart"/></svg><span>Favoritos</span></button></nav>
-  <section id="player" class="player" hidden aria-label="Jogo em tela cheia"><header class="player-bar"><button id="playerBack" class="icon-button" type="button" aria-label="Sair do jogo"><svg class="icon"><use href="#i-back"/></svg></button><div class="player-meta"><small id="playerCategory">JOGO</small><strong id="playerTitle">Preparando partida</strong></div><div class="player-actions"><button id="playerFavorite" class="icon-button" type="button" aria-label="Salvar nos favoritos" aria-pressed="false"><svg class="icon"><use href="#i-heart"/></svg></button><button id="playerRotate" class="icon-button" type="button" aria-label="Girar a área do jogo" aria-pressed="false" hidden><svg class="icon"><use href="#i-rotate"/></svg></button><button id="playerHelp" class="icon-button" type="button" aria-label="Tutorial do jogo"><svg class="icon"><use href="#i-help"/></svg></button><button id="playerPause" class="icon-button" type="button" aria-label="Pausar jogo"><svg class="icon"><use href="#i-pause"/></svg></button></div></header><div class="player-stage"><div id="playerLoader" class="player-loader"><span class="loader-ring"></span><strong>Preparando sua partida</strong><p>Só mais um instante.</p></div><div id="gameViewport" class="game-viewport"><iframe id="gameFrame" title="Jogo Baltigo Games" allow="autoplay; fullscreen; gamepad" referrerpolicy="same-origin"></iframe></div><div id="pausePanel" class="pause-panel" hidden><div class="pause-card"><span class="panel-icon"><svg class="icon"><use href="#i-pause"/></svg></span><span class="section-kicker">RESPIRE. A PARTIDA ESPERA.</span><h2>Jogo pausado</h2><p>Volte quando estiver pronto para a próxima jogada.</p><button id="resumeGame" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg>Continuar partida</button><button id="playerReload" class="secondary-button" type="button"><svg class="icon"><use href="#i-reload"/></svg>Reiniciar jogo</button><button id="pauseExit" class="text-button" type="button">Voltar à biblioteca</button></div></div><div id="playerError" class="player-error" hidden><svg class="icon"><use href="#i-gamepad"/></svg><h2>A partida não abriu</h2><p>Confira sua conexão e tente carregar o jogo outra vez.</p><button id="playerRetry" class="primary-button" type="button">Tentar novamente</button><button id="playerErrorBack" class="text-button" type="button">Voltar aos jogos</button></div></div></section>
+  <section id="player" class="player" hidden aria-label="Área do jogo">
+    <header class="player-bar">
+      <button id="playerBack" class="icon-button" type="button" aria-label="Sair do jogo"><svg class="icon"><use href="#i-back"/></svg></button>
+      <div class="player-meta"><small id="playerCategory">JOGO</small><strong id="playerTitle">Preparando partida</strong></div>
+      <div class="player-actions">
+        <button id="playerFavorite" class="icon-button" type="button" aria-label="Salvar nos favoritos" aria-pressed="false"><svg class="icon"><use href="#i-heart"/></svg></button>
+        <button id="playerFullscreen" class="icon-button" type="button" aria-label="Entrar em tela cheia" title="Tela cheia" aria-pressed="false" aria-busy="false"><svg class="icon"><use href="#i-fullscreen"/></svg></button>
+        <button id="playerRotate" class="icon-button" type="button" aria-label="Girar a área do jogo" title="Girar a área do jogo" aria-pressed="false" hidden><svg class="icon"><use href="#i-rotate"/></svg></button>
+        <button id="playerHelp" class="icon-button" type="button" aria-label="Tutorial do jogo"><svg class="icon"><use href="#i-help"/></svg></button>
+        <button id="playerPause" class="icon-button" type="button" aria-label="Pausar jogo"><svg class="icon"><use href="#i-pause"/></svg></button>
+      </div>
+    </header>
+    <div id="playerFullscreenStatus" class="fullscreen-status" role="status" aria-live="polite" hidden><span id="playerFullscreenMessage"></span><button id="playerFullscreenRetry" class="icon-button" type="button" aria-label="Tentar tela cheia novamente"><svg class="icon"><use href="#i-fullscreen"/></svg></button></div>
+    <div class="player-stage"><div id="playerLoader" class="player-loader"><span class="loader-ring"></span><strong>Preparando sua partida</strong><p>Só mais um instante.</p></div><div id="gameViewport" class="game-viewport"><iframe id="gameFrame" title="Jogo Baltigo Games" allow="autoplay; fullscreen; gamepad" referrerpolicy="same-origin"></iframe></div><div id="pausePanel" class="pause-panel" hidden><div class="pause-card"><span class="panel-icon"><svg class="icon"><use href="#i-pause"/></svg></span><span class="section-kicker">RESPIRE. A PARTIDA ESPERA.</span><h2>Jogo pausado</h2><p>Volte quando estiver pronto para a próxima jogada.</p><button id="resumeGame" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg>Continuar partida</button><button id="playerReload" class="secondary-button" type="button"><svg class="icon"><use href="#i-reload"/></svg>Reiniciar jogo</button><button id="pauseExit" class="text-button" type="button">Voltar à biblioteca</button></div></div><div id="playerError" class="player-error" hidden><svg class="icon"><use href="#i-gamepad"/></svg><h2>A partida não abriu</h2><p>Confira sua conexão e tente carregar o jogo outra vez.</p><button id="playerRetry" class="primary-button" type="button">Tentar novamente</button><button id="playerErrorBack" class="text-button" type="button">Voltar aos jogos</button></div></div>
+  </section>
   <dialog id="helpDialog" class="help-dialog"><div class="dialog-top"><span id="helpEyebrow" class="section-kicker">VAMOS COMEÇAR</span><button id="closeHelp" class="icon-button" type="button" aria-label="Fechar tutorial"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="helpContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="/static/app.js?v=20261025-arcade-5" defer></script>
+  <script src="/static/app.js?v=20261025-arcade-6" defer></script>
 </body>
 </html>
