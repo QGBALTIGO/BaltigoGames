@@ -51,3 +51,14 @@ def test_railway_url(monkeypatch):
     monkeypatch.delenv("APP_URL", raising=False)
     monkeypatch.setenv("RAILWAY_PUBLIC_DOMAIN", "baltigo-games.up.railway.app")
     assert main.public_app_url() == "https://baltigo-games.up.railway.app"
+
+
+def test_inline_search_ranking():
+    from app.bot import _search_games
+    catalog = {"games": [
+        {"slug": "snake", "name": "Snake", "category": "arcade", "tags": ["classic"]},
+        {"slug": "curve-snake", "name": "Curve Snake", "category": "arcade", "tags": ["snake"]},
+        {"slug": "chess", "name": "Chess", "category": "board", "tags": ["strategy"]},
+    ]}
+    assert _search_games(catalog, "game:snake")[0]["slug"] == "snake"
+    assert [g["slug"] for g in _search_games(catalog, "chess")] == ["chess"]
