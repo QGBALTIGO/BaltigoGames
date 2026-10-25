@@ -62,3 +62,34 @@ jobs:
           name: baltigo-games-visual-snapshots
           path: artifacts/
           if-no-files-found: warn
+
+  docker:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image
+        run: docker build -t baltigo-games:test .
+      - name: Boot image and healthcheck
+        run: |
+          docker run -d --name baltigo-games-test -p 8001:8000 -e BOT_TOKEN= baltigo-games:test
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8001/health | tee /tmp/health.json; then
+              python - <<'PY'
+import json
+data=json.load(open("/tmp/health.json"))
+assert data["ok"] is True
+assert data["games"] == 142
+assert data["bot_configured"] is False
+print("Docker health OK")
+PY
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs baltigo-games-test
+          exit 1
+      - name: Cleanup
+        if: always()
+        run: docker rm -f baltigo-games-test || true
