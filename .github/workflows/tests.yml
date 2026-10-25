@@ -75,7 +75,7 @@ jobs:
         run: |
           docker run -d --name baltigo-games-test -p 8001:8000 -e BOT_TOKEN= baltigo-games:test
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:8001/health | tee /tmp/health.json; then
+            if curl -fsS http://127.0.0.1:8001/health -o /tmp/health.json; then
               python -c 'import json; d=json.load(open("/tmp/health.json")); assert d["ok"] is True; assert d["games"] == 142; assert d["bot_configured"] is False; print("Docker health OK")'
               exit 0
             fi
