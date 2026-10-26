@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Baltigo Games">
+  <path fill="#c5ff49" d="M12 0h72v12h12v72H84v12H12V84H0V12h12Z"/>
+  <path fill="#14243a" fill-rule="evenodd" d="M24 24h48v8h8v40H64v-8H32v8H16V32h8Zm8 12v8h-8v8h8v8h8v-8h8v-8h-8v-8Zm28 0v8h8v-8Zm8 16v8h8v-8Z"/>
+  <path fill="#fff" fill-opacity=".42" d="M16 4h60v4H16Z"/>
+</svg>

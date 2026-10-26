@@ -404,7 +404,11 @@
     if(data.event==='finish')finishRun(['win','completed'].includes(data.outcome)?'completed':'ended',data.score);
   }
   async function shareCatalog(){await shareLink('Baltigo Games','Descubra seu próximo jogo favorito no Baltigo Games.',location.origin);}
-  async function shareLink(title,text,url){try{if(navigator.share){await navigator.share({title,text,url});return;}if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);notify('Link copiado. Compartilhe com quem vai jogar com você.');return;}if(tg?.switchInlineQuery){tg.switchInlineQuery('', ['users','groups']);return;}notify('Compartilhe o endereço desta página.');}catch(error){if(error.name!=='AbortError')notify('Não foi possível compartilhar agora.');}}
+  function tryTelegramInlineShare(){
+    if(!tg?.platform||tg.platform==='unknown'||typeof tg.switchInlineQuery!=='function'||typeof tg.isVersionAtLeast!=='function')return false;
+    try{if(!tg.isVersionAtLeast('6.7'))return false;tg.switchInlineQuery('', ['users','groups','channels']);return true;}catch{return false;}
+  }
+  async function shareLink(title,text,url){try{if(tryTelegramInlineShare())return;if(navigator.share){await navigator.share({title,text,url});return;}if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);notify('Link copiado. Compartilhe com quem vai jogar com você.');return;}notify('Compartilhe o endereço desta página.');}catch(error){if(error.name!=='AbortError')notify('Não foi possível compartilhar agora.');}}
   function openFromStartParam(){if(openFromStartParam.done)return;openFromStartParam.done=true;const params=new URLSearchParams(location.search);const raw=tg?.initDataUnsafe?.start_param||params.get('tgWebAppStartParam')||params.get('startapp')||location.hash.match(/^#play=([a-z0-9-]+)/)?.[1];if(raw&&state.games.some(g=>g.slug===raw))openGame(raw);}
 
   function bindUI(){

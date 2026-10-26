@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280,initial-scale=1" />
+  <title>Banner Baltigo Games</title>
+  <style>
+    @font-face{font-family:Arcade;src:url('../../fonts/PressStart2P-Regular.ttf') format('truetype');font-weight:400;font-display:block}
+    @font-face{font-family:Outfit;src:url('../../fonts/Outfit-Variable.ttf') format('truetype');font-weight:100 900;font-display:block}
+    *{box-sizing:border-box}html,body{margin:0;width:1280px;height:640px;overflow:hidden;background:#080b24}
+    body{font-family:Outfit,sans-serif;color:#f5f8ff}
+    .banner{position:relative;width:1280px;height:640px;isolation:isolate;background:#090e2a;border:2px solid #33487b;overflow:hidden}
+    .banner::before{content:'';position:absolute;inset:0;z-index:-1;background-image:radial-gradient(circle,#30416a 1px,transparent 1.2px);background-size:16px 16px;opacity:.4}
+    .banner::after{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:#45e6f3}
+    .brand{position:absolute;left:55px;top:45px;display:flex;align-items:center;gap:18px;z-index:4}
+    .brand img{width:62px;height:62px;filter:drop-shadow(4px 4px 0 #02081b)}
+    .brand-copy{display:flex;flex-direction:column;gap:9px}.brand-name{font:26px/1 Arcade,monospace;letter-spacing:-1px}.brand-games{font:600 12px/1 Outfit,sans-serif;letter-spacing:8px;color:#45e6f3}
+    .edition{position:absolute;left:55px;top:147px;display:flex;align-items:center;gap:12px;color:#aabde2;font-size:10px;font-weight:650;letter-spacing:2.4px}
+    .edition::before{content:'';width:9px;height:9px;background:#45e6f3;box-shadow:0 0 0 4px #45e6f319}
+    h1{position:absolute;left:51px;top:186px;margin:0;font:400 64px/1.37 Arcade,monospace;letter-spacing:-3px;text-shadow:5px 5px 0 #02071c;z-index:4}
+    h1 span{display:block;color:#c5ff49}
+    .intro{position:absolute;left:55px;top:389px;margin:0;font-size:23px;line-height:1.45;font-weight:450;letter-spacing:-.25px;color:#bacbea;z-index:4}
+    .intro strong{color:#fff;font-weight:600}
+    .cta{position:absolute;left:55px;top:493px;display:flex;align-items:center;gap:13px;height:56px;padding:0 23px;border:1px solid #ecffb6;background:#c5ff49;color:#14212b;font:750 15px/1 Outfit,sans-serif;letter-spacing:.5px;box-shadow:0 5px 0 #587c26,0 9px 0 #030a20;z-index:4}
+    .cta svg{width:18px;height:18px;fill:currentColor}.footer{position:absolute;left:55px;bottom:35px;color:#879cc3;font-size:11px;font-weight:550;letter-spacing:1.3px;z-index:4}
+    .stage{position:absolute;left:630px;right:-5px;top:34px;bottom:31px;border:1px solid #263765;border-radius:8px;background:linear-gradient(135deg,#13245644,#142a6dcc 70%,#1c1c58);transform:skewY(-3deg)}
+    .stage::before{content:'';position:absolute;inset:0;background-image:linear-gradient(#4863a329 1px,transparent 1px),linear-gradient(90deg,#4863a329 1px,transparent 1px);background-size:30px 30px}
+    .stage::after{content:'';position:absolute;left:25px;right:25px;bottom:32px;height:2px;background:#45e6f3;box-shadow:0 8px 0 #182d60,0 14px 0 #c5ff4933}
+    .cartridge{position:absolute;margin:0;padding:11px 11px 0;border:2px solid #829be9;border-radius:7px;background:#202c60;box-shadow:9px 11px 0 #02071d;overflow:hidden;z-index:2}
+    .cartridge img{display:block;width:100%;height:calc(100% - 43px);border:2px solid #050c2c;border-radius:3px;object-fit:cover}
+    .cartridge figcaption{height:41px;display:flex;align-items:center;justify-content:space-between;gap:8px;font:400 9px/1.5 Arcade,monospace;letter-spacing:-.3px;color:#f5f7ff}
+    .cartridge figcaption::after{content:'';flex:none;width:7px;height:7px;background:#45e6f3;box-shadow:0 0 0 3px #121c45}
+    .battle{left:660px;top:64px;width:361px;height:230px;transform:rotate(-8deg);border-color:#c177c4;background:#42264f;z-index:1}
+    .battle img{object-position:50% 50%}.battle figcaption{font-size:8px}.battle figcaption::after{background:#ff83ce}
+    .pacman{left:850px;top:384px;width:350px;height:218px;transform:rotate(6deg);border-color:#45c6de;background:#173c60;z-index:2}
+    .pacman img{object-position:50% 50%}
+    .tetris{left:931px;top:99px;width:248px;height:376px;transform:rotate(8deg);border-color:#94b7ff;background:#263b77;z-index:3}
+    .tetris img{object-position:50% 0%}.tetris figcaption::after{background:#c5ff49}
+    .spark{position:absolute;width:31px;height:31px;background:#c5ff49;clip-path:polygon(35% 0,65% 0,65% 35%,100% 35%,100% 65%,65% 65%,65% 100%,35% 100%,35% 65%,0 65%,0 35%,35% 35%)}
+    .spark.one{left:615px;top:343px;transform:rotate(6deg)}.spark.two{left:1179px;top:47px;width:20px;height:20px;background:#45e6f3}.spark.three{left:743px;top:530px;width:20px;height:20px;background:#ff72bf}
+    .rivet{position:absolute;width:5px;height:5px;background:#5e75a7}.rivet.a{left:18px;top:19px}.rivet.b{right:18px;top:19px}.rivet.c{left:18px;bottom:19px}.rivet.d{right:18px;bottom:19px}
+  </style>
+</head>
+<body>
+  <main class="banner" aria-label="Baltigo Games: o jogo é seu. 142 jogos para jogar no Telegram.">
+    <div class="brand"><img src="logo.svg" alt="" /><div class="brand-copy"><span class="brand-name">BALTIGO</span><span class="brand-games">GAMES</span></div></div>
+    <div class="edition">SEU FLIPERAMA NO TELEGRAM</div>
+    <h1>O JOGO<span>É SEU.</span></h1>
+    <p class="intro"><strong>142 jogos. Grátis. Sem limites.</strong><br />Sua próxima partida começa aqui.</p>
+    <div class="cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h4v3h4v3h4v3h4v2h-4v3h-4v3H9v3H5Z"/></svg>ESCOLHA SEU JOGO</div>
+    <div class="footer">SEM INSTALAR. SÓ COMEÇAR A JOGAR.</div>
+    <div class="stage" aria-hidden="true"></div>
+    <figure class="cartridge battle"><img src="../../covers/alien-battle.webp" alt="Cena real de Batalha alienígena" /><figcaption>BATALHA ALIENÍGENA</figcaption></figure>
+    <figure class="cartridge pacman"><img src="../../covers/pacman.webp" alt="Cena real de Pac-Man" /><figcaption>PAC-MAN</figcaption></figure>
+    <figure class="cartridge tetris"><img src="../../covers/tetris.webp" alt="Cena real de Tetris" /><figcaption>TETRIS</figcaption></figure>
+    <i class="spark one" aria-hidden="true"></i><i class="spark two" aria-hidden="true"></i><i class="spark three" aria-hidden="true"></i>
+    <i class="rivet a" aria-hidden="true"></i><i class="rivet b" aria-hidden="true"></i><i class="rivet c" aria-hidden="true"></i><i class="rivet d" aria-hidden="true"></i>
+  </main>
+</body>
+</html>

@@ -14,6 +14,8 @@ def fake_application(monkeypatch):
     application.updater.start_polling = AsyncMock()
     application.bot.get_me = AsyncMock(return_value=SimpleNamespace(username="ExampleBot", has_main_web_app=False))
     application.bot.set_my_name = AsyncMock()
+    application.bot.set_my_description = AsyncMock()
+    application.bot.set_my_short_description = AsyncMock()
     application.bot.set_my_commands = AsyncMock()
     application.bot.set_chat_menu_button = AsyncMock()
     builder = MagicMock()
@@ -23,7 +25,7 @@ def fake_application(monkeypatch):
     return application
 
 
-CATALOG = {"games": [{"slug": "snake", "name": "Snake", "category": "arcade"}]}
+CATALOG = {"games": [{"slug": "snake", "name": "Cobrinha", "category": "arcade"}]}
 
 
 @pytest.mark.asyncio
@@ -31,10 +33,15 @@ CATALOG = {"games": [{"slug": "snake", "name": "Snake", "category": "arcade"}]}
 async def test_start_handler(fake_application, chat_type, argument):
     app = await start_bot("test-token", "https://games.example", lambda: CATALOG)
     handler = next(call.args[0] for call in app.add_handler.call_args_list if isinstance(call.args[0], CommandHandler))
-    message = SimpleNamespace(reply_text=AsyncMock())
+    message = SimpleNamespace(reply_photo=AsyncMock(), reply_text=AsyncMock())
     update = SimpleNamespace(effective_message=message, effective_chat=SimpleNamespace(type=chat_type))
     await handler.callback(update, SimpleNamespace(args=[argument] if argument else []))
-    call = message.reply_text.call_args
+    call = message.reply_photo.call_args
+    assert call.kwargs["photo"] == ("https://games.example/static/telegram/games/snake.jpg"
+                                    if argument == "game_snake"
+                                    else "https://games.example/static/telegram/baltigo-games.jpg")
+    assert call.kwargs["parse_mode"] == "HTML"
+    message.reply_text.assert_not_awaited()
     button = call.kwargs["reply_markup"].inline_keyboard[0][0]
     if chat_type == "private":
         expected = "https://games.example?startapp=snake" if argument == "game_snake" else "https://games.example"
@@ -42,7 +49,7 @@ async def test_start_handler(fake_application, chat_type, argument):
     else:
         assert button.web_app is None
         assert button.url == "https://t.me/ExampleBot?start=games"
-    assert {command.command for command in app.bot.set_my_commands.call_args.args[0]} == {"jogar", "games"}
+    assert {command.command for command in app.bot.set_my_commands.call_args.args[0]} == {"jogar", "games", "home"}
     assert app.bot.set_chat_menu_button.call_args.kwargs["menu_button"].web_app.url == "https://games.example"
 
 
@@ -50,9 +57,16 @@ async def test_start_handler(fake_application, chat_type, argument):
 async def test_inline_handler_shares_selected_game(fake_application):
     app = await start_bot("test-token", "https://games.example", lambda: CATALOG)
     handler = next(call.args[0] for call in app.add_handler.call_args_list if isinstance(call.args[0], InlineQueryHandler))
-    query = SimpleNamespace(query="game:snake", answer=AsyncMock())
+    query = SimpleNamespace(query="game:snake", offset="", answer=AsyncMock())
     await handler.callback(SimpleNamespace(inline_query=query), None)
     results = query.answer.call_args.args[0]
     assert len(results) == 1
+    wire = results[0].to_dict()
+    assert wire["type"] == "photo"
+    assert wire["photo_url"] == "https://games.example/static/telegram/games/snake.jpg"
+    assert wire["thumbnail_url"] == "https://games.example/static/telegram/thumbs/snake.jpg"
+    assert wire["parse_mode"] == "HTML" and "Cobrinha" in wire["caption"]
+    assert "input_message_content" not in wire
+    assert results[0].reply_markup.inline_keyboard[0][0].web_app is None
     assert results[0].reply_markup.inline_keyboard[0][0].url == "https://t.me/ExampleBot?start=game_snake"
     assert query.answer.call_args.kwargs["button"].web_app.url == "https://games.example"

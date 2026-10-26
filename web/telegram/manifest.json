@@ -1,0 +1,5476 @@
+{
+  "schema": 1,
+  "games_count": 142,
+  "photos_count": 142,
+  "thumbs_count": 142,
+  "banner": {
+    "path": "web/telegram/baltigo-games.jpg",
+    "sha256": "d373ac251187acd40e7e631877854f5ae7da0eccea52e56f00e58e4d461d5944",
+    "width": 1280,
+    "height": 640,
+    "bytes": 211680,
+    "format": "JPEG",
+    "mode": "RGB",
+    "url": "/static/telegram/baltigo-games.jpg",
+    "renderer": "156.0.8078.4",
+    "images": [
+      {
+        "src": "logo.svg",
+        "complete": true,
+        "width": 96,
+        "height": 96
+      },
+      {
+        "src": "../../covers/alien-battle.webp",
+        "complete": true,
+        "width": 1120,
+        "height": 630
+      },
+      {
+        "src": "../../covers/pacman.webp",
+        "complete": true,
+        "width": 1120,
+        "height": 630
+      },
+      {
+        "src": "../../covers/tetris.webp",
+        "complete": true,
+        "width": 551,
+        "height": 1120
+      }
+    ],
+    "external_requests": [],
+    "page_errors": []
+  },
+  "games": [
+    {
+      "slug": "2048",
+      "name_pt": "2048",
+      "source": {
+        "path": "web/covers/2048.webp",
+        "sha256": "6d99e2a4b0d9257bafd160cfb65580400e2cd21a66e98551b10ca91c2fa6336c",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/2048.jpg",
+        "sha256": "9ddce871b2da30bdfa34971863f591b9e353804d2a22809db01855f3e54b7d82",
+        "width": 630,
+        "height": 1120,
+        "bytes": 50082,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/2048.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/2048.jpg",
+        "sha256": "671810285a1e945423531fe3b4be341c4584e9c450f0280cafc87d748b4f2b4d",
+        "width": 240,
+        "height": 150,
+        "bytes": 3913,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/2048.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "6oct",
+      "name_pt": "Letras do deserto",
+      "source": {
+        "path": "web/covers/6oct.webp",
+        "sha256": "caa4c27242e2a618947e728dd8c07e521326659d5d749b221dac333304d4723e",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/6oct.jpg",
+        "sha256": "3f14f4d8a0dce4a9fdefcd6fa88b1bca3bef065f53584cba91ae6306c14558ba",
+        "width": 1120,
+        "height": 630,
+        "bytes": 60524,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/6oct.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/6oct.jpg",
+        "sha256": "199d1a6167949be55d7e55f485aa1278ca87d89ed486afc0ed0f1c0036d9046e",
+        "width": 240,
+        "height": 150,
+        "bytes": 8632,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/6oct.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "abhita",
+      "name_pt": "Peças na grade",
+      "source": {
+        "path": "web/covers/abhita.webp",
+        "sha256": "05dacf1a29676193c5737d4f2a469817bfadc798ca4bf366919dc25d806e816d",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/abhita.jpg",
+        "sha256": "069436dbaa923322c5d8a97e718cb3c2608ded2682fb707d6fa65bfcc18f65d1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 130669,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/abhita.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/abhita.jpg",
+        "sha256": "fedbac17b479ba12037e163fb8838a9d37c5a2b338cb7bfef2b385d7d9c44e0f",
+        "width": 240,
+        "height": 150,
+        "bytes": 16415,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/abhita.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "alien-battle",
+      "name_pt": "Batalha alienígena",
+      "source": {
+        "path": "web/covers/alien-battle.webp",
+        "sha256": "e041940f444c314f870039f89399897e320d1a82729ca05742445527fd947ef9",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/alien-battle.jpg",
+        "sha256": "58487a360dafab82f885d33f6e71da70d31d0afe665cc621a8697ae8287f451b",
+        "width": 1120,
+        "height": 630,
+        "bytes": 143779,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/alien-battle.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/alien-battle.jpg",
+        "sha256": "fb23193334742480757cc1488a474267df22f7e3a2a10b21455e2796c6ceefb1",
+        "width": 240,
+        "height": 150,
+        "bytes": 12079,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/alien-battle.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "antigravity",
+      "name_pt": "Antigravidade",
+      "source": {
+        "path": "web/covers/antigravity.webp",
+        "sha256": "e9ecd87d499e5d720febbfa1fff079c1d782a47ffb6f9b16459e3109fb5f15d4",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/antigravity.jpg",
+        "sha256": "d90204c00db39247807010ac6b07f46b686ce0c5539cfc76c0fc4dbe6ca6f603",
+        "width": 1120,
+        "height": 630,
+        "bytes": 93032,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/antigravity.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/antigravity.jpg",
+        "sha256": "6660827c4c810c64f320be5c835e4e39f4ef0891225d570594fa9a9b9c95419a",
+        "width": 240,
+        "height": 150,
+        "bytes": 9611,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/antigravity.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "archer",
+      "name_pt": "Arqueiro",
+      "source": {
+        "path": "web/covers/archer.webp",
+        "sha256": "4fef98cb76d910137197f60d07944e552fd9fc6078d5c92e7b1b8c8cbc650354",
+        "width": 1120,
+        "height": 518
+      },
+      "photo": {
+        "path": "web/telegram/games/archer.jpg",
+        "sha256": "0be44afe6f4d4e3b730c914a1cc40f7681238d554f74f75b723c53f820c49b67",
+        "width": 1120,
+        "height": 518,
+        "bytes": 188068,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/archer.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/archer.jpg",
+        "sha256": "6c20bdc4cf8c16c2f37d1fa159f130bda249f3f23cf51d4a44ce20dfc90ac06f",
+        "width": 240,
+        "height": 150,
+        "bytes": 13929,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/archer.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          19,
+          240,
+          111
+        ]
+      }
+    },
+    {
+      "slug": "balance-stack",
+      "name_pt": "Torre em equilíbrio",
+      "source": {
+        "path": "web/covers/balance-stack.webp",
+        "sha256": "925c001debd2978812f6185d308cb51344654689cf9ddb4354388e8ba423535f",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/balance-stack.jpg",
+        "sha256": "0ace8a0b524fd3366b26547d43321fdef9e01fc49e6fd5ed3585ba4f85eefa01",
+        "width": 630,
+        "height": 1120,
+        "bytes": 138851,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/balance-stack.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/balance-stack.jpg",
+        "sha256": "097f28c1e4abfab4c3e4ebbd463df2f3ef5305416c17b260809e4e3bcb775533",
+        "width": 240,
+        "height": 150,
+        "bytes": 4947,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/balance-stack.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "basketball",
+      "name_pt": "Basquete",
+      "source": {
+        "path": "web/covers/basketball.webp",
+        "sha256": "f93b4bf31bc8ed79c99a1c86b5d3b7d22bbafed09e36909599d339a5b004e383",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/basketball.jpg",
+        "sha256": "46f36de780d2786bc08248abcd4f58b002858ea5f859773e94f2a92fbd642368",
+        "width": 630,
+        "height": 1120,
+        "bytes": 63366,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/basketball.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/basketball.jpg",
+        "sha256": "83af368eaddfe09df0ff7f58e5e3c45e4f6f879cd98502f58e314c89021c98c1",
+        "width": 240,
+        "height": 150,
+        "bytes": 4729,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/basketball.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "bird-shooter",
+      "name_pt": "Caça aos pássaros",
+      "source": {
+        "path": "web/covers/bird-shooter.webp",
+        "sha256": "934c056ac6f36ab0b6516f0629a3b90df5a7d714bf51e1903d80bc53605b730c",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/bird-shooter.jpg",
+        "sha256": "a789ddb4c4b69b74e0d3cba984b66282bada48157693a361aa99f871447945ca",
+        "width": 1120,
+        "height": 630,
+        "bytes": 117330,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bird-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bird-shooter.jpg",
+        "sha256": "28442defe79e1a19da4c29258d86714a4b226753eae2a4012b5089a89cbcb90f",
+        "width": 240,
+        "height": 150,
+        "bytes": 11607,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bird-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "bomb-blast",
+      "name_pt": "Explosão em cadeia",
+      "source": {
+        "path": "web/covers/bomb-blast.webp",
+        "sha256": "83266f04396ed591ab60740ceddb16b3d6e4660aa249ca36321de7b4322e0063",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/bomb-blast.jpg",
+        "sha256": "c092c1890a45c410cfbd457a233505df60f0899b418820df73b1300d30e8f003",
+        "width": 630,
+        "height": 1120,
+        "bytes": 113447,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bomb-blast.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bomb-blast.jpg",
+        "sha256": "a81e1197c64451b77b292f261fb45aa4e3afc4f30aa917cf798e7ac6170abcd5",
+        "width": 240,
+        "height": 150,
+        "bytes": 6180,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bomb-blast.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "boom-dots",
+      "name_pt": "Pontos explosivos",
+      "source": {
+        "path": "web/covers/boom-dots.webp",
+        "sha256": "cfb8deb607ef3662d7aab4d22c348fa53bf2303f75c7f26e5ade8b28bc0a12b2",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/boom-dots.jpg",
+        "sha256": "5ddb15493706ab05fc6520b8719712b51fb17953f286592b7f1bffca040e3f94",
+        "width": 630,
+        "height": 1120,
+        "bytes": 319637,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/boom-dots.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/boom-dots.jpg",
+        "sha256": "b6d81d11590c1c2f3174ce075f21c4c49347065c57fb14e1c45dccb4cebf07b5",
+        "width": 240,
+        "height": 150,
+        "bytes": 8583,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/boom-dots.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "bowling",
+      "name_pt": "Boliche",
+      "source": {
+        "path": "web/covers/bowling.webp",
+        "sha256": "7e294321091da5abbd5aaf2f420feb90e62dd74ca67ede6c3de3d8fb0b28f3dd",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/bowling.jpg",
+        "sha256": "14c53a5b11fca74a90b58b48743dc5bfcd96474e75e8299376aa29274e3d9ba0",
+        "width": 630,
+        "height": 1120,
+        "bytes": 100403,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bowling.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bowling.jpg",
+        "sha256": "449cb86e2565750a3244fd53a42dc5acb906daeb275c1319d80f51219b201d16",
+        "width": 240,
+        "height": 150,
+        "bytes": 4511,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bowling.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "breakoid",
+      "name_pt": "Quebra-blocos",
+      "source": {
+        "path": "web/covers/breakoid.webp",
+        "sha256": "ff9d56afd3576c3139f6d4659c2296fb972af2782bdf6a0a273c5a63f2aa5ab4",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/breakoid.jpg",
+        "sha256": "a551b1af647a7a8b6594481920f87fa29de14e9577e4af225dfc0ba0aec1fdcb",
+        "width": 630,
+        "height": 1120,
+        "bytes": 58042,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/breakoid.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/breakoid.jpg",
+        "sha256": "c3a187f0cf1e60d5cf834b9ae4b9fa3c6f872bfc596a11894882b442f181ec6b",
+        "width": 240,
+        "height": 150,
+        "bytes": 4197,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/breakoid.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "bubble-pop",
+      "name_pt": "Estoura-bolhas",
+      "source": {
+        "path": "web/covers/bubble-pop.webp",
+        "sha256": "f578b7bb036aacd5277141ccfbae4190b7ae3b08da00ea3ec29c69039030cb8e",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/bubble-pop.jpg",
+        "sha256": "ad44e54b8588890e0d66f868e3fca7f548f1f3d2d7695ddd4c0ca0fd98b6aac5",
+        "width": 630,
+        "height": 1120,
+        "bytes": 50497,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bubble-pop.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bubble-pop.jpg",
+        "sha256": "47170c4538565168c5b8ca36aa6e4782b2abe1e177b9d09e3c668118051c90d9",
+        "width": 240,
+        "height": 150,
+        "bytes": 3868,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bubble-pop.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "bubble-shooter",
+      "name_pt": "Lança-bolhas",
+      "source": {
+        "path": "web/covers/bubble-shooter.webp",
+        "sha256": "c250d42f5587d51f6e475a8c6aec26d27e66b2ebfec2cf8bee653ea77f8e3afc",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/bubble-shooter.jpg",
+        "sha256": "3b2c6085b4f0d0fc4d98af2c3ba6a123ec7958b0ca8156498b20a66e2fe11ef1",
+        "width": 630,
+        "height": 1120,
+        "bytes": 164983,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bubble-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bubble-shooter.jpg",
+        "sha256": "d294dc1c6d1777424a5c428301b74fde5a68322a951142d5998472ef4ec1974a",
+        "width": 240,
+        "height": 150,
+        "bytes": 8780,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bubble-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "bug-smasher",
+      "name_pt": "Esmaga-insetos",
+      "source": {
+        "path": "web/covers/bug-smasher.webp",
+        "sha256": "34e04588093911196a7797f2b8796f2dfbd7ff3d3a7f9d91e79639ada08f4681",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/bug-smasher.jpg",
+        "sha256": "8d6bfa576f3cc1824a295cfe8d370fd26de5b56456476a42f5664d89b3724012",
+        "width": 630,
+        "height": 1120,
+        "bytes": 68861,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/bug-smasher.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/bug-smasher.jpg",
+        "sha256": "aa29952f617e220bd301ec075b09189f7e8a385b77b1b824b12e3a029bf187e5",
+        "width": 240,
+        "height": 150,
+        "bytes": 4511,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/bug-smasher.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "buttermilk",
+      "name_pt": "Mistura perfeita",
+      "source": {
+        "path": "web/covers/buttermilk.webp",
+        "sha256": "a462e87a56daa79e0b6f37ca124ff3d37123ba8a9d3e4774af01a29a82dcbd16",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/buttermilk.jpg",
+        "sha256": "101eb20943413e15b7dc15f80eaf373fe676d34d84b748a3a7ea0f7bf7f4f542",
+        "width": 630,
+        "height": 1120,
+        "bytes": 86270,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/buttermilk.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/buttermilk.jpg",
+        "sha256": "4b1784f95281b37220783ade456087b087ba8844ef527004b6f0f7152901abc8",
+        "width": 240,
+        "height": 150,
+        "bytes": 6656,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/buttermilk.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "candy-crush",
+      "name_pt": "Doces combinados",
+      "source": {
+        "path": "web/covers/candy-crush.webp",
+        "sha256": "22a04bc29c49f3a92c7c52ca6c780e79cfa418f2d27a4fb6a55c6bfe5badfb5c",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/candy-crush.jpg",
+        "sha256": "3a319e074e3648ebec36f779411e25ec892b315e7f661f1c190d2ccb054dac51",
+        "width": 630,
+        "height": 1120,
+        "bytes": 170618,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/candy-crush.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/candy-crush.jpg",
+        "sha256": "6c2dcdd7de1a53f6cd8933ca8c376d7dea2808e9e93ded97961848d907f7ddc6",
+        "width": 240,
+        "height": 150,
+        "bytes": 10811,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/candy-crush.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "candy-crusher",
+      "name_pt": "Explosão de doces",
+      "source": {
+        "path": "web/covers/candy-crusher.webp",
+        "sha256": "9e9f2f35d3b94a0ecadc8ece5de75010acb7c6552e0ee5256335e16704c31914",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/candy-crusher.jpg",
+        "sha256": "ba28f43ca39813bd5bc6cc1545fcbe72846763a40ab5f646dbf16adad6db598d",
+        "width": 630,
+        "height": 1120,
+        "bytes": 191866,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/candy-crusher.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/candy-crusher.jpg",
+        "sha256": "bb3f859484d0dbd9d7d2b0befc1d11a0bd2bea3f2cc8268425f889d1670eb266",
+        "width": 240,
+        "height": 150,
+        "bytes": 12010,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/candy-crusher.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "cannon-blaster",
+      "name_pt": "Canhão de precisão",
+      "source": {
+        "path": "web/covers/cannon-blaster.webp",
+        "sha256": "76250524df7d15fa22fceeb170fda03400d104fb4a8157ab39ae8428b896d60c",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/cannon-blaster.jpg",
+        "sha256": "3d994a9be568179ca6126131a7467245193e8b062e0f191c174bc4d0aaa66ed1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 77370,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cannon-blaster.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cannon-blaster.jpg",
+        "sha256": "553d71394896e4f27b8fcb9c556ef023a4b5c7bb13c66c66e9809c5ef8264c37",
+        "width": 240,
+        "height": 150,
+        "bytes": 8030,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cannon-blaster.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "car-race",
+      "name_pt": "Corrida no trânsito",
+      "source": {
+        "path": "web/covers/car-race.webp",
+        "sha256": "4d45d06cc1f5d10afd89b475c9c64259c05682050a2161c23a05c1f9ca9896c5",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/car-race.jpg",
+        "sha256": "72163721425b4168a1fb6947701f97bd693dd15dad212ebfbde706c2436ec54e",
+        "width": 560,
+        "height": 1120,
+        "bytes": 22842,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/car-race.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/car-race.jpg",
+        "sha256": "efada2eac4e41221e4355f613bf7e27be8f1d53ff859725886a75a491f924c36",
+        "width": 240,
+        "height": 150,
+        "bytes": 2814,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/car-race.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "cargo-stack",
+      "name_pt": "Empilha-cargas",
+      "source": {
+        "path": "web/covers/cargo-stack.webp",
+        "sha256": "7f8adca08a2cc0ec13e39ab85bfba3e40e681897868a58ee5558044a12a264cc",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/cargo-stack.jpg",
+        "sha256": "f426787422777bd255d8f0059aa56d91d00a4200613801fe210c16e89e4cd029",
+        "width": 630,
+        "height": 1120,
+        "bytes": 48620,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cargo-stack.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cargo-stack.jpg",
+        "sha256": "87d9747e58d1e9441b65a697460ae7919f231d4f0ab1bb311374304cc90caee0",
+        "width": 240,
+        "height": 150,
+        "bytes": 3124,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cargo-stack.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "carrom",
+      "name_pt": "Carrom",
+      "source": {
+        "path": "web/covers/carrom.webp",
+        "sha256": "2fe8aae047ef4a23d6bbabfd74a227b56256214a8046945c1f26832b092f43a4",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/carrom.jpg",
+        "sha256": "1f8c59cdace7bd6b13c95f09b76db2c6809f0a0213449c40b1ad2b61ce4a2e68",
+        "width": 630,
+        "height": 1120,
+        "bytes": 112861,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/carrom.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/carrom.jpg",
+        "sha256": "b4948779c51bed2cf034e527332bb38339a3b346340b35d60fc1a546ba697b16",
+        "width": 240,
+        "height": 150,
+        "bytes": 6573,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/carrom.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "catch-me-if-you-can",
+      "name_pt": "Pegue-me se puder",
+      "source": {
+        "path": "web/covers/catch-me-if-you-can.webp",
+        "sha256": "383d224e2d8bdbceb71c2fd17c22904fb5c49f80cc4ffc58a857667f6e386003",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/catch-me-if-you-can.jpg",
+        "sha256": "c9dc7b8216d94305a864ce0fbf4cf07e22292e7a855a14b90f7703dd8dde1ef1",
+        "width": 630,
+        "height": 1120,
+        "bytes": 57785,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/catch-me-if-you-can.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/catch-me-if-you-can.jpg",
+        "sha256": "b4e27e6ff892b947e4da922dbecea13828e9c526bc7fad4b961400e6a39db507",
+        "width": 240,
+        "height": 150,
+        "bytes": 4860,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/catch-me-if-you-can.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "chess",
+      "name_pt": "Xadrez",
+      "source": {
+        "path": "web/covers/chess.webp",
+        "sha256": "35e7648cd90f1119c9c9bab81ebd357f169fe66b14de9683baac1091f8a5052a",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/chess.jpg",
+        "sha256": "23d777907cab60f034b9350578acbd10cdefb8e3044c2fc3ac792ce68d45e5d5",
+        "width": 630,
+        "height": 1120,
+        "bytes": 61104,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/chess.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/chess.jpg",
+        "sha256": "5942248f04368b2c3e084a73ffa447ff3f9046d915fd188d207cea661d03741b",
+        "width": 240,
+        "height": 150,
+        "bytes": 3824,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/chess.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "circle-path",
+      "name_pt": "Caminho circular",
+      "source": {
+        "path": "web/covers/circle-path.webp",
+        "sha256": "ca31c17907f8c07e752cd76cb6342882a47d766171eebd9959fb60fa52e95c07",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/circle-path.jpg",
+        "sha256": "747adf4fa1b6743202c6c072e59e6c5647e8162cd521e49b39090ad7008cbce8",
+        "width": 630,
+        "height": 1120,
+        "bytes": 325020,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/circle-path.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/circle-path.jpg",
+        "sha256": "0b60fa86c7f747223afcdbd4265fdd8a5183ff9839e376b37543c8c32a4dff83",
+        "width": 240,
+        "height": 150,
+        "bytes": 8908,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/circle-path.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "circuit-bulb",
+      "name_pt": "Acenda a lâmpada",
+      "source": {
+        "path": "web/covers/circuit-bulb.webp",
+        "sha256": "5ac1e3ef28af25f5446a01acc83154e0376421c6e50bb3e1646a7bb867a41037",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/circuit-bulb.jpg",
+        "sha256": "3ae03e75c6892b096c50370d669be66ee2b107c2cd1ae81f388bf3783c22105b",
+        "width": 630,
+        "height": 1120,
+        "bytes": 165214,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/circuit-bulb.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/circuit-bulb.jpg",
+        "sha256": "67120aedd9eeaaf5de2a3dca57bc4a1090d5ae3fa64338cdf2e43c12cd490123",
+        "width": 240,
+        "height": 150,
+        "bytes": 8487,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/circuit-bulb.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "collector",
+      "name_pt": "Pouso de precisão",
+      "source": {
+        "path": "web/covers/collector.webp",
+        "sha256": "dfec23a798d6c7de1bd88eb7d07a1228dce08b9ca74fed4087abef9ab9ff473f",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/collector.jpg",
+        "sha256": "87fb9ccb154bd3d334bbf23b9ea75f44c538c60eb6b771d4daa57526a17e6cef",
+        "width": 1120,
+        "height": 630,
+        "bytes": 240935,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/collector.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/collector.jpg",
+        "sha256": "4ca19c267ac2a50936ffb43cef9d120d8c54637dc624dc841f19ba6f11f1938d",
+        "width": 240,
+        "height": 150,
+        "bytes": 15327,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/collector.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "color-dash",
+      "name_pt": "Passagem das cores",
+      "source": {
+        "path": "web/covers/color-dash.webp",
+        "sha256": "279915a6f05798640332f6b7ef1eb1b73398ad4ae61c87c14c59a7b62299b36b",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/color-dash.jpg",
+        "sha256": "2b8d340aca2c53f90139285c9486e32330dda95323fadf5d97489687944e713d",
+        "width": 630,
+        "height": 1120,
+        "bytes": 141585,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/color-dash.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/color-dash.jpg",
+        "sha256": "f64bc6a13603ff8516ea9549232a61ae53addaf753068f7188483a11bca4cb23",
+        "width": 240,
+        "height": 150,
+        "bytes": 4802,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/color-dash.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "colour-pour",
+      "name_pt": "Mistura de cores",
+      "source": {
+        "path": "web/covers/colour-pour.webp",
+        "sha256": "3ed31926750c504751ddf7a8df690183dc29423ca5dbe48431a1bb6dade0dc54",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/colour-pour.jpg",
+        "sha256": "023f61089b1c714cb21cc86a1c4aa7f95a2cd3c8661b42b58216b5e378ec40aa",
+        "width": 1120,
+        "height": 630,
+        "bytes": 59639,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/colour-pour.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/colour-pour.jpg",
+        "sha256": "11a3afb033ea35180ae4627da1ddc7b84e01a783d443859d089177066cac6b48",
+        "width": 240,
+        "height": 150,
+        "bytes": 7531,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/colour-pour.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "connected",
+      "name_pt": "Conectados",
+      "source": {
+        "path": "web/covers/connected.webp",
+        "sha256": "32089a284f25e39bcc27812f8c0fa743932ce014b62a0d7e80be973fa06b747c",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/connected.jpg",
+        "sha256": "b96f1753843640ab85ce8adeaae545995962608af06a58d4751d3e352ac42a1c",
+        "width": 630,
+        "height": 1120,
+        "bytes": 344647,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/connected.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/connected.jpg",
+        "sha256": "9cb359616ab0712d02a7d9c58791bdab83756d34ac3247824afee97a2c75a661",
+        "width": 240,
+        "height": 150,
+        "bytes": 11375,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/connected.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "cooking",
+      "name_pt": "Cozinha expressa",
+      "source": {
+        "path": "web/covers/cooking.webp",
+        "sha256": "35ef6e9d61d1857926029e10ccfaf8240ba0c4254a52cc0cf2c9b3735905037e",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/cooking.jpg",
+        "sha256": "0f617678939c57c409a3ec13641415bf31613f336d6677d1945aa25cb00b87bd",
+        "width": 1120,
+        "height": 630,
+        "bytes": 128292,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cooking.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cooking.jpg",
+        "sha256": "9426a4b936e27835383e8376e7ea2f671e3bc78b90b26c27eb214246e188d989",
+        "width": 240,
+        "height": 150,
+        "bytes": 11615,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cooking.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "cool-platformer",
+      "name_pt": "Caminho dos ventos",
+      "source": {
+        "path": "web/covers/cool-platformer.webp",
+        "sha256": "55506ce1e6825a519d4cbb337b1fe164dda4fbe0297d8274bb1ef02bdee41947",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/cool-platformer.jpg",
+        "sha256": "4ba1383979f963aa4fc0458151806d6f0d51bb90df73f474f4fd365aa3b520c4",
+        "width": 1120,
+        "height": 630,
+        "bytes": 127455,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cool-platformer.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cool-platformer.jpg",
+        "sha256": "006096d8cbc2d027ce78c41bdba6d4dac15fe5a88b7c4cbce0e748304b76fa04",
+        "width": 240,
+        "height": 150,
+        "bytes": 14143,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cool-platformer.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "cosmic-cleaner",
+      "name_pt": "Limpeza cósmica",
+      "source": {
+        "path": "web/covers/cosmic-cleaner.webp",
+        "sha256": "dd16888019bf0874ef0bf44a06913db96bb29a8b504b9a4d9145882ac868b1a5",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/cosmic-cleaner.jpg",
+        "sha256": "66088b07a24907ea492d6cc5e324e26eb0b2c4bdf85a259ea1d04ddd3b1f016a",
+        "width": 1120,
+        "height": 630,
+        "bytes": 257006,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cosmic-cleaner.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cosmic-cleaner.jpg",
+        "sha256": "9d7766917993d55eacfb5b61402c2ea81e93a2067dc4e8b2dea4accd90e88b3f",
+        "width": 240,
+        "height": 150,
+        "bytes": 16789,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cosmic-cleaner.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "cricket-123",
+      "name_pt": "Maquinista",
+      "source": {
+        "path": "web/covers/cricket-123.webp",
+        "sha256": "d33a819a3684e778bc74c8cceba8a385285936908bbc77bded1c952f852e5744",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/cricket-123.jpg",
+        "sha256": "296297f40c55eda89eae80a71fdaa1e204906c65e1438fb4cb22d22f36fc16a0",
+        "width": 1120,
+        "height": 630,
+        "bytes": 69574,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cricket-123.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cricket-123.jpg",
+        "sha256": "8a0a70e0a40f0883cd4661d9f2bb98b5b376a7a719b7197de5d9b63be7e3d7c0",
+        "width": 240,
+        "height": 150,
+        "bytes": 8367,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cricket-123.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "crossy-road",
+      "name_pt": "Travessia movimentada",
+      "source": {
+        "path": "web/covers/crossy-road.webp",
+        "sha256": "d377239b0f2fb36adaf969e462ef664fcb14d6fbac4751add8f8b71f82cbfaa3",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/crossy-road.jpg",
+        "sha256": "940637afe39c26b14702a6a6553383fda49ec1d68dbb5c33d03c5289710b143e",
+        "width": 560,
+        "height": 1120,
+        "bytes": 44886,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/crossy-road.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/crossy-road.jpg",
+        "sha256": "ce5ee33d2cfd0e1e8c0cfc753757a8aac69b90340b032dc9655b1fb6de37705c",
+        "width": 240,
+        "height": 150,
+        "bytes": 5369,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/crossy-road.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "crowd-control",
+      "name_pt": "Controle da multidão",
+      "source": {
+        "path": "web/covers/crowd-control.webp",
+        "sha256": "bb56f848a14157508e2a42a5b82a89c5ef31d1670d70b431ddb6ffa5efe7ccea",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/crowd-control.jpg",
+        "sha256": "09774a607164363b5ba628193852a182fb4a56fe1e52186f06e3979b5874c599",
+        "width": 630,
+        "height": 1120,
+        "bytes": 52059,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/crowd-control.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/crowd-control.jpg",
+        "sha256": "066a0281010e27a772d570dd5c59edfceb8e017f5a6c8fb8701c70af7cca5dee",
+        "width": 240,
+        "height": 150,
+        "bytes": 4743,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/crowd-control.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "curve-snake",
+      "name_pt": "Cobra em curvas",
+      "source": {
+        "path": "web/covers/curve-snake.webp",
+        "sha256": "723d0f837404ba1a17b316b5b1656809816f76fa36364936272486bff3148b7b",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/curve-snake.jpg",
+        "sha256": "4276b8f025a09ce7e951ffeb0055507d690a86faedeb529b43231371a16aeadd",
+        "width": 630,
+        "height": 1120,
+        "bytes": 258947,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/curve-snake.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/curve-snake.jpg",
+        "sha256": "82b2893ad92684c51f063341716017808c9e0370a146803da0d3b12efd87bb75",
+        "width": 240,
+        "height": 150,
+        "bytes": 11876,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/curve-snake.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "cut-rope",
+      "name_pt": "Corte a corda",
+      "source": {
+        "path": "web/covers/cut-rope.webp",
+        "sha256": "61fe507e17bbc702d508afeab8e2e78006ad441258c40a31eabb5e31aae13a71",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/cut-rope.jpg",
+        "sha256": "d9b14a77c9f604318d1a6e75fd31f241f09e9c66d32ad8fe03e16822ee86b11f",
+        "width": 630,
+        "height": 1120,
+        "bytes": 69340,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/cut-rope.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/cut-rope.jpg",
+        "sha256": "780c736c5dbbbf85c6dec898a2a76c4a87d8abbeaf90183cf76680523ab92a30",
+        "width": 240,
+        "height": 150,
+        "bytes": 4980,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/cut-rope.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "demon",
+      "name_pt": "Torre dos demônios",
+      "source": {
+        "path": "web/covers/demon.webp",
+        "sha256": "96b00f7623ce004309c0e6a29c8d5442f16218aa4df31648c21678394db90c9a",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/demon.jpg",
+        "sha256": "b702851f814521b885022e91c40a49262b3a1b5e3998b69da1ac4461d9481199",
+        "width": 630,
+        "height": 1120,
+        "bytes": 74094,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/demon.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/demon.jpg",
+        "sha256": "9d07051d6d0609d84ece2774db203b14dac72fc0a6a99338b38865668f730736",
+        "width": 240,
+        "height": 150,
+        "bytes": 4431,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/demon.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "devil-king",
+      "name_pt": "Rei dos desafios",
+      "source": {
+        "path": "web/covers/devil-king.webp",
+        "sha256": "3ebe0ada01db2f20994076d37109cfcd44af74203f29d3f20c0e98f0a102eeee",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/devil-king.jpg",
+        "sha256": "7c9ad7b92730857e853307aecb329dd7d835085f9b740595d87c85b6eab207de",
+        "width": 1120,
+        "height": 630,
+        "bytes": 74842,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/devil-king.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/devil-king.jpg",
+        "sha256": "5574fad99e202ba5dd763dcda9a975557760bc76f46b410152e8ccc3e9cc3326",
+        "width": 240,
+        "height": 150,
+        "bytes": 8012,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/devil-king.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "dodge-enemy",
+      "name_pt": "Desvie dos inimigos",
+      "source": {
+        "path": "web/covers/dodge-enemy.webp",
+        "sha256": "9539a04158984f5a5739fe27d41b19185c2480d26bed8465767241875aa74771",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/dodge-enemy.jpg",
+        "sha256": "006c3a2b719cff76e5a236923513df3f9a13c1d8b48e4b749eafdf85faee46fd",
+        "width": 1120,
+        "height": 630,
+        "bytes": 57909,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/dodge-enemy.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/dodge-enemy.jpg",
+        "sha256": "a4b993426b7b9ca01fc82d85c47c435f1cd8c6a60c639748d5f6dd4dec4cb9b0",
+        "width": 240,
+        "height": 150,
+        "bytes": 6931,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/dodge-enemy.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "dodge-master",
+      "name_pt": "Mestre dos desvios",
+      "source": {
+        "path": "web/covers/dodge-master.webp",
+        "sha256": "136441a1bbb83aeaaf6ecff89032c2a6d2a2e5e1e9fb69207edabe88f758f46e",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/dodge-master.jpg",
+        "sha256": "a186b5861da8a097981eb44dc354156780c29a7fd5e15d2a07c277b70273fe0b",
+        "width": 630,
+        "height": 1120,
+        "bytes": 139227,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/dodge-master.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/dodge-master.jpg",
+        "sha256": "c1662db8cad2972cb4885511bc86b1d28fd14e855c067f33efbaab75ff37836c",
+        "width": 240,
+        "height": 150,
+        "bytes": 4882,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/dodge-master.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "doodle-jump",
+      "name_pt": "Salto nas alturas",
+      "source": {
+        "path": "web/covers/doodle-jump.webp",
+        "sha256": "332be3d4888b1781a6b0c7351184e52113ffcc8a0bee242d83697cb7af4c1819",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/doodle-jump.jpg",
+        "sha256": "4aefd3809e28bb6fbf07c3a34566ce12c88dc28c1611e6adc3b3d33ce345d8df",
+        "width": 630,
+        "height": 1120,
+        "bytes": 52070,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/doodle-jump.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/doodle-jump.jpg",
+        "sha256": "18430134ec2de0c27ab0da09da4b89d785a62b43ae637227ae2900395845ec5c",
+        "width": 240,
+        "height": 150,
+        "bytes": 5210,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/doodle-jump.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "dream-weaver",
+      "name_pt": "Tecelão dos sonhos",
+      "source": {
+        "path": "web/covers/dream-weaver.webp",
+        "sha256": "5a1ac7a6f7567eebf4c0fb0ddcd9f08a39616feb11a9caa85e743b2b6f424bdc",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/dream-weaver.jpg",
+        "sha256": "8a1306f8e807f12b573a27a831fe9652e438b14dedf4c8069451501e87f70c8e",
+        "width": 630,
+        "height": 1120,
+        "bytes": 36188,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/dream-weaver.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/dream-weaver.jpg",
+        "sha256": "19fbe1bbd4ebc28f3afe0070a447e914db680145793c29379d388ae5e6934bed",
+        "width": 240,
+        "height": 150,
+        "bytes": 3036,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/dream-weaver.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "ellars",
+      "name_pt": "Ellars",
+      "source": {
+        "path": "web/covers/ellars.webp",
+        "sha256": "82b8ed7cab38a2c61a596f15ad6531683297cab8f31e8b74d8794d47d4d1d062",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/ellars.jpg",
+        "sha256": "3af99da5b09910611646e4601e61e39f8caa04a112a822cddc257ff71086a0cf",
+        "width": 630,
+        "height": 1120,
+        "bytes": 200002,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/ellars.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/ellars.jpg",
+        "sha256": "18134d95dd3908894b2f5462830a70bbb1479aaa048615e976198573019151cb",
+        "width": 240,
+        "height": 150,
+        "bytes": 10080,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/ellars.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "endless-mafia",
+      "name_pt": "Máfia sem fim",
+      "source": {
+        "path": "web/covers/endless-mafia.webp",
+        "sha256": "94a8fe9ac52c8510714982e73880ba4a665950bd114d565c195fae63229336bc",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/endless-mafia.jpg",
+        "sha256": "f0208b236f410aa5d754e2f96c5c53944919630d908329169561f8f6bcf72f9f",
+        "width": 1120,
+        "height": 630,
+        "bytes": 131461,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/endless-mafia.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/endless-mafia.jpg",
+        "sha256": "9b92adff06b33bd8e3be96dc24527aba5c3dbf95a2c3ae2ba75a2fe171de079e",
+        "width": 240,
+        "height": 150,
+        "bytes": 12180,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/endless-mafia.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "endless-runner",
+      "name_pt": "Corrida infinita",
+      "source": {
+        "path": "web/covers/endless-runner.webp",
+        "sha256": "86a6970cd9c98ee63df776cf6d22007cbb6b76fbe624250ed922e955c59f8f1b",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/endless-runner.jpg",
+        "sha256": "0d1117b50a0844f721de5c50167e1be584d0d240b3ecd0f1617aba605a6cb788",
+        "width": 1120,
+        "height": 630,
+        "bytes": 95154,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/endless-runner.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/endless-runner.jpg",
+        "sha256": "0ccfb48b16e62249fc4b2292e0d571a62ee0e0236d5d08b901c5b93897f8d787",
+        "width": 240,
+        "height": 150,
+        "bytes": 10122,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/endless-runner.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "fighter-fury",
+      "name_pt": "Defesa aérea",
+      "source": {
+        "path": "web/covers/fighter-fury.webp",
+        "sha256": "663955911750100341a66cd925bc9154bb336ba01ab8e98e0baae572c291ad01",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/fighter-fury.jpg",
+        "sha256": "6926af68fe3b4830044d56afba93a0ee2ba3a4afeabc98d4d5392f33f44663cf",
+        "width": 1120,
+        "height": 630,
+        "bytes": 64361,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fighter-fury.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fighter-fury.jpg",
+        "sha256": "0058bda6c29bdad56831e25931b3ff5a78fcafe14becda0bb8bb28a4b106e5a7",
+        "width": 240,
+        "height": 150,
+        "bytes": 7445,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fighter-fury.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "fighter-jet",
+      "name_pt": "Caça de combate",
+      "source": {
+        "path": "web/covers/fighter-jet.webp",
+        "sha256": "20e9787575083aa93b9944ccab540a15d27cf464672d60b214023cd000137c81",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/fighter-jet.jpg",
+        "sha256": "b12048d79122f57eb1b6d5fcf930e3d87d1c8656b0f46e6a1fc8a077e05f42d0",
+        "width": 1120,
+        "height": 630,
+        "bytes": 114821,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fighter-jet.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fighter-jet.jpg",
+        "sha256": "b80ac49f0bf214d91a54c72fb9105789f8a530ea074f013763264254056154db",
+        "width": 240,
+        "height": 150,
+        "bytes": 11981,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fighter-jet.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "flappy",
+      "name_pt": "Voo entre os canos",
+      "source": {
+        "path": "web/covers/flappy.webp",
+        "sha256": "bf00057620d745842351dc0d7283061bdb8ee42ce1d8dfd3427596617e6f56f6",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/flappy.jpg",
+        "sha256": "0d619dbf27ef78aabba4f74660e4b631cc9897b82e92968e324e193dcf84861b",
+        "width": 630,
+        "height": 1120,
+        "bytes": 52181,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/flappy.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/flappy.jpg",
+        "sha256": "44571082f5068971d91bbccae99fca348aa2db3d389ea6be41023e7f5a9ec080",
+        "width": 240,
+        "height": 150,
+        "bytes": 5204,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/flappy.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "flip-jump",
+      "name_pt": "Salto invertido",
+      "source": {
+        "path": "web/covers/flip-jump.webp",
+        "sha256": "fc5c36a75dd108eea06486da35ae1ea64f79c656c80c589e31bd720a668565dc",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/flip-jump.jpg",
+        "sha256": "84c47e9e07d03ec9b7e135571fe1dccd37a55e725ba7aab644dbbd233f7470d2",
+        "width": 1120,
+        "height": 630,
+        "bytes": 77709,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/flip-jump.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/flip-jump.jpg",
+        "sha256": "291adacdf2cd0feb43eff6f9abade0f23d5925f3e15546547e9dbde505fea031",
+        "width": 240,
+        "height": 150,
+        "bytes": 7183,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/flip-jump.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "fly-monkey",
+      "name_pt": "Fuga pelo portal",
+      "source": {
+        "path": "web/covers/fly-monkey.webp",
+        "sha256": "5d65c2cc320a43d5ea6fb226c3d8c55a4ab4ac0b5130f74be9c8049c76de3d64",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/fly-monkey.jpg",
+        "sha256": "0277fd434737428b7c17f60690737581cfeb5e239ef68ed92d6af89d0216d261",
+        "width": 1120,
+        "height": 630,
+        "bytes": 126201,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fly-monkey.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fly-monkey.jpg",
+        "sha256": "a8d3d2d162946df13f0ff52d5135165844d49b5f578576c159b4539a0fdfd0b6",
+        "width": 240,
+        "height": 150,
+        "bytes": 11662,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fly-monkey.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "football",
+      "name_pt": "Futebol de cabeças",
+      "source": {
+        "path": "web/covers/football.webp",
+        "sha256": "0ffca1bae3ce12b8f8165b64787c8b0aa74ec61b6c231e01fa5b9503e1e10025",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/football.jpg",
+        "sha256": "8237425c65c6e349dc183e331ae936cf6cbd19e409eb618fe6171f33f7d75bbb",
+        "width": 1120,
+        "height": 630,
+        "bytes": 45123,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/football.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/football.jpg",
+        "sha256": "048d0727fb8351b1f8b5c7cf26f4c964c3552bda2142bed5884ef195930c4ae2",
+        "width": 240,
+        "height": 150,
+        "bytes": 6261,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/football.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "forest-runner",
+      "name_pt": "Corrida na floresta",
+      "source": {
+        "path": "web/covers/forest-runner.webp",
+        "sha256": "9a8246acd5a7da66cf60e31e1596eafa906a27c4da22b6f8e457a0cac4013d4f",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/forest-runner.jpg",
+        "sha256": "c1ca423cca66c29d1252b5b28ab4d9f7053f4650a477327fd322519b4d9bc243",
+        "width": 1120,
+        "height": 630,
+        "bytes": 114454,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/forest-runner.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/forest-runner.jpg",
+        "sha256": "2a630756b50a8e01d382139e55d6f9656b93cb6574f5a52ec71dffcceb544321",
+        "width": 240,
+        "height": 150,
+        "bytes": 12022,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/forest-runner.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "four-dots",
+      "name_pt": "Quatro em linha",
+      "source": {
+        "path": "web/covers/four-dots.webp",
+        "sha256": "7d53f1050bc5bbace8f5a50a2bd3cd046f79650bd7737704ae25c7a03f073971",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/four-dots.jpg",
+        "sha256": "bce409e97bd2169f09847f0ef60e87b391dfcdf039ae1d87f49ea8cf10f6a331",
+        "width": 630,
+        "height": 1120,
+        "bytes": 88863,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/four-dots.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/four-dots.jpg",
+        "sha256": "8f7531db12ce98aea548d00f4c74c24ef27193c6a1e01b52587e2afae19e7331",
+        "width": 240,
+        "height": 150,
+        "bytes": 7042,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/four-dots.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "fruit-basket",
+      "name_pt": "Cesta de frutas",
+      "source": {
+        "path": "web/covers/fruit-basket.webp",
+        "sha256": "1c69c3be39bc26a45537bb2ce3d5ab4045e3bb85fa05dee1e0db48e6a0d84a33",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/fruit-basket.jpg",
+        "sha256": "4c58388b238763e6c99948d54828d8629aff49133581536b60ba68d6541f6d39",
+        "width": 630,
+        "height": 1120,
+        "bytes": 322935,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fruit-basket.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fruit-basket.jpg",
+        "sha256": "87ed09f5a26dd8a957efe3d912b76fd8a34e0fc5d7798b34e02934d21e5872c5",
+        "width": 240,
+        "height": 150,
+        "bytes": 8371,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fruit-basket.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "fruit-cosmics",
+      "name_pt": "Frutas cósmicas",
+      "source": {
+        "path": "web/covers/fruit-cosmics.webp",
+        "sha256": "1625befc7c4b9968b7103df587d8c7e2b6706075b0eb54fbb0366363e4fa95cd",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/fruit-cosmics.jpg",
+        "sha256": "27eaddeacb54c2a34be530b264ffc2fd7e4a0dfe69c97a4ccb321105f23e0775",
+        "width": 630,
+        "height": 1120,
+        "bytes": 325936,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fruit-cosmics.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fruit-cosmics.jpg",
+        "sha256": "a47981d7c7c0da0b91f712d34f7fc1572bf6b83739cb5ddf17e290a0a4e25fd3",
+        "width": 240,
+        "height": 150,
+        "bytes": 8458,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fruit-cosmics.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "fruit-merge",
+      "name_pt": "Fusão de frutas",
+      "source": {
+        "path": "web/covers/fruit-merge.webp",
+        "sha256": "4c20da6213087494500213d147706832036e3d693929aa8835586f3ba1c5f15f",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/fruit-merge.jpg",
+        "sha256": "01bf58d2cf125d24f302400c0dc3bf71fa1e75081cfc9ba8a5b7af58b058ccd7",
+        "width": 630,
+        "height": 1120,
+        "bytes": 184956,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/fruit-merge.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/fruit-merge.jpg",
+        "sha256": "d66f51478064102ff4fe1b11ad06c3cb836ff30cf2db9335d22c4d5786fa1d00",
+        "width": 240,
+        "height": 150,
+        "bytes": 9695,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/fruit-merge.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "glass-step",
+      "name_pt": "Ponte de vidro",
+      "source": {
+        "path": "web/covers/glass-step.webp",
+        "sha256": "1430a2ae76a82f41b6c91ff3ae8813c81eeb3a21cbf86430b28a42c996f08772",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/glass-step.jpg",
+        "sha256": "a35936eb71254baf114628e07be5a8a307da8b3e7c14084107b33e2e7d823d41",
+        "width": 630,
+        "height": 1120,
+        "bytes": 43103,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/glass-step.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/glass-step.jpg",
+        "sha256": "fe12e1115accfd878b8dd19360927816897be040e074389254097278335a5814",
+        "width": 240,
+        "height": 150,
+        "bytes": 4305,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/glass-step.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "gun-run",
+      "name_pt": "Corrida armada",
+      "source": {
+        "path": "web/covers/gun-run.webp",
+        "sha256": "128f4f91090ae9bbb35fc6282eb3ce622aa936c46ada7e08d213479fe6ead9b3",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/gun-run.jpg",
+        "sha256": "22b2400852e5f1be25e62c3fb5f921ed141d7a524c20ae34b9f5e61fa96f73f1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 105215,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/gun-run.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/gun-run.jpg",
+        "sha256": "6a6f2619b700051a2d242dd7a736d8271a9ef03972f5015858ea9d8a40b066f6",
+        "width": 240,
+        "height": 150,
+        "bytes": 10804,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/gun-run.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "gunman",
+      "name_pt": "Duelo de pistoleiros",
+      "source": {
+        "path": "web/covers/gunman.webp",
+        "sha256": "f2a92685985441c7449afe4eda983d4f5190633c3ed08134f76f7460d068f665",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/gunman.jpg",
+        "sha256": "bbf8b5ff56981bb3944b6957b0a9f6a7db7a5b0638606b77ec21b45eebac7c31",
+        "width": 630,
+        "height": 1120,
+        "bytes": 91759,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/gunman.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/gunman.jpg",
+        "sha256": "2ca9acf178755c970abef286fcfa308129e02e6b37bddff64d7eb8b22fd8726f",
+        "width": 240,
+        "height": 150,
+        "bytes": 4563,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/gunman.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "hex-puzzle",
+      "name_pt": "Blocos hexagonais",
+      "source": {
+        "path": "web/covers/hex-puzzle.webp",
+        "sha256": "589ca78ffdc964c4941b9422fdb519ff174be57a9f89bcfeec96231f56c0789b",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/hex-puzzle.jpg",
+        "sha256": "8549f9677501dc8ad7a32f3e57e0c505486cfd71e419580fb013936d42818841",
+        "width": 560,
+        "height": 1120,
+        "bytes": 55607,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/hex-puzzle.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/hex-puzzle.jpg",
+        "sha256": "7417b855e8844729ed061b7b47b6ac11244793849cba521e36b8db4ea4bdeefa",
+        "width": 240,
+        "height": 150,
+        "bytes": 4548,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/hex-puzzle.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "hungry-player",
+      "name_pt": "Fome de aventura",
+      "source": {
+        "path": "web/covers/hungry-player.webp",
+        "sha256": "9cbdb69299049d65cae023ed73942030ebe6b5da523fb6c3bd2def194f366c4d",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/hungry-player.jpg",
+        "sha256": "12e89a50a4e2f3b9aa2cd6c946f7d11a5b491861dbb3804deeed0d0fb734c7f2",
+        "width": 1120,
+        "height": 630,
+        "bytes": 81430,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/hungry-player.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/hungry-player.jpg",
+        "sha256": "bede0c5a695909913cafe0cd52f001833a4bf58b12fa6a7e0e5cd798214c11ea",
+        "width": 240,
+        "height": 150,
+        "bytes": 10484,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/hungry-player.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "jump-dot",
+      "name_pt": "Salto lateral",
+      "source": {
+        "path": "web/covers/jump-dot.webp",
+        "sha256": "ffdd17990f427be560150fbef6f43e63fddd8974134a874040a8f2a4fa21ed92",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/jump-dot.jpg",
+        "sha256": "4da15f56fbc24fd38a403cf836e623f127a42720a8208f80735e611fbaf7e7f6",
+        "width": 630,
+        "height": 1120,
+        "bytes": 137888,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/jump-dot.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/jump-dot.jpg",
+        "sha256": "733a87c4e4b94a9dedc3ec06f806a86ab1768240a185361f70908c14cb6cffa7",
+        "width": 240,
+        "height": 150,
+        "bytes": 5026,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/jump-dot.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "kaiju-krush",
+      "name_pt": "Gigante na cidade",
+      "source": {
+        "path": "web/covers/kaiju-krush.webp",
+        "sha256": "f0eadc174cf2f2b1690ebceda536165f8f01eaa2129444c4fd501bc4c9ac6afa",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/kaiju-krush.jpg",
+        "sha256": "f5b1c2a95105fda8ade0ce62025600c325f180b1fa6d822665def0a1b4cc1afb",
+        "width": 1120,
+        "height": 630,
+        "bytes": 147759,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/kaiju-krush.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/kaiju-krush.jpg",
+        "sha256": "7fccd61819e2a35cf4db8153aab68aa81b41415fdba4e3b1f5dbe22de74a986c",
+        "width": 240,
+        "height": 150,
+        "bytes": 14564,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/kaiju-krush.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "laser-bounce",
+      "name_pt": "Reflexo a laser",
+      "source": {
+        "path": "web/covers/laser-bounce.webp",
+        "sha256": "8c43f8e48c557b08262e9642c8a654ccae1707f745ce69e151d76c95549e1fb9",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/laser-bounce.jpg",
+        "sha256": "c60f695b7e01e9c88c0ee8497ca66e01f7af15daca049d95b9d77849df22c0e3",
+        "width": 630,
+        "height": 1120,
+        "bytes": 142492,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/laser-bounce.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/laser-bounce.jpg",
+        "sha256": "16c5d6428d0224b191e689c546960fb3da424ed0340e81aeccbc2090ed90c0d5",
+        "width": 240,
+        "height": 150,
+        "bytes": 5267,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/laser-bounce.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "level-devil",
+      "name_pt": "Túnel de obstáculos",
+      "source": {
+        "path": "web/covers/level-devil.webp",
+        "sha256": "a62bc57bcce814e33f2729d9d1822d7df974e6f6f946ddb97f2ff0c13d1d95c2",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/level-devil.jpg",
+        "sha256": "8ddc0d39a42d53b7b3ff293b74ebeaaadecb0f838e8f7acf4077970d07aa7527",
+        "width": 560,
+        "height": 1120,
+        "bytes": 36192,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/level-devil.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/level-devil.jpg",
+        "sha256": "c4f369f704e3b0304c541be2869a718f8ce283dd5f27ddcbb24a930d1cc06e98",
+        "width": 240,
+        "height": 150,
+        "bytes": 3793,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/level-devil.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "line-trap",
+      "name_pt": "Defesa por linhas",
+      "source": {
+        "path": "web/covers/line-trap.webp",
+        "sha256": "472774c2367ebaf81e9630fff7d2bdf3dbde044b2e8e4041f68f72eb9a3f48c5",
+        "width": 780,
+        "height": 600
+      },
+      "photo": {
+        "path": "web/telegram/games/line-trap.jpg",
+        "sha256": "cbe68e25031d9389daa556ebb29deb21066f7a4f2fd3ea28000059e803a665d7",
+        "width": 780,
+        "height": 600,
+        "bytes": 25000,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/line-trap.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/line-trap.jpg",
+        "sha256": "b6eb1789958ea7ea5cc03bf1c9b9d267fd39bd1325363c9af9f257c275c368f2",
+        "width": 240,
+        "height": 150,
+        "bytes": 5037,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/line-trap.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          22,
+          0,
+          195,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "link",
+      "name_pt": "Ligue os pares",
+      "source": {
+        "path": "web/covers/link.webp",
+        "sha256": "ebd91b9bd2a4a3701033364f9f194be7243543955eecb587a366427b5ed1fe2b",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/link.jpg",
+        "sha256": "cc75319307e224882240dc91347ea23b5824893fc5468af4cc38d5a39388680e",
+        "width": 630,
+        "height": 1120,
+        "bytes": 89783,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/link.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/link.jpg",
+        "sha256": "493f379b9d4d98bcb848ee0252bb150a8b6b695347d86efa284b74727cde8185",
+        "width": 240,
+        "height": 150,
+        "bytes": 7045,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/link.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "ludo",
+      "name_pt": "Ludo",
+      "source": {
+        "path": "web/covers/ludo.webp",
+        "sha256": "1d436e679a1e7d4c89e57700389a343e56dbeec187c2493f52d39447c0e8bdae",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/ludo.jpg",
+        "sha256": "ee31efe766650767647465168532e759887c99798a5b151f2acc8dd5ef9edfb2",
+        "width": 560,
+        "height": 1120,
+        "bytes": 82982,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/ludo.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/ludo.jpg",
+        "sha256": "f3b1321c92feb53afc1813b77be8f5a1b151e5f7bc93d39576fb83a683666d89",
+        "width": 240,
+        "height": 150,
+        "bytes": 5664,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/ludo.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "luma-bounce",
+      "name_pt": "Salto luminoso",
+      "source": {
+        "path": "web/covers/luma-bounce.webp",
+        "sha256": "eac3b5dbdd2f2c1d8cce7de474963a6d9db529bfcec7b7894c6328c284608758",
+        "width": 1120,
+        "height": 629
+      },
+      "photo": {
+        "path": "web/telegram/games/luma-bounce.jpg",
+        "sha256": "b5155cccedf3bead2f5b4b197709c0e0eadd628c9206a67ab7cb8e26f9dd01d8",
+        "width": 1120,
+        "height": 629,
+        "bytes": 90639,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/luma-bounce.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/luma-bounce.jpg",
+        "sha256": "b64894c656c7e98f51eb70897087baf82b99681e547a00a3a98428218019d328",
+        "width": 240,
+        "height": 150,
+        "bytes": 9906,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/luma-bounce.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "mario",
+      "name_pt": "Aventura do encanador",
+      "source": {
+        "path": "web/covers/mario.webp",
+        "sha256": "5b225f41c0c11c685058df57d92276ac0e9d24ae2c40a955d13d2e1ec7016a11",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/mario.jpg",
+        "sha256": "3850042514f1240aad73f7989a389d1614cdaba3972efb5e8148fccfcb20637b",
+        "width": 1120,
+        "height": 630,
+        "bytes": 91335,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/mario.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/mario.jpg",
+        "sha256": "d54905de5ef996006abfbac850561481ad6e11fa2ea76aa9621dfa613aa0b31a",
+        "width": 240,
+        "height": 150,
+        "bytes": 10345,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/mario.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "math-quest",
+      "name_pt": "Desafio de matemática",
+      "source": {
+        "path": "web/covers/math-quest.webp",
+        "sha256": "bc64181748bcccec164bae00ea74221844c2b169a38bab864f38a4bb2696f7ae",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/math-quest.jpg",
+        "sha256": "36fc519288d598efad0e9b0170ce354497c5a954794905d107c20713cb1c5c84",
+        "width": 630,
+        "height": 1120,
+        "bytes": 57331,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/math-quest.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/math-quest.jpg",
+        "sha256": "54d664bc904da78b528dcb08735ca8b3a1ea9a7317ce993cbedeaf5f37ca0253",
+        "width": 240,
+        "height": 150,
+        "bytes": 4709,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/math-quest.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "memory",
+      "name_pt": "Jogo da memória",
+      "source": {
+        "path": "web/covers/memory.webp",
+        "sha256": "49317e171c9a60caa6bc41aa3b10ec4e1d4766af01f65faa3329ac67a9639b7e",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/memory.jpg",
+        "sha256": "6ce162fca6b580442893c2ccdaeb705191fd3f15bd67927dfd84790e7eedb289",
+        "width": 630,
+        "height": 1120,
+        "bytes": 95207,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/memory.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/memory.jpg",
+        "sha256": "8f28b53b9d07c7483c356371eb8eade47b44746003f06f7f978cb315738f5ea4",
+        "width": 240,
+        "height": 150,
+        "bytes": 7541,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/memory.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "memory-cards",
+      "name_pt": "Memória em sequência",
+      "source": {
+        "path": "web/covers/memory-cards.webp",
+        "sha256": "b32f8c8788024cec0bc85fbba15bd9e38606ce228d3dfda9e93bf9db29f9a631",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/memory-cards.jpg",
+        "sha256": "11b1af74c25be1becd76c416b56ea51590cd68f266aa4a6847a01fbaa4869822",
+        "width": 630,
+        "height": 1120,
+        "bytes": 319222,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/memory-cards.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/memory-cards.jpg",
+        "sha256": "5c77adf1542bb5560b20c6052245129ae79d8c03201f0a3c4185f6de13ad69b4",
+        "width": 240,
+        "height": 150,
+        "bytes": 10892,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/memory-cards.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "number-merge",
+      "name_pt": "Números em sintonia",
+      "source": {
+        "path": "web/covers/number-merge.webp",
+        "sha256": "2f456939820cf5e16083a0a828478e6295c49590a5a20bda032629ece22580d1",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/number-merge.jpg",
+        "sha256": "99c0f950a24e9afb22736b4ed7ab828d55f23cd3b2f2c8dba8326245dc0896d3",
+        "width": 630,
+        "height": 1120,
+        "bytes": 80304,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/number-merge.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/number-merge.jpg",
+        "sha256": "540d49d6d5e17ae255cb424e2b3cb2a37d2c5b0b482204394345d8ade81c8bd0",
+        "width": 240,
+        "height": 150,
+        "bytes": 4409,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/number-merge.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "one-car",
+      "name_pt": "Um carro",
+      "source": {
+        "path": "web/covers/one-car.webp",
+        "sha256": "475b59b01d3d3984d41ac9d90cce67afdf70c854ef7ebb88ed2d23880f1022fd",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/one-car.jpg",
+        "sha256": "0cffa7a700fb70fc7a631826c674a851d2a66ac1bb99277a604d69f6117e16cb",
+        "width": 630,
+        "height": 1120,
+        "bytes": 44972,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/one-car.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/one-car.jpg",
+        "sha256": "f19f1ef39d7fe4d768e72006e81003165655b22a2ec2abf5eae7e804cf541d19",
+        "width": 240,
+        "height": 150,
+        "bytes": 3559,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/one-car.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "orbital-outpost",
+      "name_pt": "Defesa orbital",
+      "source": {
+        "path": "web/covers/orbital-outpost.webp",
+        "sha256": "2a1ea3301d762da4c028ec44717aabeccc4793f5e28f56e5b39ec44e2ce61ca3",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/orbital-outpost.jpg",
+        "sha256": "321cb84d60f93849e192c7bfc0d3a82cdc2d301ecac2143bb9e6caf6ff4b2965",
+        "width": 630,
+        "height": 1120,
+        "bytes": 83274,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/orbital-outpost.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/orbital-outpost.jpg",
+        "sha256": "381ca4960a0ff1af05707510976bf5488bb473a3f7552d24059b96bb42d75035",
+        "width": 240,
+        "height": 150,
+        "bytes": 5445,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/orbital-outpost.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "pacman",
+      "name_pt": "Come-pontos",
+      "source": {
+        "path": "web/covers/pacman.webp",
+        "sha256": "e2d34081b63af80c1a2bcff0745744af0ef520d0bfe1cff759ecdf98879c6347",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/pacman.jpg",
+        "sha256": "3f2382614466dff1c8efd218f4a092b61e64619ab06aa5dc61bbd6f66b4e8968",
+        "width": 1120,
+        "height": 630,
+        "bytes": 131644,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/pacman.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/pacman.jpg",
+        "sha256": "df874929f68bb538416f9b41608e58f3c1439faa36bb42409cdba4ab5e6f4d7a",
+        "width": 240,
+        "height": 150,
+        "bytes": 16588,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/pacman.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "pairing",
+      "name_pt": "Pares rápidos",
+      "source": {
+        "path": "web/covers/pairing.webp",
+        "sha256": "a12dbf33668fd00c741b0b27136717641f6bceb3d0e0994741ae6804c0ae56d9",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/pairing.jpg",
+        "sha256": "bd4bb9e6cfce35dd8636e578b5f10277bcadd0570db0f11fa0e881a4d48f0b3a",
+        "width": 1120,
+        "height": 630,
+        "bytes": 236279,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/pairing.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/pairing.jpg",
+        "sha256": "93ce8dcc821d77d1e1061ab5a1e1b713c0e1c1cb662a960a2f9461a194fe37e9",
+        "width": 240,
+        "height": 150,
+        "bytes": 15790,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/pairing.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "parkour",
+      "name_pt": "Parkour",
+      "source": {
+        "path": "web/covers/parkour.webp",
+        "sha256": "aeac947ab978524c5dec12e95b11e830c8dfac16c1a3217bf7ef78277e1fca85",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/parkour.jpg",
+        "sha256": "c6cd3633767dd8399cdc3ddf3daf5b0a21607dddccdd17bf62c285eaced7b0f4",
+        "width": 630,
+        "height": 1120,
+        "bytes": 116732,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/parkour.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/parkour.jpg",
+        "sha256": "3c0d88e96301ea648bf65f16184124506979600d23f4c401b4dde3b46b5efb90",
+        "width": 240,
+        "height": 150,
+        "bytes": 6603,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/parkour.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "pathfinder",
+      "name_pt": "Encontre a saída",
+      "source": {
+        "path": "web/covers/pathfinder.webp",
+        "sha256": "fd94dbbc8fdb7b0db66d72f0c6410ed7a1d9f6c0b2d10ba62875e1507dfb33a9",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/pathfinder.jpg",
+        "sha256": "57da7913b03fb59488e72a863ee9c2f20f0862c0788dbae932113e251630f659",
+        "width": 1120,
+        "height": 630,
+        "bytes": 161768,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/pathfinder.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/pathfinder.jpg",
+        "sha256": "5051ffbd98562c6fca153239ed6caa41a8e0ffa7d77326f50c717b6c72623c97",
+        "width": 240,
+        "height": 150,
+        "bytes": 16729,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/pathfinder.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "penalty",
+      "name_pt": "Disputa de pênaltis",
+      "source": {
+        "path": "web/covers/penalty.webp",
+        "sha256": "7946d68aebecc00e89ba0e46a95a4fc609c0b7037d07e82e51098223cc116d69",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/penalty.jpg",
+        "sha256": "80ba0b5bcac540be49052099372c97e4dbe704093fa63d7d81ebe275580cb008",
+        "width": 630,
+        "height": 1120,
+        "bytes": 53085,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/penalty.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/penalty.jpg",
+        "sha256": "a08bfc5b61a12dc51ed17cd9b71bdfbd8140b8ef2930e1c49fc13ff04ddc3e86",
+        "width": 240,
+        "height": 150,
+        "bytes": 4391,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/penalty.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "perfect-square",
+      "name_pt": "Quadrado perfeito",
+      "source": {
+        "path": "web/covers/perfect-square.webp",
+        "sha256": "ea28fcd5e7dcaf7c06abb0f791efd57894d12e7703393fd8378686340e1e58df",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/perfect-square.jpg",
+        "sha256": "fbd2ed67fa87f11a337d205b7e2672edbbe1012a7c262bda58c8e7747804a851",
+        "width": 630,
+        "height": 1120,
+        "bytes": 296850,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/perfect-square.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/perfect-square.jpg",
+        "sha256": "fbff120165f9d276c08012094312d10845b059dc71a18814d2b7a7f728365935",
+        "width": 240,
+        "height": 150,
+        "bytes": 7865,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/perfect-square.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "pirates",
+      "name_pt": "Piratas",
+      "source": {
+        "path": "web/covers/pirates.webp",
+        "sha256": "0640a36e62b1e9eb4c3b8d1e76a4e7c5473340a30058073bc0d94f85ffa19cd0",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/pirates.jpg",
+        "sha256": "a67e461251f97b866b0c5e70eb039eeb6d5c4537b6d50744f394a18f9461d71b",
+        "width": 1120,
+        "height": 630,
+        "bytes": 51248,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/pirates.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/pirates.jpg",
+        "sha256": "132c99dc7ed9f0acc1839294d01b186418b6e4b43b76364e53283e5f11e27f23",
+        "width": 240,
+        "height": 150,
+        "bytes": 5952,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/pirates.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "planet-visitor",
+      "name_pt": "Explorador de planetas",
+      "source": {
+        "path": "web/covers/planet-visitor.webp",
+        "sha256": "5dfdd7026a6390f880636afa246f05b12540a0ceccba64f3a64f64c6c12aa5c4",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/planet-visitor.jpg",
+        "sha256": "af70b16d8702f50a492e057315dc4c5b5b5d5092dc7a59830b5f212305015c0f",
+        "width": 1120,
+        "height": 630,
+        "bytes": 130371,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/planet-visitor.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/planet-visitor.jpg",
+        "sha256": "87a39d2a49e0f49dd5a9bda5980d969960f3c14ad4a9883ece2822137c283285",
+        "width": 240,
+        "height": 150,
+        "bytes": 12075,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/planet-visitor.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "planet-war",
+      "name_pt": "Guerra planetária",
+      "source": {
+        "path": "web/covers/planet-war.webp",
+        "sha256": "105f1d58a88561e31e6ab1d7761d0a270b9febe60f5d6fc226553a8bf64caa4f",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/planet-war.jpg",
+        "sha256": "5d6cb160b871a07f075f885fed9706a2b191ed3c70ed16a77eb3a7681c3c294f",
+        "width": 1120,
+        "height": 630,
+        "bytes": 112767,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/planet-war.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/planet-war.jpg",
+        "sha256": "96e2f0615575724e611c581615df67dcd2e04fc948c14e1af4d2e9d99c0a55f2",
+        "width": 240,
+        "height": 150,
+        "bytes": 10708,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/planet-war.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "projectile-enemy",
+      "name_pt": "Desvio de projéteis",
+      "source": {
+        "path": "web/covers/projectile-enemy.webp",
+        "sha256": "d6de6d409a4c1da4ecd9d6b8248e88430b05a8f750a5c3ebef855169d9ecac98",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/projectile-enemy.jpg",
+        "sha256": "18f1bf002105b460fbd34d1bdc8d9b432a068b0c38b9f8473a3afa6856c2d634",
+        "width": 630,
+        "height": 1120,
+        "bytes": 137649,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/projectile-enemy.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/projectile-enemy.jpg",
+        "sha256": "32bd5a87609e28e86b2c088dc958465df1c99727ed3bd2c550da52c50792c135",
+        "width": 240,
+        "height": 150,
+        "bytes": 4908,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/projectile-enemy.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "quiz",
+      "name_pt": "Perguntas e respostas",
+      "source": {
+        "path": "web/covers/quiz.webp",
+        "sha256": "a73fe06ce6318bdf86bcbbad82b42cffcc8be3cd77adf21002437c61410de563",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/quiz.jpg",
+        "sha256": "5020fbe01d453cf0a273f4894a31639c5074df06d46002b996c85817d757b9b6",
+        "width": 630,
+        "height": 1120,
+        "bytes": 302923,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/quiz.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/quiz.jpg",
+        "sha256": "64c4607d0e936d6f20cac6bc819250ebeeb53ec22c0992685a57b0260f1d216b",
+        "width": 240,
+        "height": 150,
+        "bytes": 9404,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/quiz.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "red-light-green-light",
+      "name_pt": "Sinal verde, sinal vermelho",
+      "source": {
+        "path": "web/covers/red-light-green-light.webp",
+        "sha256": "59611c1c945072b32b9ced517fd76361a47a98313275559890218fb12f7678ea",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/red-light-green-light.jpg",
+        "sha256": "0fa492a9aee10e51e120f5959516ed11fe4671a17a0833affa2245bf189ca614",
+        "width": 630,
+        "height": 1120,
+        "bytes": 147612,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/red-light-green-light.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/red-light-green-light.jpg",
+        "sha256": "c54b727f699f1f69aea137a1bf4fd945d11a5d55be7a2f79553e4300c3d3b795",
+        "width": 240,
+        "height": 150,
+        "bytes": 5745,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/red-light-green-light.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "road-cross",
+      "name_pt": "Atravesse a rua",
+      "source": {
+        "path": "web/covers/road-cross.webp",
+        "sha256": "fa920df49c82d31e7b20cd1f804fa433eb6265c8e92a0c52b4bd1203ef2f6838",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/road-cross.jpg",
+        "sha256": "3412bfdabb594d7e6c2e07c3c31131c86d8acd05ac61260e4a791ce0e5e1e5df",
+        "width": 630,
+        "height": 1120,
+        "bytes": 73152,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/road-cross.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/road-cross.jpg",
+        "sha256": "0548dc02d6751c505bb878d7feb64b75c3cfee12cd5a25a7199f8235b45c69c7",
+        "width": 240,
+        "height": 150,
+        "bytes": 6271,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/road-cross.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "road-fighter",
+      "name_pt": "Desafio na corda",
+      "source": {
+        "path": "web/covers/road-fighter.webp",
+        "sha256": "14c310368cea161c323afc2febc16b1d7c123e3d7adb36afaf48c2b6cf94ab78",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/road-fighter.jpg",
+        "sha256": "b41fa64fe54abecdc29bafdd719433202c41851a6d2295c90994ecdff6f3c717",
+        "width": 630,
+        "height": 1120,
+        "bytes": 47000,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/road-fighter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/road-fighter.jpg",
+        "sha256": "f569a79c4e7e4fd9b2a00e40cbca3778cc706fead38d556370f61359efd6524e",
+        "width": 240,
+        "height": 150,
+        "bytes": 3489,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/road-fighter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "robot-destruction",
+      "name_pt": "Destruição de robôs",
+      "source": {
+        "path": "web/covers/robot-destruction.webp",
+        "sha256": "ced97c2abdb94044b17e0a207633e3f03ee7a9ad71bda0e67d1d50977afa1541",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/robot-destruction.jpg",
+        "sha256": "b5b61755a368631b1c654771b11eb2f40c1ac7ebb2fb4157caf51b60b00547fa",
+        "width": 1120,
+        "height": 630,
+        "bytes": 107305,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/robot-destruction.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/robot-destruction.jpg",
+        "sha256": "1fb9f56ae7cdce43da746cd1cbe41cb1a96d01e53f2faa027e71550d1cc101e6",
+        "width": 240,
+        "height": 150,
+        "bytes": 10071,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/robot-destruction.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "rock-paper-scissors",
+      "name_pt": "Pedra, papel e tesoura",
+      "source": {
+        "path": "web/covers/rock-paper-scissors.webp",
+        "sha256": "0c54e39fe4dd3dae26b4ec64658695a3aac4849f09aebf6119b6482ed00bb021",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/rock-paper-scissors.jpg",
+        "sha256": "a31cfd44af4598930ce2f8e70f21b84a7e44d3346736a8e5b67188d2178e5508",
+        "width": 1120,
+        "height": 630,
+        "bytes": 50675,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/rock-paper-scissors.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/rock-paper-scissors.jpg",
+        "sha256": "57c9651837202493dfd0debff2171232cb2ab23d11c5517d5c82b534230b32f7",
+        "width": 240,
+        "height": 150,
+        "bytes": 7098,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/rock-paper-scissors.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "screw-master",
+      "name_pt": "Teclas de precisão",
+      "source": {
+        "path": "web/covers/screw-master.webp",
+        "sha256": "d9c51771e3d62210e1436231ae53fb1c0c5d3be3e86be4fbf49df6848d9dabb3",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/screw-master.jpg",
+        "sha256": "e6826675a411ef1b480405b9c9271088e3af070a4f8f229c87ab4275c5a2f432",
+        "width": 630,
+        "height": 1120,
+        "bytes": 34351,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/screw-master.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/screw-master.jpg",
+        "sha256": "4a5e83dc1ee84e36b72210160c9e32f66101f80efb4b7811d9a3892682eccf5c",
+        "width": 240,
+        "height": 150,
+        "bytes": 3723,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/screw-master.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "shadow-runner",
+      "name_pt": "Corredor das sombras",
+      "source": {
+        "path": "web/covers/shadow-runner.webp",
+        "sha256": "fae27cb2bd2c38e72f69117dd5e4ecd4dbc6d203c72114c24dd87bbf11b5b16c",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/shadow-runner.jpg",
+        "sha256": "afc7b9d85a0a742f59b85cd4006f1e43e7b347ce1f59b62a7722fc0550f94d71",
+        "width": 1120,
+        "height": 630,
+        "bytes": 116341,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shadow-runner.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shadow-runner.jpg",
+        "sha256": "4fbd7ff3b39383146e9620ea0af2ed8b9b2bc8eaae95b7b8596095563bbb60a3",
+        "width": 240,
+        "height": 150,
+        "bytes": 11931,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shadow-runner.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "shadow-shooter",
+      "name_pt": "Atirador das sombras",
+      "source": {
+        "path": "web/covers/shadow-shooter.webp",
+        "sha256": "1d7176e275167a647496f273c99a1fddc14942db6efed9cdb412baa204e884fc",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/shadow-shooter.jpg",
+        "sha256": "813a7c1158eb2cff140f7100d15d930d13c4f4856391b755252044fd4dfd0ee3",
+        "width": 1120,
+        "height": 630,
+        "bytes": 110987,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shadow-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shadow-shooter.jpg",
+        "sha256": "4ef07dae9368e5601fc2d00a1ec9ffbe2209726bfe67807e84bec6912eb732a6",
+        "width": 240,
+        "height": 150,
+        "bytes": 11422,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shadow-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "shape-collector",
+      "name_pt": "Coletor de formas",
+      "source": {
+        "path": "web/covers/shape-collector.webp",
+        "sha256": "b7a1bba50894f5a5e7d20bdb7d5a5792fa1ffe8209927e1a88e4cfdc721df349",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/shape-collector.jpg",
+        "sha256": "e95f34c94d24907d80b7e014554021f48920b0616949c12ab82575454c49da5f",
+        "width": 630,
+        "height": 1120,
+        "bytes": 139106,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shape-collector.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shape-collector.jpg",
+        "sha256": "90e49e00cba564197eda99d04f4e63416293e795da4a13c3395b451c526458cb",
+        "width": 240,
+        "height": 150,
+        "bytes": 4837,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shape-collector.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "shape-fitter",
+      "name_pt": "Encaixe as formas",
+      "source": {
+        "path": "web/covers/shape-fitter.webp",
+        "sha256": "9d7f98e444e58605524a369eb580be90d550f81a165a9b3623caff3cf03902f1",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/shape-fitter.jpg",
+        "sha256": "9e6900533433e40d05a5d89637fa535391a2adbe9286113f5beed1529142db9c",
+        "width": 630,
+        "height": 1120,
+        "bytes": 137330,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shape-fitter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shape-fitter.jpg",
+        "sha256": "ed309c075c8571b30ee1092b0c8840e0e20be73db1fdf674d89614d450d41aa8",
+        "width": 240,
+        "height": 150,
+        "bytes": 5369,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shape-fitter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "shoot-enemy",
+      "name_pt": "Mira carregada",
+      "source": {
+        "path": "web/covers/shoot-enemy.webp",
+        "sha256": "0082cea3425c3855d1b74090fee5772ea3d296f587e7b3dd2f76393140177abd",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/shoot-enemy.jpg",
+        "sha256": "7fd45af1d2ec94fa7e32016bfa57e7dcfe55a2118de01911fa53ba1ac9d9c272",
+        "width": 1120,
+        "height": 630,
+        "bytes": 54236,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shoot-enemy.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shoot-enemy.jpg",
+        "sha256": "a9dbb154ba43bd70d5cde56ddb8e29f48bc8f6bc99938ecb96676a80b7db6fca",
+        "width": 240,
+        "height": 150,
+        "bytes": 6905,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shoot-enemy.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "shooter",
+      "name_pt": "Arena de tiro",
+      "source": {
+        "path": "web/covers/shooter.webp",
+        "sha256": "15c96b0b9ab62675fe5852ceac53f5574a3a5bea53367e17efc3864c7f8da325",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/shooter.jpg",
+        "sha256": "5824314d9ad6bcc1f473ddda87507c2253757e7d1d58f820d34d87cbca67f9dc",
+        "width": 1120,
+        "height": 630,
+        "bytes": 131975,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/shooter.jpg",
+        "sha256": "4385c5b71ceb57ef51add97d923687522eedd573e7b39fbd7bc48e3cf4548aee",
+        "width": 240,
+        "height": 150,
+        "bytes": 13490,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "signal-circuit",
+      "name_pt": "Circuito de sinais",
+      "source": {
+        "path": "web/covers/signal-circuit.webp",
+        "sha256": "3d2b004508a2056002a4db673847727d44338e00b8d2db82b38294e53c7f1cb8",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/signal-circuit.jpg",
+        "sha256": "47cca2561147b6e3939bff15f042b145652408d37cb8f7b3e0ea8cc7e45bc047",
+        "width": 630,
+        "height": 1120,
+        "bytes": 165538,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/signal-circuit.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/signal-circuit.jpg",
+        "sha256": "00318adc41b8442b06599d3a689bd3248dec5c9ed27a27bc87d0638c7ca5acc0",
+        "width": 240,
+        "height": 150,
+        "bytes": 7655,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/signal-circuit.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "sky-high",
+      "name_pt": "Rumo ao céu",
+      "source": {
+        "path": "web/covers/sky-high.webp",
+        "sha256": "2dc1eeab466477e406face26a3d9400f82f29086067b15ede3867841c69c1f26",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/sky-high.jpg",
+        "sha256": "c1c0ae6ab9b3f7bcaaec3f3bd0e91313d625e02b7291fbb5422100ccdf93220d",
+        "width": 1120,
+        "height": 630,
+        "bytes": 141321,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/sky-high.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/sky-high.jpg",
+        "sha256": "f2e7d3157ee7ab9c08fc888a2ec71c280e10bc97f994e29502667bb534912344",
+        "width": 240,
+        "height": 150,
+        "bytes": 13860,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/sky-high.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "slide-puzzle",
+      "name_pt": "Quebra-cabeça deslizante",
+      "source": {
+        "path": "web/covers/slide-puzzle.webp",
+        "sha256": "f5f40e9d19471d2b3a2696e5473b33283b6b98f84e93b7624d3afb3fca956d96",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/slide-puzzle.jpg",
+        "sha256": "5e9c9a71e48d5c80773062244e21fb7eeeb1a401ba68beb5aef881a3326fc526",
+        "width": 630,
+        "height": 1120,
+        "bytes": 116127,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/slide-puzzle.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/slide-puzzle.jpg",
+        "sha256": "19948883ee80451d2bcf0224e973285b65dcff785fd2d5309670150266c8220f",
+        "width": 240,
+        "height": 150,
+        "bytes": 7165,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/slide-puzzle.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "snake",
+      "name_pt": "Cobrinha",
+      "source": {
+        "path": "web/covers/snake.webp",
+        "sha256": "d2a810e1088729cb625a39621cc5e80d4b793fe0681d2dfc513f1a8c4fb55dec",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/snake.jpg",
+        "sha256": "c28fedc37af112337c34f221f7066bdc6ab6125c30d943bbec7cda35aacc0182",
+        "width": 630,
+        "height": 1120,
+        "bytes": 42493,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/snake.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/snake.jpg",
+        "sha256": "44d6d2e8f8692765c0a8963aa9bddbeb0b06a1ba38670cf4b22002b96816db4b",
+        "width": 240,
+        "height": 150,
+        "bytes": 2603,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/snake.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "snake-and-ladder",
+      "name_pt": "Cobras e escadas",
+      "source": {
+        "path": "web/covers/snake-and-ladder.webp",
+        "sha256": "33a4c2bd6d7df02be7b430c03252da01f9a342fbda23008d3066b8674a800a2e",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/snake-and-ladder.jpg",
+        "sha256": "270f0b8a0ab248d81942bef4f59b6bd96b7b77e2b43d7d313f9ca584fc41accf",
+        "width": 630,
+        "height": 1120,
+        "bytes": 271589,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/snake-and-ladder.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/snake-and-ladder.jpg",
+        "sha256": "faedf26d07419eddef5fc7d7f42837aa6d3fef72079d357d37bee208d47abdb7",
+        "width": 240,
+        "height": 150,
+        "bytes": 11486,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/snake-and-ladder.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "sniper",
+      "name_pt": "Atirador de precisão",
+      "source": {
+        "path": "web/covers/sniper.webp",
+        "sha256": "f1ed3543ed70bb26e103a81233c861b1f2ae74f43f484c058cde0e46803f22a3",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/sniper.jpg",
+        "sha256": "afdc0211255de0810a7149e5e2f1c6f9f3d7e0ded0bdd11b285d207f58ef7a9d",
+        "width": 1120,
+        "height": 630,
+        "bytes": 71900,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/sniper.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/sniper.jpg",
+        "sha256": "d2e8f2d15ee7ba4e5d09e10c437e1f502e7a5988dd9e8892cccfeec6f9107595",
+        "width": 240,
+        "height": 150,
+        "bytes": 7600,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/sniper.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "space-fighter",
+      "name_pt": "Combate espacial",
+      "source": {
+        "path": "web/covers/space-fighter.webp",
+        "sha256": "06118edcd7a278c3bd376e5682f49218b7dc9d1f3fdb69465b9e6faa817d56b6",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/space-fighter.jpg",
+        "sha256": "76fd5b23aef4f21dacffbc586d91efd7ebf87d1c0579e451c2b71441f469494b",
+        "width": 630,
+        "height": 1120,
+        "bytes": 68102,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/space-fighter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/space-fighter.jpg",
+        "sha256": "b23ea8131fc290ece777d429d8b81d15e85340f6112a31511632a405d7bb5e75",
+        "width": 240,
+        "height": 150,
+        "bytes": 3939,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/space-fighter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "space-waves",
+      "name_pt": "Ondas espaciais",
+      "source": {
+        "path": "web/covers/space-waves.webp",
+        "sha256": "40c15002f7172d443c25272ef2236e3a73b81b19a416911ff83e4b262a2acdc4",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/space-waves.jpg",
+        "sha256": "d8652c33f8428418a34b23b344fd92502b124c5e46677184e0061eecdffd1e46",
+        "width": 1120,
+        "height": 630,
+        "bytes": 105207,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/space-waves.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/space-waves.jpg",
+        "sha256": "41c70655e483deb0a6d5ae8613210e896078a03e8809b067af52a6e45c7df99b",
+        "width": 240,
+        "height": 150,
+        "bytes": 11269,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/space-waves.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "spaceman",
+      "name_pt": "Astronauta",
+      "source": {
+        "path": "web/covers/spaceman.webp",
+        "sha256": "c3cb3575aa246492c6652f185af76e061bd09d3b0d6217482daa324aff8dad6d",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/spaceman.jpg",
+        "sha256": "173aa24757e4cdb28f034c8b14ee79de3eef51f96b8946341a2fc9a177b4c97f",
+        "width": 630,
+        "height": 1120,
+        "bytes": 44248,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/spaceman.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/spaceman.jpg",
+        "sha256": "ddb3e4b08c2238cb16077291248c93248b43ec0adf832bfcdcebbeb1743000a1",
+        "width": 240,
+        "height": 150,
+        "bytes": 3538,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/spaceman.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "square-one",
+      "name_pt": "Avanço quadrado",
+      "source": {
+        "path": "web/covers/square-one.webp",
+        "sha256": "c7c209ba1ab9084e47dabd4b6a8973cf348dba7f7f12ff584279d6a18c63ea73",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/square-one.jpg",
+        "sha256": "30259ccc24b0e14802e6fb339a2897ea68331d68f721f8db71a838b07bb1fdd1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 113018,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/square-one.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/square-one.jpg",
+        "sha256": "e5b0c8c5eb85a1b8942303e04f9f084d1ddfe444f9661e3aa0d5927b67574741",
+        "width": 240,
+        "height": 150,
+        "bytes": 11287,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/square-one.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "stack-tower",
+      "name_pt": "Torre de blocos",
+      "source": {
+        "path": "web/covers/stack-tower.webp",
+        "sha256": "f4cc23009c59b0ee285269fd40569820dd1fd453fc56d3087dfbc3496a5290e6",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/stack-tower.jpg",
+        "sha256": "69d828df5cda7fb0eba806e2e4277659432e453fe869467fffa184b2a0e1a448",
+        "width": 560,
+        "height": 1120,
+        "bytes": 34633,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/stack-tower.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/stack-tower.jpg",
+        "sha256": "1c617c43f129d0a817f7445ad3ec3658897a5f9ea30227b1421497bd3009de6d",
+        "width": 240,
+        "height": 150,
+        "bytes": 3348,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/stack-tower.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "stick-game",
+      "name_pt": "Ponte de palitos",
+      "source": {
+        "path": "web/covers/stick-game.webp",
+        "sha256": "c1aea1b8b22bf6591165c3539a662c3e27da91fbe566a570c0b6be5d12175f04",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/stick-game.jpg",
+        "sha256": "1d92f76c68be445459edd0ed02dd3c07ffcf248976977ce769bb91ae7a67b85c",
+        "width": 630,
+        "height": 1120,
+        "bytes": 142151,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/stick-game.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/stick-game.jpg",
+        "sha256": "8b148be5e27022497db6c1c4f53921ae1189eeb900f6c83341a4b4e295ba7b87",
+        "width": 240,
+        "height": 150,
+        "bytes": 4863,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/stick-game.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "stick-toss",
+      "name_pt": "Lance os palitos",
+      "source": {
+        "path": "web/covers/stick-toss.webp",
+        "sha256": "792424b7c13e1af05fe64997ff1b6b20ae77bde10ca0677d408a6e4cef0a55c1",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/stick-toss.jpg",
+        "sha256": "1190019282596c553b25feef16f1fb3bbbc91dfd7e076c019f848074d7829686",
+        "width": 630,
+        "height": 1120,
+        "bytes": 155564,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/stick-toss.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/stick-toss.jpg",
+        "sha256": "12ac41d8bb38adfe4eb6ef3b50d5d1f8de3c32aac5fd56b4024f6f2341948b98",
+        "width": 240,
+        "height": 150,
+        "bytes": 5183,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/stick-toss.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "straight-rush",
+      "name_pt": "Disparo de precisão",
+      "source": {
+        "path": "web/covers/straight-rush.webp",
+        "sha256": "d4533f2f0d96e0dfa30438089bc83c53312be79d3b4b623d24a6c92219fbb3c5",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/straight-rush.jpg",
+        "sha256": "76526e0b2dc2c41e6fbba47d749d2e8615b7ec29526e03f347117066603aa7d6",
+        "width": 630,
+        "height": 1120,
+        "bytes": 329584,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/straight-rush.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/straight-rush.jpg",
+        "sha256": "22f28eebdb408ea49a334f53623bf9e4c30dae9ae75cf98994178ae8769f8c05",
+        "width": 240,
+        "height": 150,
+        "bytes": 8694,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/straight-rush.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "sudoku",
+      "name_pt": "Sudoku",
+      "source": {
+        "path": "web/covers/sudoku.webp",
+        "sha256": "148a08de996f2bc4ab3a1b55c859d1cddad0ab33470b24f1e54af29a98136b57",
+        "width": 560,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/sudoku.jpg",
+        "sha256": "8960fd8b13b007200e95e4f6f236741f55054516d76f7b8c522599d2764bffc2",
+        "width": 560,
+        "height": 1120,
+        "bytes": 55188,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/sudoku.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/sudoku.jpg",
+        "sha256": "33de8a8ca6179fbde24012502d5143d44669ef2d9c8bfd3078eb48387fe7fa24",
+        "width": 240,
+        "height": 150,
+        "bytes": 3863,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/sudoku.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          82,
+          0,
+          75,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "survival-run",
+      "name_pt": "Portais assombrados",
+      "source": {
+        "path": "web/covers/survival-run.webp",
+        "sha256": "a4f86b0d32f2e30a00ffdded8ad6c6c9f07fdb942602c901be27bc2b1a46730c",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/survival-run.jpg",
+        "sha256": "03393b765b1ce609215b392879509b90bff23cfaba96ea6aa7daa547f7ae091d",
+        "width": 630,
+        "height": 1120,
+        "bytes": 81983,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/survival-run.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/survival-run.jpg",
+        "sha256": "4753b10464d3eb44f366cb9e803e55979be5c31056bf5de8a50786c1e33c04e1",
+        "width": 240,
+        "height": 150,
+        "bytes": 6346,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/survival-run.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "survivor",
+      "name_pt": "Sobrevivente",
+      "source": {
+        "path": "web/covers/survivor.webp",
+        "sha256": "d9d642d56e7c4b93980a3335e25551ffb7a32576ecf30af26dfbfadfd5975950",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/survivor.jpg",
+        "sha256": "4cfaadc05b12a699f6caffd2b6be0972c48e20bc1a6ab33401dbeda3411bb2a3",
+        "width": 1120,
+        "height": 630,
+        "bytes": 65523,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/survivor.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/survivor.jpg",
+        "sha256": "0c814e80457ce481c83d19c4c71aab6d50d308503864a3e41584416a632a0f38",
+        "width": 240,
+        "height": 150,
+        "bytes": 8115,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/survivor.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "swipe-assassin",
+      "name_pt": "Ataque silencioso",
+      "source": {
+        "path": "web/covers/swipe-assassin.webp",
+        "sha256": "1331af735a89ab79129cf71948b00077a0e924e534c202982bf82b1e2395a4a9",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/swipe-assassin.jpg",
+        "sha256": "69d80e186c3349403068d12d64f8efe2a75543964447a96645d2d6620f7b7853",
+        "width": 630,
+        "height": 1120,
+        "bytes": 40079,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/swipe-assassin.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/swipe-assassin.jpg",
+        "sha256": "484e7e01cd66833306a4c1e48ad8027eb3124d476e0d6c2e8e6210a6f7880d51",
+        "width": 240,
+        "height": 150,
+        "bytes": 3411,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/swipe-assassin.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "table-tennis",
+      "name_pt": "Tênis de mesa",
+      "source": {
+        "path": "web/covers/table-tennis.webp",
+        "sha256": "07d1a90cdc01db9e7dfc2cd8c3f69d7fb7a982cf287a501dd2481cbc86e616bf",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/table-tennis.jpg",
+        "sha256": "fa0363723abad85a7ed70738cd7129b71df38247da83172817a892fae27759c1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 52905,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/table-tennis.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/table-tennis.jpg",
+        "sha256": "b896950359f822c51cd041e2bccb583d42a069ce2b4f415c43090aabd1c2c42d",
+        "width": 240,
+        "height": 150,
+        "bytes": 6256,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/table-tennis.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "tap-target",
+      "name_pt": "Toque no alvo",
+      "source": {
+        "path": "web/covers/tap-target.webp",
+        "sha256": "d5519bbcd34c5f9d04f77fe2980c45e2f86e25c4b19a45edecdac9446ac520f5",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/tap-target.jpg",
+        "sha256": "d21becf72ba1b416092aa80fb613f93276561d1f13e12d1d8a86e8dce014611b",
+        "width": 630,
+        "height": 1120,
+        "bytes": 139608,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tap-target.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tap-target.jpg",
+        "sha256": "c794894ae0a2dffc5bb4f406d89ac5ec2a4c68b2d1466fbaa5ad8f7aa0cd3e4a",
+        "width": 240,
+        "height": 150,
+        "bytes": 4744,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tap-target.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "tee-shooter",
+      "name_pt": "Tiro de resgate",
+      "source": {
+        "path": "web/covers/tee-shooter.webp",
+        "sha256": "04b21c08e591325469fc301fdf1e885045eaa4209db08433e31949b876fd5741",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/tee-shooter.jpg",
+        "sha256": "fa6b3b31b3ef35d0ffb5121ecf44405da4ae3a4324d6aa0a483620f89ccad93d",
+        "width": 1120,
+        "height": 630,
+        "bytes": 113827,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tee-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tee-shooter.jpg",
+        "sha256": "38fdf48a730837427c662ddc9c7e0d717a914e9f51a9d13c553cecef929ed871",
+        "width": 240,
+        "height": 150,
+        "bytes": 11219,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tee-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "tetris",
+      "name_pt": "Tetris",
+      "source": {
+        "path": "web/covers/tetris.webp",
+        "sha256": "76813b697c5e63ac8db60678962baa3434bd0d36516f6b4d742a969bbf6ddd0b",
+        "width": 551,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/tetris.jpg",
+        "sha256": "80ea8408afc1cf35eec6c478489cbfab2e629ace8e61e4678048bf447ddc19dc",
+        "width": 551,
+        "height": 1120,
+        "bytes": 160410,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tetris.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tetris.jpg",
+        "sha256": "f4674bfb24bbb355e79aea64380a08f72c4beb9eb6ed17b3779145b64304b254",
+        "width": 240,
+        "height": 150,
+        "bytes": 8162,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tetris.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          83,
+          0,
+          74,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "that-level-again-1",
+      "name_pt": "O mesmo nível 1",
+      "source": {
+        "path": "web/covers/that-level-again-1.webp",
+        "sha256": "8d60b4def8ecf44e4bdc5e09bbc480868cd1946fa301f0746810b6a3227015c3",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/that-level-again-1.jpg",
+        "sha256": "6d25ec8250a500f68202b4fc45cca72dc67a00651ca585aec7e638ed3c133f58",
+        "width": 1120,
+        "height": 630,
+        "bytes": 100841,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/that-level-again-1.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/that-level-again-1.jpg",
+        "sha256": "30619efebd0e6deb6ea884ba5afec0da55965baa9d1e3cd9bf92e93fe45c37c6",
+        "width": 240,
+        "height": 150,
+        "bytes": 12554,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/that-level-again-1.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "that-level-again-2",
+      "name_pt": "O mesmo nível 2",
+      "source": {
+        "path": "web/covers/that-level-again-2.webp",
+        "sha256": "86b069a22a3a2249812099bb08721b5b60124e62d37766c16862cc83e1d323dd",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/that-level-again-2.jpg",
+        "sha256": "3f62ad0b9764b673613a4b8ea0da068ccc554fe89736dd8bc52122c5c22f1f4e",
+        "width": 1120,
+        "height": 630,
+        "bytes": 101172,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/that-level-again-2.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/that-level-again-2.jpg",
+        "sha256": "f9536f257811221490d8609c30fcaba2293add79931f76bb6a5f016effcb698d",
+        "width": 240,
+        "height": 150,
+        "bytes": 12551,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/that-level-again-2.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "that-level-again-3",
+      "name_pt": "O mesmo nível 3",
+      "source": {
+        "path": "web/covers/that-level-again-3.webp",
+        "sha256": "0acb0becc93cdc5eb35d0e5c9a0699b2ef0a59e98a1e3ff0c01c0b99451976db",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/that-level-again-3.jpg",
+        "sha256": "bdb2948da39b30c982a5700d239ee104bc3d4a6c35f840b0eb185ae352adba7a",
+        "width": 1120,
+        "height": 630,
+        "bytes": 102567,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/that-level-again-3.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/that-level-again-3.jpg",
+        "sha256": "3ea35b6149802a5ecd0474c741bb662cc2383fdd67956dc3b52911bd430b95c6",
+        "width": 240,
+        "height": 150,
+        "bytes": 12639,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/that-level-again-3.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "that-level-again-4",
+      "name_pt": "O mesmo nível 4",
+      "source": {
+        "path": "web/covers/that-level-again-4.webp",
+        "sha256": "eedf87b1429791ba1a0fa98e038a4e9d780eda223b1d9d2a3702e62be21abf7f",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/that-level-again-4.jpg",
+        "sha256": "ef8346024f78e4bc0ad8ed400889cac7f4546aec44d4f7a73e332ea28adb8fe1",
+        "width": 1120,
+        "height": 630,
+        "bytes": 98543,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/that-level-again-4.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/that-level-again-4.jpg",
+        "sha256": "ce0dfbd5959bbec673fdbad5e3f1b8320dd656c7408a2fa6db86c568cc0d21aa",
+        "width": 240,
+        "height": 150,
+        "bytes": 12327,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/that-level-again-4.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "that-level-again-5",
+      "name_pt": "O mesmo nível 5",
+      "source": {
+        "path": "web/covers/that-level-again-5.webp",
+        "sha256": "03286ce0a0ddc7635d0a5b19079e50a43469b079f80f98a0db72097c9034e31a",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/that-level-again-5.jpg",
+        "sha256": "baf0f084495b662aaddadbc5b7b811a56448aaafc4ab4c107c92b6e3fbbd4037",
+        "width": 1120,
+        "height": 630,
+        "bytes": 103179,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/that-level-again-5.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/that-level-again-5.jpg",
+        "sha256": "ea4b8407a3672c4b2aeae71fdb5ec36ad215469fc7ec703bbb0d8578ef5685ee",
+        "width": 240,
+        "height": 150,
+        "bytes": 12586,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/that-level-again-5.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "thunder-god",
+      "name_pt": "Labirinto fantasma",
+      "source": {
+        "path": "web/covers/thunder-god.webp",
+        "sha256": "99bcaba565b97ec0e3b8b55d43560d752f01286445f9e46063c26b32a94aefb7",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/thunder-god.jpg",
+        "sha256": "6affabc50b2a14223f853280ee3439f4e23d2bd7ab2f3b2812e8ec5c29f5c677",
+        "width": 630,
+        "height": 1120,
+        "bytes": 195523,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/thunder-god.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/thunder-god.jpg",
+        "sha256": "20e0064c4eefc030613d1cc60b23a73bfada502cb02f150ba808231b962cfe8f",
+        "width": 240,
+        "height": 150,
+        "bytes": 10388,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/thunder-god.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "tic-tac-toe",
+      "name_pt": "Jogo da velha",
+      "source": {
+        "path": "web/covers/tic-tac-toe.webp",
+        "sha256": "23122ff7e75a0d2d59bf0e29e8661c1dc00fc08814477dbe03101ef49f7354bd",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/tic-tac-toe.jpg",
+        "sha256": "1bf50ed02784fa1ef30a6065a390b84839231c75802eaa6489ca76aa6681381f",
+        "width": 630,
+        "height": 1120,
+        "bytes": 76798,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tic-tac-toe.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tic-tac-toe.jpg",
+        "sha256": "7245b171c74ae3b94edf27699df5543230b40e5965cabd04a02ecd03cc4e1fc8",
+        "width": 240,
+        "height": 150,
+        "bytes": 4498,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tic-tac-toe.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "tile-tap",
+      "name_pt": "Cores em equilíbrio",
+      "source": {
+        "path": "web/covers/tile-tap.webp",
+        "sha256": "43436da7bf1630d359888918448b8ebe45f6dcd800dd26e3025a372d3e79375c",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/tile-tap.jpg",
+        "sha256": "cc21fcde4b8bac32f08a0765f0f2217019bd4a9633e33328a88ac1518922e5bf",
+        "width": 1120,
+        "height": 630,
+        "bytes": 94960,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tile-tap.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tile-tap.jpg",
+        "sha256": "d6517afc00f83f8cd3addbe0f77305d7d96c6df300f2e7a51784444c52106da9",
+        "width": 240,
+        "height": 150,
+        "bytes": 9959,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tile-tap.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "tower-shooter",
+      "name_pt": "Fuga da torre",
+      "source": {
+        "path": "web/covers/tower-shooter.webp",
+        "sha256": "c142c9d48c095aea8a5f1016d347a02598c7b13bf8eb127cba1fe5e915585c66",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/tower-shooter.jpg",
+        "sha256": "8e47bed7227a71a66d092d217d29bc81de3930a7a13d82581900a49edf0a36cb",
+        "width": 1120,
+        "height": 630,
+        "bytes": 118036,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/tower-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/tower-shooter.jpg",
+        "sha256": "ccb024460dd2d74ad06131aebe89d398f95aacece5a3beb40c77f8d5e62076d6",
+        "width": 240,
+        "height": 150,
+        "bytes": 12460,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/tower-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "trench-defence",
+      "name_pt": "Defesa da trincheira",
+      "source": {
+        "path": "web/covers/trench-defence.webp",
+        "sha256": "b92eec34add3ffa4025bfa02fb924ececb0d039fddabe9c6b1ac078271b18c6f",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/trench-defence.jpg",
+        "sha256": "5e2c3171a69737c7aa85a33bf5bd491db47a82a8dae6e67e9b9d18d92d479c0e",
+        "width": 1120,
+        "height": 630,
+        "bytes": 92209,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/trench-defence.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/trench-defence.jpg",
+        "sha256": "99d034055ac4b7cfb39e9f8a9bdd1575df9140e0c123b432ca8efdf956a2d890",
+        "width": 240,
+        "height": 150,
+        "bytes": 10392,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/trench-defence.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "two-cars",
+      "name_pt": "Dois carros",
+      "source": {
+        "path": "web/covers/two-cars.webp",
+        "sha256": "124461a15b01071cb45c93991a0edbe2f4dc09be6a46b2e795df2d12dca1b10a",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/two-cars.jpg",
+        "sha256": "3552d93b13129460e98da3aedf88244b8475b6e16fef94772f67c627d1a8f005",
+        "width": 630,
+        "height": 1120,
+        "bytes": 49317,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/two-cars.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/two-cars.jpg",
+        "sha256": "3402ab6e89b0372c8c33cb402dc10719feb06d31092af611f0ea4b79fb145df0",
+        "width": 240,
+        "height": 150,
+        "bytes": 3750,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/two-cars.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "two-cars-ai",
+      "name_pt": "Duelo de faixas",
+      "source": {
+        "path": "web/covers/two-cars-ai.webp",
+        "sha256": "3ec5414a118eec52fe090c8110ad53a8d066bcf786f3d3086b6418c412144841",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/two-cars-ai.jpg",
+        "sha256": "3cdb8e99f36b7fa00f414a7b6a38cd446a5774c7a02f1e9da10e4c9ca2774fde",
+        "width": 630,
+        "height": 1120,
+        "bytes": 49032,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/two-cars-ai.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/two-cars-ai.jpg",
+        "sha256": "749ba078b607196b08c1e44d0578d67b8efdf2ca5e28acacaf24e0a24859e68e",
+        "width": 240,
+        "height": 150,
+        "bytes": 3744,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/two-cars-ai.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "unruly",
+      "name_pt": "Reino imprevisível",
+      "source": {
+        "path": "web/covers/unruly.webp",
+        "sha256": "9dcc282a0e039e998beb7ebc07b96ef2064365c6327c9e69fc5303f07a9bb4ba",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/unruly.jpg",
+        "sha256": "fb7efd42e0e6ac7b95a07c4937dda6ce4267555e8021d9f8285025311ad1b3dc",
+        "width": 630,
+        "height": 1120,
+        "bytes": 49245,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/unruly.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/unruly.jpg",
+        "sha256": "082dc91953cb18ecafaca8a30b3deae3ceff146a537eab3bcffd8dd8d6ae52bc",
+        "width": 240,
+        "height": 150,
+        "bytes": 3809,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/unruly.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "vaccine-shooter",
+      "name_pt": "Defesa antiviral",
+      "source": {
+        "path": "web/covers/vaccine-shooter.webp",
+        "sha256": "b12e83b425cd743c9854324010d685b691e80928cc3aa792c959720abd7cea88",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/vaccine-shooter.jpg",
+        "sha256": "0254e4ebac3db310b88a58e1d7807da184a228f53c99be9c032b7f883efdb34b",
+        "width": 1120,
+        "height": 630,
+        "bytes": 39202,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/vaccine-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/vaccine-shooter.jpg",
+        "sha256": "eaffa59adcb92c5cd3169a0ce418a3d583f987fbce2cbc7db24f1f8b8d29b50e",
+        "width": 240,
+        "height": 150,
+        "bytes": 5178,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/vaccine-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "whack-a-bug",
+      "name_pt": "Acerte o inseto",
+      "source": {
+        "path": "web/covers/whack-a-bug.webp",
+        "sha256": "e381ae7d7962b1004ffc8d9516b9e15cac432268b3f18cf32211e6f9246982ca",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/whack-a-bug.jpg",
+        "sha256": "4eeb69928edd0ab2eab505c40dfe5c5928a00bdf8a9a564a1fccc56370572e3f",
+        "width": 630,
+        "height": 1120,
+        "bytes": 107567,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/whack-a-bug.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/whack-a-bug.jpg",
+        "sha256": "cf957b5ccb3ea250e323deb8a979016e7e1d322a6cb472568da6b0d3e6ec4d78",
+        "width": 240,
+        "height": 150,
+        "bytes": 7964,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/whack-a-bug.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "window-shooter",
+      "name_pt": "Atirador na janela",
+      "source": {
+        "path": "web/covers/window-shooter.webp",
+        "sha256": "af516025e4a3300723eed0813399b97c3e0c641483c5f51334a9abfc1ca7887b",
+        "width": 1120,
+        "height": 630
+      },
+      "photo": {
+        "path": "web/telegram/games/window-shooter.jpg",
+        "sha256": "9b0f762754db2995d9fe24fa973eaa4cc3fa005f001feae1d19f7e662a1d2373",
+        "width": 1120,
+        "height": 630,
+        "bytes": 22001,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/window-shooter.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/window-shooter.jpg",
+        "sha256": "9d0a05065a42c2d9fc2b70d68f4e6ca3805e6b81bc6f50dd750213b8dd6c2232",
+        "width": 240,
+        "height": 150,
+        "bytes": 3030,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/window-shooter.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          0,
+          7,
+          240,
+          135
+        ]
+      }
+    },
+    {
+      "slug": "wordle",
+      "name_pt": "Palavra do dia",
+      "source": {
+        "path": "web/covers/wordle.webp",
+        "sha256": "d7325133792ff39ec1846e25546a296e6322e0695d3ded8a033aa5f4936d35cc",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/wordle.jpg",
+        "sha256": "4cc493f1e13d855c3839bbf8ff3075dbaa6eddd6fbdd458ff342fb24ea10d55c",
+        "width": 630,
+        "height": 1120,
+        "bytes": 104297,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/wordle.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/wordle.jpg",
+        "sha256": "3159b0d130a593291346b8b8b9d604202178b8c42949c2ba28e569ecfbeb8a11",
+        "width": 240,
+        "height": 150,
+        "bytes": 8605,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/wordle.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    },
+    {
+      "slug": "words-of-wonder",
+      "name_pt": "Roda de palavras",
+      "source": {
+        "path": "web/covers/words-of-wonder.webp",
+        "sha256": "20ca2a0ac7b6e462d4574fb4ebc86cea1aa99a5b5f3e4c78d1803ca825da6490",
+        "width": 630,
+        "height": 1120
+      },
+      "photo": {
+        "path": "web/telegram/games/words-of-wonder.jpg",
+        "sha256": "70752c9f1d4c24175f9076321efd84af44dd279e85e1329c3db4c42406753685",
+        "width": 630,
+        "height": 1120,
+        "bytes": 142409,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/games/words-of-wonder.jpg"
+      },
+      "thumb": {
+        "path": "web/telegram/thumbs/words-of-wonder.jpg",
+        "sha256": "7d988cd12fe7ac3528ea62fcb31e0e8074d066752ed9026cdbcb08d1400136ce",
+        "width": 240,
+        "height": 150,
+        "bytes": 5931,
+        "format": "JPEG",
+        "mode": "RGB",
+        "url": "/static/telegram/thumbs/words-of-wonder.jpg",
+        "fit": "contain",
+        "background": "#080b24",
+        "image_box": [
+          78,
+          0,
+          84,
+          150
+        ]
+      }
+    }
+  ],
+  "source_files": [
+    {
+      "path": "scripts/build_telegram_media.py",
+      "sha256": "d4054b3281bb195d0cb7eaa157f90a4143d7570746c92ee1d80cc251b2fa42a2"
+    },
+    {
+      "path": "web/telegram/source/banner.html",
+      "sha256": "346d14c6559404c5f63fe05467fd806191794a06432edc51de40bb62d1aa1961"
+    },
+    {
+      "path": "web/telegram/source/logo.svg",
+      "sha256": "cf1401036af9dda154d22c1cdcaf73f15a64ed0c671a4cf3cc5e3a6829c6fedf"
+    },
+    {
+      "path": "web/fonts/PressStart2P-Regular.ttf",
+      "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d"
+    },
+    {
+      "path": "web/fonts/Outfit-Variable.ttf",
+      "sha256": "fc7287273e66929776e2ba54f144fe699080bec29f61bf649d70d871468aeade"
+    },
+    {
+      "path": "data/catalog-pt.json",
+      "sha256": "efdd6b5dc962747016185aaf9b9bc9627338484b064831754a82990138f3b46c"
+    }
+  ],
+  "tool_versions": {
+    "pillow": "13.0.0",
+    "playwright": "1.64.1"
+  },
+  "photo_policy": "Capa real convertida para JPEG RGB nas mesmas dimensões, sem recorte ou deformação.",
+  "thumb_policy": "JPEG RGB 240×150; imagem proporcional inteira com letterbox azul-marinho.",
+  "scope": "Arquivos locais derivados das capas reais; nenhum envio Telegram, serviço externo ou publicação."
+}

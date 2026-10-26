@@ -69,6 +69,11 @@ jobs:
           HOME: /root
           TEST_OUTPUT_DIR: artifacts/popular-ci
         run: python tests/e2e_popular_games.py
+      - name: Inline Mini App launch and sharing in all three browsers
+        env:
+          HOME: /root
+          TEST_OUTPUT_DIR: artifacts/inline-ci
+        run: python tests/e2e_inline_launch.py
       - name: Upload visual snapshots
         if: always()
         uses: actions/upload-artifact@v4

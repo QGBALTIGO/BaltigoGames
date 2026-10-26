@@ -66,6 +66,7 @@ python scripts/validate_catalog.py
 pytest -q
 python tests/e2e_portal.py
 python tests/e2e_popular_games.py
+python tests/e2e_inline_launch.py
 python scripts/audit_games.py --base http://127.0.0.1:8190 --profiles preferred,desktop --covers --workers 2 --output artifacts/qualification-preferred
 python scripts/audit_round_transitions.py --base http://127.0.0.1:8190 --phaser-only --workers 2 --out artifacts/terminal-rounds
 python tests/e2e_native_rounds.py
@@ -108,7 +109,15 @@ Registrar versão do código, hardware, limites de CPU/memória, Python, SQLite 
 
 ## Telegram e operação
 
-O bot registra comandos, botão de menu, botão WebApp e pesquisa inline em português, sem emojis. `/health` falha se o bot configurado não estiver em execução. Inline Mode e Main Mini App são opções da conta no BotFather e não podem ser habilitadas pelo token. O compartilhamento mantém alternativa por `/start game_<slug>` quando necessário.
+O bot apresenta um banner de abertura e fotos dos próprios jogos em português, sem emojis. A pesquisa inline mostra capas, categoria, objetivo e botão de abertura, com busca sem distinção de acentos e paginação de todo o catálogo. As fotos e miniaturas JPEG estão em `web/telegram/`; `scripts/build_telegram_media.py` reproduz os arquivos a partir das capas locais e da composição original do banner. `manifest.json` registra dimensões, tamanhos e hashes.
+
+Em qualquer conversa, digite `@BaltigoGamesBot` e o nome do jogo para escolher uma foto. O botão **Abrir catálogo de jogos**, acima dos resultados, abre o Mini App diretamente no modo inline, inclusive em grupos. Nesse modo o Telegram não fornece identidade autenticada: é possível jogar como visitante, mas as partidas não entram na classificação autenticada. O botão Compartilhar do portal usa a escolha de conversa do Telegram quando disponível; navegadores comuns mantêm compartilhamento nativo ou cópia do link.
+
+Para que o botão da própria foto abra diretamente o jogo, o proprietário deve configurar o **Main Mini App** no BotFather apontando para `APP_URL`. O bot consulta `getMe.has_main_web_app` ao iniciar. Enquanto a opção estiver desativada, o botão informa **Abrir jogo no bot** e usa `/start game_<slug>`; na conversa privada, **Jogar agora** abre o jogo escolhido. Reinicie somente o serviço do bot após alterar a configuração no BotFather. Para um Mini App nomeado já configurado, `TELEGRAM_MINI_APP_SHORT_NAME` pode informar seu identificador real; não definir um nome inventado.
+
+Botões `web_app` de mensagens são exclusivos da conversa privada com o bot. Mensagens em grupos e fotos inline usam links de Mini App ou a alternativa privada acima. Isso não exige tornar o bot administrador ou desativar a privacidade do grupo, e não oferece partidas multiplayer. A suíte do bot valida os conteúdos e destinos sem enviar mensagens reais; `tests/e2e_inline_launch.py` simula os recursos do cliente Telegram nos três navegadores e testa o portal real. A entrega de fotos e a abertura dentro do aplicativo Telegram precisam também de conferência no dispositivo.
+
+O bot registra comandos, descrição e botão de menu em português. `/health` falha se o bot configurado não estiver em execução. Inline Mode e Main Mini App são opções da conta no BotFather e não podem ser habilitadas pelo token.
 
 Consulte `deploy/README.md` para publicação, persistência e recuperação. Não colocar o token no repositório, nas capturas ou nos logs.
 
