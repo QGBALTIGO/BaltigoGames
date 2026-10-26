@@ -109,7 +109,9 @@ Registrar versão do código, hardware, limites de CPU/memória, Python, SQLite 
 
 ## Telegram e operação
 
-O bot apresenta um banner de abertura e fotos dos próprios jogos em português, sem emojis. A pesquisa inline mostra capas, categoria, objetivo e botão de abertura, com busca sem distinção de acentos e paginação de todo o catálogo. As fotos e miniaturas JPEG estão em `web/telegram/`; `scripts/build_telegram_media.py` reproduz os arquivos a partir das capas locais e da composição original do banner. `manifest.json` registra dimensões, tamanhos e hashes.
+O bot apresenta um banner de abertura e fotos dos próprios jogos em português, com emojis escolhidos para os textos e todos os botões. `/home` apresenta o fliperama e seus atalhos. `/games` mostra o catálogo com seis jogos por página, filtros por categoria e busca inline. `/jogar` sugere uma partida com foto, objetivo e abertura direta; `/jogar tetris` encontra o jogo pelo nome ou identificador. O botão para trocar a sugestão escolhe outro jogo quando há alternativas. Os menus se atualizam na própria mensagem pelos botões de navegação.
+
+`/start` abre as boas-vindas; `/start game_<slug>` continua abrindo o jogo específico compartilhado. A pesquisa inline mostra capas, categoria, objetivo e botão de abertura, com busca sem distinção de acentos e paginação de todo o catálogo. As fotos e miniaturas JPEG estão em `web/telegram/`; `scripts/build_telegram_media.py` reproduz os arquivos a partir das capas locais e da composição original do banner. `manifest.json` registra dimensões, tamanhos e hashes.
 
 Em qualquer conversa, digite `@BaltigoGamesBot` e o nome do jogo para escolher uma foto. O botão **Abrir catálogo de jogos**, acima dos resultados, abre o Mini App diretamente no modo inline, inclusive em grupos. Nesse modo o Telegram não fornece identidade autenticada: é possível jogar como visitante, mas as partidas não entram na classificação autenticada. O botão Compartilhar do portal usa a escolha de conversa do Telegram quando disponível; navegadores comuns mantêm compartilhamento nativo ou cópia do link.
 

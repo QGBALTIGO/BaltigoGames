@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import os
+import random
 import re
 import unicodedata
 from collections.abc import Callable
@@ -10,6 +11,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
 _PAGE_SIZE = 25
+_CATALOG_PAGE_SIZE = 6
 # The fallback /start payload includes the five-byte "game_" prefix (64-byte limit).
 _SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z", re.ASCII)
 _CATEGORIES = {
@@ -19,11 +21,15 @@ _CATEGORIES = {
     "3d": "Jogos em 3D",
 }
 _DESCRIPTION = (
-    "Seu fliperama no Telegram: jogos em português, tutoriais e controles para celular. "
-    "Abra o catálogo, escolha seu próximo desafio e jogue sem instalar nada. "
-    "Use a busca inline para compartilhar um jogo em qualquer conversa."
+    "🎮 Seu fliperama no Telegram, com jogos em português e sem instalação. "
+    "Use /jogar para uma sugestão, /games para explorar o catálogo e /home para voltar ao início. "
+    "🔎 Encontre e compartilhe jogos pela busca inline."
 )
-_SHORT_DESCRIPTION = "Jogos em português no Telegram. Escolha, compartilhe e jogue sem instalar nada."
+_SHORT_DESCRIPTION = "🎮 Jogos em português, sem instalar. Descubra seu próximo favorito e compartilhe no Telegram."
+_CATEGORY_ICONS = {
+    "puzzle": "🧩", "arcade": "🕹️", "shooter": "🎯", "racing": "🏎️", "sports": "⚽",
+    "platformer": "🏃", "casual": "🎈", "board": "♟️", "word-quiz": "📝", "3d": "🌐",
+}
 _PHOTO_PERMISSION_ERRORS = {
     "chat_send_photos_forbidden", "chat_send_media_forbidden",
     "not enough rights to send photos to the chat",
@@ -129,7 +135,7 @@ def _game_caption(game: dict[str, Any]) -> str:
     name = html.escape(_plain(game.get("name"), 80) or game["slug"])
     objective = html.escape(_plain(game.get("description") or game.get("tutorial")
                                   or "Escolha seu desafio e acompanhe o tutorial para começar.", 280))
-    return (f"<b>{name}</b>\n{_category(game)}\n\n<b>Objetivo</b>\n{objective}"
+    return (f"<b>🎮 {name}</b>\n{_category(game)}\n\n<b>Objetivo</b>\n{objective}"
             "\n\n<b>Baltigo Games</b> · Jogue sem instalar.")
 
 
@@ -150,50 +156,241 @@ class _BotUI:
     def direct_app_available(self) -> bool:
         return bool(self.has_main_web_app or self.named_app_short_name)
 
-    async def send_home(self, update: Any, context: Any) -> None:
-        from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+    def _open_button(self, chat_type: str, slug: str | None = None, label: str | None = None):
+        from telegram import InlineKeyboardButton, WebAppInfo
+
+        if chat_type == "private":
+            return InlineKeyboardButton(label or ("🎮 Jogar agora" if slug else "📱 Abrir webapp"),
+                                        web_app=WebAppInfo(url=_launch_url(self.app_url, slug)))
+        default = ("🎮 Jogar agora" if slug else "📱 Abrir webapp") if self.direct_app_available else (
+            "🔗 Abrir jogo no bot" if slug else "🔗 Abrir catálogo no bot")
+        return InlineKeyboardButton(label or default, url=self._link(slug))
+
+    @staticmethod
+    def _search_button(chat_type: str):
+        from telegram import InlineKeyboardButton
+
+        return (InlineKeyboardButton("🔎 Buscar um jogo", switch_inline_query="") if chat_type == "channel"
+                else InlineKeyboardButton("🔎 Buscar um jogo", switch_inline_query_current_chat=""))
+
+    @staticmethod
+    def _chat_type(update: Any) -> str:
+        return str(getattr(getattr(update, "effective_chat", None), "type", "unknown"))
+
+    def _home_view(self, chat_type: str):
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+        caption = (
+            "<b>🎮 Baltigo Games</b>\nSeu próximo favorito está a um toque.\n\n"
+            "<b>Escolha por onde começar</b>\n"
+            "🎲 /jogar — receba uma sugestão ou procure, por exemplo, /jogar xadrez.\n"
+            "🕹️ /games — explore os jogos por página e categoria.\n"
+            "🏠 /home — volte para este início.\n\n"
+            "Abra o webapp para jogar ou use a busca para compartilhar um jogo nesta conversa."
+        )
+        keyboard = InlineKeyboardMarkup([
+            [self._open_button(chat_type)],
+            [InlineKeyboardButton("🎲 Sugerir um jogo", callback_data="bg:play"),
+             InlineKeyboardButton("🕹️ Ver catálogo", callback_data="bg:games:all:0")],
+            [self._search_button(chat_type)],
+        ])
+        return caption, keyboard, None
+
+    def _game_view(self, game: dict[str, Any], chat_type: str):
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+        slug = game["slug"]
+        # All current slugs fit. Longer valid /start slugs use the visible caption to exclude the current game.
+        swap = f"bg:play:{slug}" if len(f"bg:play:{slug}".encode()) <= 64 else "bg:play"
+        keyboard = InlineKeyboardMarkup([
+            [self._open_button(chat_type, slug)],
+            [InlineKeyboardButton("🔀 Outra sugestão", callback_data=swap),
+             InlineKeyboardButton("🕹️ Ver catálogo", callback_data="bg:games:all:0")],
+            [InlineKeyboardButton("🏠 Início", callback_data="bg:home"), self._search_button(chat_type)],
+        ])
+        return _game_caption(game), keyboard, slug
+
+    def _not_found_view(self, query: str, chat_type: str):
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+        searched = html.escape(_plain(query, 100))
+        caption = (f"<b>🔎 Jogo não encontrado</b>\nNão encontrei <b>{searched}</b>.\n\n"
+                   "Tente outro nome, use /jogar com o nome do jogo ou escolha no catálogo.\n\n"
+                   "<b>Baltigo Games</b>")
+        return caption, InlineKeyboardMarkup([
+            [self._search_button(chat_type)],
+            [InlineKeyboardButton("🕹️ Ver catálogo", callback_data="bg:games:all:0"),
+             InlineKeyboardButton("🏠 Início", callback_data="bg:home")],
+        ]), None
+
+    @staticmethod
+    def _ordered_games(games: list[dict[str, Any]], category: str = "all") -> list[dict[str, Any]]:
+        return sorted((game for game in games if category == "all" or game.get("category") == category),
+                      key=lambda game: (_normalize(game.get("name") or game["slug"]), game["slug"]))
+
+    def _catalog_view(self, games: list[dict[str, Any]], chat_type: str, category: str = "all", offset: int = 0):
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+        filtered = self._ordered_games(games, category)
+        page = filtered[offset:offset + _CATALOG_PAGE_SIZE]
+        total = len(filtered)
+        pages = max(1, (total + _CATALOG_PAGE_SIZE - 1) // _CATALOG_PAGE_SIZE)
+        label = "Todos os jogos" if category == "all" else _CATEGORIES[category]
+        caption = (f"<b>🕹️ Catálogo de jogos</b>\n{label} · {total} {'jogo' if total == 1 else 'jogos'}\n"
+                   f"Página {offset // _CATALOG_PAGE_SIZE + 1} de {pages}\n\n"
+                   + ("Escolha um dos jogos abaixo. Use as categorias para filtrar ou a busca para encontrar um nome."
+                      if page else "Ainda não há jogos disponíveis aqui. Volte ao início ou tente novamente mais tarde."))
+        buttons = [self._open_button(chat_type, game["slug"],
+                    f"{_CATEGORY_ICONS.get(game.get('category'), '🎮')} {_plain(game.get('name'), 40) or game['slug']}")
+                   for game in page]
+        rows = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
+        navigation = []
+        if offset:
+            navigation.append(InlineKeyboardButton("⬅️ Anterior", callback_data=f"bg:games:{category}:{offset - _CATALOG_PAGE_SIZE}"))
+        if offset + _CATALOG_PAGE_SIZE < total:
+            navigation.append(InlineKeyboardButton("➡️ Próxima", callback_data=f"bg:games:{category}:{offset + _CATALOG_PAGE_SIZE}"))
+        if navigation:
+            rows.append(navigation)
+        rows.extend([
+            [InlineKeyboardButton("🏷️ Categorias", callback_data="bg:categories"), self._search_button(chat_type)],
+            [InlineKeyboardButton("🏠 Início", callback_data="bg:home"),
+             InlineKeyboardButton("🎲 Sugerir um jogo", callback_data="bg:play")],
+        ])
+        return caption, InlineKeyboardMarkup(rows), None
+
+    def _categories_view(self, games: list[dict[str, Any]], chat_type: str):
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+        buttons = [InlineKeyboardButton(f"🕹️ Todos os jogos ({len(games)})", callback_data="bg:games:all:0")]
+        for category, label in _CATEGORIES.items():
+            count = sum(game.get("category") == category for game in games)
+            if count:
+                buttons.append(InlineKeyboardButton(f"{_CATEGORY_ICONS[category]} {label} ({count})",
+                                                   callback_data=f"bg:games:{category}:0"))
+        rows = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
+        rows.append([InlineKeyboardButton("🏠 Início", callback_data="bg:home"), self._search_button(chat_type)])
+        caption = "<b>🏷️ Escolha uma categoria</b>\nFiltre o catálogo pelo tipo de jogo que você quer jogar."
+        if not games:
+            caption += "\n\nAinda não há jogos disponíveis."
+        return caption, InlineKeyboardMarkup(rows), None
+
+    def _suggestion_view(self, games: list[dict[str, Any]], chat_type: str, excluded: str | None = None):
+        if not games:
+            return self._catalog_view(games, chat_type)
+        candidates = [game for game in games if game["slug"] != excluded] or games
+        return self._game_view(random.choice(candidates), chat_type)
+
+    @staticmethod
+    def _rejection(exc: Exception) -> str:
+        return str(exc).strip().casefold().removeprefix("forbidden: ").removeprefix("bad request: ")
+
+    async def _deliver(self, update: Any, view: tuple, query: Any = None) -> None:
+        from telegram import InputMediaPhoto
         from telegram.error import BadRequest, Forbidden
 
+        caption, keyboard, slug = view
+        message = query.message if query is not None else update.effective_message
+        if message is None:
+            return
+        has_photo = bool(getattr(message, "photo", None))
+        try:
+            if query is None:
+                await message.reply_photo(photo=_photo_url(self.app_url, slug), caption=caption,
+                                          parse_mode="HTML", reply_markup=keyboard)
+            elif has_photo:
+                await query.edit_message_media(media=InputMediaPhoto(_photo_url(self.app_url, slug),
+                                               caption=caption, parse_mode="HTML"), reply_markup=keyboard)
+            else:
+                await query.edit_message_text(caption, parse_mode="HTML", reply_markup=keyboard)
+        except (BadRequest, Forbidden) as exc:
+            rejection = self._rejection(exc)
+            if query is not None and isinstance(exc, BadRequest) and (
+                    rejection == "message is not modified" or rejection.startswith("message is not modified:")):
+                return
+            if (query is not None and not has_photo) or rejection not in _PHOTO_PERMISSION_ERRORS:
+                raise
+            # Definitive media rejection only; never resend an uncertain network operation.
+            await message.reply_text(caption, parse_mode="HTML", reply_markup=keyboard)
+
+    async def send_home(self, update: Any, context: Any) -> None:
+        if update.effective_message is not None:
+            await self._deliver(update, self._home_view(self._chat_type(update)))
+
+    async def send_start(self, update: Any, context: Any) -> None:
         if update.effective_message is None:
             return
-        games = _catalog_games(self.catalog_loader())
+        chat_type = self._chat_type(update)
         argument = str(context.args[0]) if context.args else ""
-        slug = argument.removeprefix("game_")
-        selected = next((game for game in games if game["slug"] == slug), None)
-        slug = selected["slug"] if selected else None
-        private = update.effective_chat is not None and update.effective_chat.type == "private"
-        if private:
-            open_button = InlineKeyboardButton("Jogar agora" if selected else "Abrir catálogo",
-                                              web_app=WebAppInfo(url=_launch_url(self.app_url, slug)))
+        # /start game_<slug> opens exactly that game, never a fuzzy or random substitute.
+        if argument.startswith("game_"):
+            slug = argument[5:]
+            selected = next((game for game in _catalog_games(self.catalog_loader()) if game["slug"] == slug), None)
+            view = self._game_view(selected, chat_type) if selected else self._not_found_view(slug, chat_type)
+        elif argument == "games":
+            view = self._catalog_view(_catalog_games(self.catalog_loader()), chat_type)
         else:
-            label = ("Jogar agora" if selected else "Abrir catálogo") if self.direct_app_available else (
-                "Abrir jogo no bot" if selected else "Abrir catálogo no bot")
-            open_button = InlineKeyboardButton(label, url=self._link(slug))
-        choose_button = (InlineKeyboardButton("Escolher um jogo para compartilhar", switch_inline_query="")
-                         if update.effective_chat is not None and update.effective_chat.type == "channel"
-                         else InlineKeyboardButton("Escolher um jogo nesta conversa", switch_inline_query_current_chat=""))
-        keyboard = InlineKeyboardMarkup([
-            [open_button],
-            [choose_button],
-        ])
-        caption = _game_caption(selected) if selected else (
-            "<b>Baltigo Games</b>\nSeu próximo jogo começa aqui.\n\n"
-            "Jogos em português, tutoriais e desafios para jogar no celular. "
-            "Abra o catálogo ou escolha um jogo para compartilhar nesta conversa.\n\n"
-            "<b>Escolha. Jogue. Supere seu recorde.</b>"
-        )
-        if argument and argument != "games" and selected is None:
-            caption += "\n\nEsse jogo não está disponível. Escolha outro no catálogo."
+            view = self._home_view(chat_type)
+        await self._deliver(update, view)
+
+    async def send_games(self, update: Any, context: Any) -> None:
+        if update.effective_message is not None:
+            await self._deliver(update, self._catalog_view(_catalog_games(self.catalog_loader()), self._chat_type(update)))
+
+    async def send_play(self, update: Any, context: Any) -> None:
+        if update.effective_message is None:
+            return
+        games, chat_type = _catalog_games(self.catalog_loader()), self._chat_type(update)
+        search = " ".join(str(arg) for arg in context.args).strip()
+        if search:
+            found = _search_games({"games": games}, search, limit=1)
+            view = self._game_view(found[0], chat_type) if found else self._not_found_view(search, chat_type)
+        else:
+            view = self._suggestion_view(games, chat_type)
+        await self._deliver(update, view)
+
+    async def callback_query(self, update: Any, context: Any) -> None:
+        query = update.callback_query
+        if query is None:
+            return
+        await query.answer()
+        data = query.data
+        if not isinstance(data, str) or query.message is None:
+            return
         try:
-            await update.effective_message.reply_photo(
-                photo=_photo_url(self.app_url, slug), caption=caption, parse_mode="HTML", reply_markup=keyboard,
-            )
-        except (BadRequest, Forbidden) as exc:
-            rejection = str(exc).strip().casefold().removeprefix("forbidden: ").removeprefix("bad request: ")
-            if rejection not in _PHOTO_PERMISSION_ERRORS:
-                raise
-            # A definitive media rejection is safe to replace; uncertain network failures are not.
-            await update.effective_message.reply_text(caption, parse_mode="HTML", reply_markup=keyboard)
+            if len(data.encode()) > 64:
+                return
+        except UnicodeEncodeError:
+            return
+        chat_type = self._chat_type(update)
+        games = _catalog_games(self.catalog_loader())
+        if data == "bg:home":
+            view = self._home_view(chat_type)
+        elif data == "bg:categories":
+            view = self._categories_view(games, chat_type)
+        elif data == "bg:play" or data.startswith("bg:play:"):
+            excluded = data[len("bg:play:"):] if data.startswith("bg:play:") else None
+            if excluded is not None and (not _valid_slug(excluded) or not any(game["slug"] == excluded for game in games)):
+                return
+            if excluded is None:
+                previous = getattr(query.message, "caption", None) or getattr(query.message, "text", None)
+                for game in games:
+                    rendered = _game_caption(game)
+                    if isinstance(previous, str) and previous in {rendered, html.unescape(re.sub(r"</?b>", "", rendered))}:
+                        excluded = game["slug"]
+                        break
+            view = self._suggestion_view(games, chat_type, excluded)
+        else:
+            match = re.fullmatch(r"bg:games:([a-z0-9-]+):(0|[1-9][0-9]{0,5})", data)
+            if match is None:
+                return
+            category, offset = match[1], int(match[2])
+            if category != "all" and (category not in _CATEGORIES or not any(game.get("category") == category for game in games)):
+                return
+            total = len(self._ordered_games(games, category))
+            if offset % _CATALOG_PAGE_SIZE or (offset >= total and offset != 0):
+                return
+            view = self._catalog_view(games, chat_type, category, offset)
+        await self._deliver(update, view, query)
 
     async def inline_query(self, update: Any, context: Any) -> None:
         from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultPhoto,
@@ -216,12 +413,12 @@ class _BotUI:
                 description=_plain(f"{_category(game)} · {game.get('description', '')}", 160),
                 caption=_game_caption(game), parse_mode="HTML",
                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                    "Jogar agora" if self.direct_app_available else "Abrir jogo no bot", url=self._link(slug),
+                    "🎮 Jogar agora" if self.direct_app_available else "🔗 Abrir jogo no bot", url=self._link(slug),
                 )]]),
             ))
         next_offset = str(offset + len(page)) if offset + len(page) < len(games) else ""
         await query.answer(
-            results, button=InlineQueryResultsButton(text="Abrir catálogo de jogos",
+            results, button=InlineQueryResultsButton(text="🕹️ Abrir catálogo de jogos",
                                                     web_app=WebAppInfo(url=self.app_url)),
             next_offset=next_offset, cache_time=20, is_personal=False,
         )
@@ -229,7 +426,7 @@ class _BotUI:
 
 async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[str, Any]]):
     from telegram import BotCommand, MenuButtonWebApp, Update, WebAppInfo
-    from telegram.ext import Application, CommandHandler, InlineQueryHandler
+    from telegram.ext import Application, CallbackQueryHandler, CommandHandler, InlineQueryHandler
 
     application = Application.builder().token(token).build()
     await application.initialize()
@@ -239,14 +436,18 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     await application.bot.set_my_name(name="Baltigo Games")
     await application.bot.set_my_description(description=_DESCRIPTION)
     await application.bot.set_my_short_description(short_description=_SHORT_DESCRIPTION)
-    application.add_handler(CommandHandler(["start", "jogar", "games", "home"], ui.send_home))
+    application.add_handler(CommandHandler("start", ui.send_start))
+    application.add_handler(CommandHandler("home", ui.send_home))
+    application.add_handler(CommandHandler("games", ui.send_games))
+    application.add_handler(CommandHandler("jogar", ui.send_play))
+    application.add_handler(CallbackQueryHandler(ui.callback_query, pattern=r"^bg:"))
     application.add_handler(InlineQueryHandler(ui.inline_query))
     await application.bot.set_my_commands([
-        BotCommand("jogar", "Escolher e jogar"), BotCommand("games", "Explorar o catálogo"),
-        BotCommand("home", "Voltar ao início"),
+        BotCommand("jogar", "🎲 Receber uma sugestão ou buscar um jogo"), BotCommand("games", "🕹️ Navegar pelo catálogo e categorias"),
+        BotCommand("home", "🏠 Voltar ao início"),
     ])
     await application.bot.set_chat_menu_button(
-        menu_button=MenuButtonWebApp(text="Jogos", web_app=WebAppInfo(url=app_url)),
+        menu_button=MenuButtonWebApp(text="🎮 Jogos", web_app=WebAppInfo(url=app_url)),
     )
     await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
     await application.start()

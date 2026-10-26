@@ -43,7 +43,12 @@ async def test_start_handler(fake_application, chat_type, argument):
     assert call.kwargs["parse_mode"] == "HTML"
     message.reply_text.assert_not_awaited()
     button = call.kwargs["reply_markup"].inline_keyboard[0][0]
-    if chat_type == "private":
+    if argument == "game_missing":
+        assert "Não encontrei" in call.kwargs["caption"]
+        buttons = [button for row in call.kwargs["reply_markup"].inline_keyboard for button in row]
+        assert {button.callback_data for button in buttons} >= {"bg:home", "bg:games:all:0"}
+        assert not any(button.web_app or button.url for button in buttons)
+    elif chat_type == "private":
         expected = "https://games.example?startapp=snake" if argument == "game_snake" else "https://games.example"
         assert button.web_app.url == expected
     else:
