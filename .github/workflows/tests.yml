@@ -64,6 +64,11 @@ jobs:
         run: |
           python -c 'import os; from pathlib import Path; assert Path.home().stat().st_uid == os.geteuid(), "HOME ownership mismatch"; print("Browser HOME ownership OK; uid", os.geteuid())'
           python tests/e2e_portal.py
+      - name: Top 10 journeys in Chromium, Firefox and WebKit
+        env:
+          HOME: /root
+          TEST_OUTPUT_DIR: artifacts/popular-ci
+        run: python tests/e2e_popular_games.py
       - name: Upload visual snapshots
         if: always()
         uses: actions/upload-artifact@v4

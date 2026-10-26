@@ -51,6 +51,12 @@ A classificação mede **participação**, não compara pontuações brutas de j
 
 SQLite em modo WAL guarda os dados do ranking em `DATABASE_PATH`. Favoritos e histórico continuam no armazenamento local do dispositivo. Não expor o banco por HTTP. Para backup consistente, usar a API `sqlite3.Connection.backup()`; copiar somente o arquivo principal durante uso pode perder dados do WAL.
 
+## Jogos mais jogados
+
+O Top 10 da página inicial usa `GET /api/games/popular?limit=10`. A contagem geral inclui somente partidas finalizadas de usuários autenticados, com pelo menos 15 segundos de atividade registrada e motivo `registrada` ou `limite_diario`. Sair após jogar também conta; simples aberturas, partidas expiradas e pontuações informadas pelo navegador não influenciam a ordem. Empates usam o identificador do jogo em ordem alfabética.
+
+A resposta pública contém apenas jogos e contagens agregadas, sem dados de jogadores. O servidor mantém um retrato por 60 segundos, com leitura independente da fila de gravação. A lista mostra até dez jogos: quando há menos registros, não cria posições nem partidas fictícias.
+
 ## Verificação
 
 ```sh
@@ -59,6 +65,7 @@ python -m playwright install chromium firefox webkit
 python scripts/validate_catalog.py
 pytest -q
 python tests/e2e_portal.py
+python tests/e2e_popular_games.py
 python scripts/audit_games.py --base http://127.0.0.1:8190 --profiles preferred,desktop --covers --workers 2 --output artifacts/qualification-preferred
 python scripts/audit_round_transitions.py --base http://127.0.0.1:8190 --phaser-only --workers 2 --out artifacts/terminal-rounds
 python tests/e2e_native_rounds.py

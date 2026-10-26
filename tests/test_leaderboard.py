@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import json
+import re
 import sqlite3
 import asyncio
 import contextvars
@@ -65,6 +66,7 @@ def setup_api(tmp_path):
         app = FastAPI()
         router = create_leaderboard_router(lambda: CATALOG, TEST_TOKEN, database_path, clock=clock)
         writers.append(router.leaderboard_writer)
+        app.state.leaderboard_writer = router.leaderboard_writer
         app.include_router(router)
         return app
 
@@ -890,3 +892,265 @@ def test_display_name_is_plain_text_without_emoji_or_direction_controls():
     assert clean_display_name("<script>alert(1)</script>🎮\u202e") == "alert1"
     assert clean_display_name("" ) == "Jogador"
     assert len(clean_display_name("a" * 200)) == 32
+
+
+def popular_store(client):
+    return client.app.state.leaderboard_writer.store
+
+
+def seed_popular_runs(store, records):
+    """Explicit synthetic historical rows; never used against a live database."""
+    user = store.session({"id": 987654321, "first_name": "Private Player"}, None)["user"]
+    with store.write_connection() as db:
+        count = db.execute("SELECT COUNT(*) FROM ranking_runs").fetchone()[0]
+        for index, values in enumerate(records):
+            row = {"game_slug": "snake", "active_seconds": 20, "status": "finished",
+                   "points": 1, "browser_score": 500, "outcome": "ended", "reason": "registrada"}
+            row.update(values)
+            db.execute("""INSERT INTO ranking_runs
+                (id,user_id,game_slug,started_at,last_heartbeat,active_seconds,status,
+                 finished_at,points,browser_score,outcome,reason) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (f"popular-fixture-{count + index}", user["id"], row["game_slug"],
+                 store.clock() - 20, store.clock(), row["active_seconds"], row["status"],
+                 None if row["status"] == "active" else store.clock(), row["points"],
+                 row["browser_score"], row["outcome"], row["reason"]))
+
+
+def test_popular_games_empty_is_public_private_and_never_records_guest_plays(setup_api):
+    client, _, path, _ = setup_api
+    with sqlite3.connect(path) as db:
+        before = db.execute("SELECT COUNT(*) FROM ranking_limits").fetchone()[0]
+    response = client.get("/api/games/popular")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["games"] == [] and payload["total_plays"] == 0
+    assert payload["period"] == "all" and payload["minimum_active_seconds"] == 15
+    assert payload["verified"] is False and "navegador" in payload["trust_policy"].lower()
+    assert payload["updated_at"].endswith("Z")
+    assert response.headers["Cache-Control"] == "public, max-age=60"
+    assert response.headers["Age"] == "0" and "Set-Cookie" not in response.headers
+    assert client.get("/api/games/popular", headers={"Authorization": "Bearer invalid", "Cookie": "private=secret"}).json() == payload
+    assert client.post("/api/games/popular", json={"slug": "snake"}).status_code == 405
+    with sqlite3.connect(path) as db:
+        assert db.execute("SELECT COUNT(*) FROM ranking_limits").fetchone()[0] == before
+        assert db.execute("SELECT COUNT(*) FROM ranking_runs").fetchone()[0] == 0
+        assert db.execute("SELECT COUNT(*) FROM ranking_users").fetchone()[0] == 0
+
+
+def test_popular_aggregation_counts_valid_activity_including_exit_and_daily_cap(setup_api):
+    client, _, _, _ = setup_api
+    store = popular_store(client)
+    seed_popular_runs(store, [
+        {"active_seconds": 15, "outcome": "completed", "browser_score": None},
+        {"browser_score": 0}, {"outcome": "abandoned"},
+        {"points": 0, "reason": "limite_diario"},
+        {"game_slug": "tetris", "points": 10, "browser_score": 1_000_000_000},
+        {"active_seconds": 14, "points": 0, "reason": "atividade_insuficiente"},
+        {"active_seconds": 4000, "points": 0, "reason": "partida_expirada"},
+        {"active_seconds": 30, "status": "abandoned", "reason": "substituida"},
+        {"active_seconds": 30, "status": "active", "reason": None},
+        {"reason": "invalid"}, {"game_slug": "removed-game"},
+    ])
+    payload = client.get("/api/games/popular").json()
+    assert payload["games"] == [{"slug": "snake", "plays": 4}, {"slug": "tetris", "plays": 1}]
+    assert payload["total_plays"] == 5
+    limited = client.get("/api/games/popular?limit=1").json()
+    assert limited["games"] == [{"slug": "snake", "plays": 4}] and limited["total_plays"] == 5
+    serialized = json.dumps(payload)
+    for private in ["987654321", "Private Player", "telegram_id", "user_id", "browser_score", "popular-fixture", "token"]:
+        assert private not in serialized
+
+
+def test_popular_real_authenticated_finish_and_duplicate_count_exactly_once(setup_api):
+    client, clock, _, _ = setup_api
+    headers, _ = authenticate(client, clock)
+    run_id, result = round_play(client, clock, headers, seconds=15, score=999_999)
+    assert result["accepted"]
+    retry = client.post(f"/api/runs/{run_id}/finish", json={"score": 1}, headers=headers)
+    assert retry.json()["duplicate"]
+    assert client.get("/api/games/popular").json()["games"] == [{"slug": "snake", "plays": 1}]
+
+
+@pytest.mark.parametrize("limit", ["0", "11", "-1", "abc"])
+def test_popular_limit_is_bounded_and_validation_does_not_echo_input(setup_api, limit):
+    client, _, _, _ = setup_api
+    response = client.get("/api/games/popular", params={"limit": limit})
+    assert response.status_code == 422
+    assert response.json().keys() == {"detail"}
+
+
+def test_popular_ties_are_deterministic_and_reopen_preserves_existing_rows(tmp_path):
+    clock = Clock()
+    path = tmp_path / "popular.sqlite"
+    store = LeaderboardStore(path, clock)
+    slugs = frozenset(f"game-{number:02}" for number in range(12))
+    seed_popular_runs(store, [{"game_slug": slug} for slug in sorted(slugs, reverse=True)])
+    first, _ = store.popular_games(slugs)
+    assert first["games"] == [{"slug": slug, "plays": 1} for slug in sorted(slugs)[:10]]
+    assert first["total_plays"] == 12
+    store.close()
+    reopened = LeaderboardStore(path, clock)
+    try:
+        assert reopened.popular_games(slugs)[0] == first
+        with reopened.connection() as db:
+            assert db.execute("SELECT COUNT(*) FROM ranking_runs").fetchone()[0] == 12
+            assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+            from app.leaderboard import POPULAR_RUN_FILTER
+            plan = db.execute(f"EXPLAIN QUERY PLAN SELECT game_slug,COUNT(*) FROM ranking_runs INDEXED BY ranking_runs_popular WHERE {POPULAR_RUN_FILTER} GROUP BY game_slug").fetchall()
+            assert "ranking_runs_popular" in " ".join(str(tuple(row)) for row in plan)
+    finally:
+        reopened.close()
+
+
+def test_popular_cache_ttl_age_catalog_change_and_response_cannot_poison_cache(setup_api, monkeypatch):
+    client, clock, _, _ = setup_api
+    store = popular_store(client)
+    monkeypatch.setattr(store, "_popular_clock", clock)
+    seed_popular_runs(store, [{}])
+    reads = []
+    original = store._read_popular_rows
+    monkeypatch.setattr(store, "_read_popular_rows", lambda known: (reads.append(known), original(known))[1])
+    first = client.get("/api/games/popular").json()
+    direct, _ = store.popular_games(frozenset({"snake", "tetris"}))
+    direct["games"][0]["plays"] = 1000
+    seed_popular_runs(store, [{}])
+    clock.advance(59)
+    stale = client.get("/api/games/popular?limit=1")
+    assert stale.json() == first and stale.headers["Age"] == "59"
+    assert len(reads) == 1
+    clock.advance(1)
+    fresh = client.get("/api/games/popular").json()
+    assert fresh["games"] == [{"slug": "snake", "plays": 2}]
+    assert fresh["updated_at"] != first["updated_at"] and len(reads) == 2
+    assert store.popular_games(frozenset({"tetris"}))[0]["games"] == []
+    assert len(reads) == 3
+
+
+def test_popular_cold_read_is_singleflight_across_threads(tmp_path, monkeypatch):
+    store = LeaderboardStore(tmp_path / "popular.sqlite")
+    seed_popular_runs(store, [{}])
+    entered, release = threading.Event(), threading.Event()
+    reads = []
+    original = store._read_popular_rows
+
+    def blocked(known):
+        reads.append(known)
+        entered.set()
+        assert release.wait(5)
+        return original(known)
+
+    monkeypatch.setattr(store, "_read_popular_rows", blocked)
+    try:
+        with ThreadPoolExecutor(max_workers=16) as pool:
+            futures = [pool.submit(store.popular_games, frozenset({"snake"})) for _ in range(32)]
+            assert entered.wait(2)
+            release.set()
+            results = [future.result(timeout=5)[0] for future in futures]
+        assert len(reads) == 1
+        assert all(result["games"] == [{"slug": "snake", "plays": 1}] for result in results)
+    finally:
+        release.set()
+        store.close()
+
+
+def test_popular_reader_is_query_only_and_does_not_wait_for_uncommitted_writer(make_writer, monkeypatch):
+    writer, store = make_writer()
+    clock = Clock()
+    store.clock = clock
+    store._popular_clock = clock
+    user = store.session({"id": 123, "first_name": "Private"}, None)["user"]
+    run = store.start_run(user["id"], "snake")["run_id"]
+    clock.advance(10)
+    store.heartbeat(user["id"], run, True)
+    clock.advance(10)
+    entered, release = threading.Event(), threading.Event()
+    original_commit = store._commit_batch
+
+    def blocked_commit(db):
+        entered.set()
+        assert release.wait(5)
+        return original_commit(db)
+
+    monkeypatch.setattr(store, "_commit_batch", blocked_commit)
+    future = writer.submit(lambda: store.finish(user["id"], run, FinishBody()))
+    try:
+        assert entered.wait(2)
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            result, _ = pool.submit(store.popular_games, frozenset({"snake"})).result(timeout=1)
+        assert result["games"] == [] and not future.done()
+    finally:
+        release.set()
+    assert future.result(timeout=2)["accepted"]
+    clock.advance(60)
+    statements = []
+    original_open = store._open_connection
+
+    def traced():
+        db = original_open()
+        db.set_trace_callback(statements.append)
+        return db
+
+    monkeypatch.setattr(store, "_open_connection", traced)
+    assert store.popular_games(frozenset({"snake"}))[0]["games"] == [{"slug": "snake", "plays": 1}]
+    assert "PRAGMA query_only=ON" in statements
+    assert not any(re.match(r"\s*(INSERT|UPDATE|DELETE|BEGIN)", sql, re.I) for sql in statements)
+
+
+def test_popular_sql_error_is_not_cached_or_published_as_empty_success(setup_api, monkeypatch):
+    client, _, _, _ = setup_api
+    store = popular_store(client)
+    original = store._read_popular_rows
+
+    def unavailable(_):
+        raise sqlite3.OperationalError("synthetic private detail")
+
+    monkeypatch.setattr(store, "_read_popular_rows", unavailable)
+    response = client.get("/api/games/popular")
+    assert response.status_code == 503 and response.headers["Cache-Control"] == "no-store"
+    assert response.headers["Retry-After"] == "5" and "synthetic" not in response.text
+    monkeypatch.setattr(store, "_read_popular_rows", original)
+    assert client.get("/api/games/popular").json()["games"] == []
+
+
+def test_popular_1000_warm_http_reads_never_use_database_or_durable_writer(setup_api, monkeypatch):
+    import httpx
+    import time
+    import statistics
+    client, clock, path, _ = setup_api
+    store = popular_store(client)
+    store._popular_clock = clock
+    seed_popular_runs(store, [{}])
+    warm = client.get("/api/games/popular").json()
+    writer = client.app.state.leaderboard_writer
+
+    def no_database():
+        raise AssertionError("Warm popular reads must not open SQLite")
+
+    async def no_writer(_):
+        raise AssertionError("Public popular reads must not enter the writer queue")
+
+    monkeypatch.setattr(store, "_open_connection", no_database)
+    monkeypatch.setattr(writer, "call", no_writer)
+    with sqlite3.connect(path) as db:
+        before = [db.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] for table in ["ranking_users", "ranking_sessions", "ranking_runs", "ranking_limits"]]
+
+    async def requests():
+        semaphore = asyncio.Semaphore(40)
+        durations = []
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=client.app), base_url="http://synthetic") as api:
+            async def get():
+                async with semaphore:
+                    started = time.perf_counter()
+                    response = await api.get("/api/games/popular?limit=10")
+                    durations.append((time.perf_counter() - started) * 1000)
+                    assert response.status_code == 200 and response.json() == warm
+                    assert response.headers["Age"] == "0" and "Set-Cookie" not in response.headers
+            started = time.perf_counter()
+            await asyncio.gather(*(get() for _ in range(1000)))
+            elapsed = time.perf_counter() - started
+        print(json.dumps({"scope": "Local isolated ASGI warm-cache proof, not VPS capacity", "requests": 1000, "concurrency": 40, "seconds": elapsed, "median_ms": statistics.median(durations), "p95_ms": sorted(durations)[949], "database_opens": 0, "writer_dispatches": 0}))
+
+    asyncio.run(requests())
+    with sqlite3.connect(path) as db:
+        after = [db.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] for table in ["ranking_users", "ranking_sessions", "ranking_runs", "ranking_limits"]]
+    assert after == before

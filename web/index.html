@@ -9,7 +9,7 @@
   <title>Baltigo Games — aperte o play</title>
   <link rel="preload" href="/static/fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="preload" href="/static/fonts/Outfit-Variable.ttf" as="font" type="font/ttf" crossorigin />
-  <link rel="stylesheet" href="/static/styles.css?v=20261025-arcade-5" />
+  <link rel="stylesheet" href="/static/styles.css?v=20261025-arcade-6" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -62,6 +62,20 @@
         </section>
 
         <section id="recentSection" class="content-section" hidden><div class="section-head"><div><span class="section-kicker">SUA ÚLTIMA PARTIDA</span><h2>Continue de onde parou<span class="accent-dot">.</span></h2></div><button class="text-button" type="button" data-go="recent">ÚLTIMAS PARTIDAS<svg class="icon"><use href="#i-arrow"/></svg></button></div><div id="recentRail" class="game-rail"></div></section>
+        <section id="popularSection" class="content-section popular-section" aria-labelledby="popularTitle" aria-busy="true" data-state="loading">
+          <div class="popular-heading">
+            <div class="popular-heading-copy"><span class="section-kicker">AS MÁQUINAS MAIS DISPUTADAS</span><h2 id="popularTitle"><span class="popular-top-label">TOP <b>10</b></span><span>OS MAIS JOGADOS<span class="accent-dot">.</span></span></h2><p id="popularSummary">Consultando as partidas registradas da comunidade.</p></div>
+            <div class="popular-navigation" role="group" aria-label="Percorrer os jogos mais jogados"><button id="popularPrev" class="popular-arrow" type="button" aria-label="Ver jogos anteriores" aria-controls="popularList" disabled><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg></button><button id="popularNext" class="popular-arrow" type="button" aria-label="Ver próximos jogos" aria-controls="popularList" disabled><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+          </div>
+          <div class="popular-stage">
+            <div id="popularLoading" class="popular-loading" role="status"><span class="sr-only">Carregando os jogos mais jogados.</span><div class="popular-skeleton-track" aria-hidden="true"><span class="popular-skeleton"></span><span class="popular-skeleton"></span><span class="popular-skeleton"></span><span class="popular-skeleton"></span><span class="popular-skeleton"></span></div></div>
+            <ol id="popularList" class="popular-list" role="list" tabindex="0" aria-label="Jogos mais jogados, por partidas registradas" aria-describedby="popularScrollHint" hidden></ol>
+            <div id="popularEmpty" class="popular-state popular-empty" hidden><div class="popular-state-art" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg><span></span><span></span><span></span></div><div><span class="popular-state-kicker">A PRÓXIMA PARTIDA PODE SER A SUA</span><h3>O topo começa com quem joga.</h3><p>Quando houver partidas registradas, os jogos mais jogados vão aparecer aqui. Até lá, descubra seu favorito.</p><button class="secondary-button" type="button" data-go="explore">Explorar os jogos<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></div>
+            <div id="popularError" class="popular-state popular-error" hidden><div class="popular-state-art" aria-hidden="true"><svg class="icon"><use href="#i-reload"/></svg></div><div><span class="popular-state-kicker">DÁ PARA CONTINUAR JOGANDO</span><h3>Os mais jogados não carregaram.</h3><p>Não foi possível consultar as partidas agora. Tente novamente ou escolha um jogo na biblioteca.</p><button id="retryPopular" class="secondary-button" type="button">Tentar novamente<svg class="icon" aria-hidden="true"><use href="#i-reload"/></svg></button></div></div>
+          </div>
+          <div class="popular-footer"><span id="popularScrollHint">Use as setas ou deslize para percorrer a lista.</span><span id="popularUpdated">Contagem geral</span><details class="popular-method"><summary>Como a lista é formada</summary><p id="popularPolicy">Partidas registradas pelo Telegram com pelo menos 15 segundos de atividade. Abrir um jogo como visitante não altera esta lista.</p></details></div>
+          <p id="popularStatus" class="sr-only" role="status" aria-live="polite"></p>
+        </section>
         <section id="featuredSection" class="content-section"><div class="section-head"><div><span class="section-kicker">LIGUE A MÁQUINA</span><h2>CLÁSSICOS DA CASA<span class="accent-dot">.</span></h2></div><span class="section-note">DIVERSÃO EM MODO INFINITO</span></div><div id="featuredRail" class="game-rail"></div></section>
         <div id="welcomeBanner" class="welcome-banner"><span class="welcome-icon"><svg class="icon"><use href="#i-gamepad"/></svg></span><div><strong>Chegou agora? Sua próxima partida começa aqui.</strong><p>Descubra os controles, salve seus jogos e entre na disputa.</p></div><button id="welcomeHelp" class="text-button" type="button">Como funciona<svg class="icon"><use href="#i-arrow"/></svg></button><button id="dismissWelcome" class="small-close" type="button" aria-label="Fechar dica"><svg class="icon"><use href="#i-close"/></svg></button></div>
         <section class="content-section library-section" aria-labelledby="libraryTitle"><div class="section-head"><div><span class="section-kicker">O CONTROLE ESTÁ NA SUA MÃO</span><h2 id="libraryTitle">ESCOLHA SUA FASE<span class="accent-dot">.</span></h2></div><span id="gameCount" class="count-pill">Carregando jogos</span></div><div class="browse-tools"><label class="search-box"><svg class="icon"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="Qual vai ser o próximo jogo?" autocomplete="off" aria-label="Buscar jogos"/><button id="clearSearch" class="small-close" type="button" aria-label="Limpar busca" hidden><svg class="icon"><use href="#i-close"/></svg></button></label><button id="randomButton" class="shuffle-button" type="button"><svg class="icon"><use href="#i-shuffle"/></svg><span>Surpreenda-me</span></button></div><div id="categoryStrip" class="category-strip" aria-label="Filtrar por categoria"></div><div id="homeGrid" class="game-grid"></div><div id="emptyState" class="empty-state" hidden><svg class="icon"><use href="#i-search"/></svg><h3>Não encontramos esse jogo</h3><p>Experimente outro nome ou escolha uma categoria diferente.</p><button id="resetFilters" class="secondary-button" type="button">Limpar filtros</button></div><div id="catalogError" class="empty-state" hidden><h3>O catálogo não carregou</h3><p>Confira sua conexão e tente novamente.</p><button id="retryCatalog" class="primary-button" type="button">Tentar novamente</button></div></section>
@@ -93,6 +107,6 @@
   </section>
   <dialog id="helpDialog" class="help-dialog"><div class="dialog-top"><span id="helpEyebrow" class="section-kicker">VAMOS COMEÇAR</span><button id="closeHelp" class="icon-button" type="button" aria-label="Fechar tutorial"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="helpContent"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="/static/app.js?v=20261025-arcade-7" defer></script>
+  <script src="/static/app.js?v=20261025-arcade-8" defer></script>
 </body>
 </html>

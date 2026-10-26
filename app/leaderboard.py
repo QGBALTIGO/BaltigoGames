@@ -24,6 +24,7 @@ from collections import deque
 from concurrent.futures import Future
 from contextlib import asynccontextmanager, contextmanager
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from functools import wraps
 from pathlib import Path
 from typing import Any, Literal
@@ -42,6 +43,17 @@ SESSION_SECONDS = 6 * 3600
 INIT_DATA_MAX_AGE = 15 * 60
 DAILY_POINTS_CAP = 100
 RUN_POINTS_CAP = 10
+POPULAR_CACHE_SECONDS = 60
+POPULAR_RUN_FILTER = (
+    f"status='finished' AND active_seconds>={MIN_ACTIVE_SECONDS} "
+    "AND reason IN ('registrada','limite_diario')"
+)
+POPULAR_TRUST_POLICY = (
+    "Partidas registradas de jogadores autenticados pelo Telegram, com pelo menos "
+    "15 segundos de atividade sinalizada ao servidor, inclusive quando o jogador sai. "
+    "Aberturas sem atividade, partidas expiradas ou substituídas sem registro não contam. "
+    "O navegador informa a atividade; não há verificação independente da jogabilidade."
+)
 TRUST_POLICY = (
     "Pontos de atividade: 1 ponto a cada 15 segundos de atividade sinalizada, "
     "até 10 por partida e 100 por dia (UTC). O servidor mede os intervalos; "
@@ -138,6 +150,9 @@ class LeaderboardStore:
         self.clock = clock
         self._request_context = threading.local()
         self._writer_lock = threading.RLock()
+        self._popular_lock = threading.Lock()
+        self._popular_clock = time.monotonic
+        self._popular_cache = None
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.connection() as db:
             db.execute("PRAGMA journal_mode=WAL")
@@ -180,6 +195,10 @@ class LeaderboardStore:
                 );
                 CREATE INDEX IF NOT EXISTS ranking_limits_minute ON ranking_limits(minute);
             """)
+            # The aggregate reads only eligible runs, including valid rounds
+            # after the daily points cap. No backfill or counter writes.
+            db.execute(f"""CREATE INDEX IF NOT EXISTS ranking_runs_popular
+                ON ranking_runs(game_slug,user_id) WHERE {POPULAR_RUN_FILTER}""")
         if os.name != "nt":
             self.path.chmod(0o600)
         # Keep WAL open for the lifetime of the store. Closing the last SQLite
@@ -463,6 +482,51 @@ class LeaderboardStore:
         return {"entries": entries, "me": me, "verified": False, "metric": "activity",
                 "scope": "game" if game else "global", "period": period, "game": game,
                 "trust_policy": TRUST_POLICY}
+
+    def _read_popular_rows(self, known_games: frozenset[str]) -> tuple[tuple[str, int], ...]:
+        if not known_games:
+            return ()
+        # Independent WAL reader: never joins or waits in the durable writer
+        # queue, and query_only also guards against accidental future writes.
+        db = self._open_connection()
+        try:
+            db.execute("PRAGMA query_only=ON")
+            placeholders = ",".join("?" for _ in known_games)
+            rows = db.execute(f"""SELECT r.game_slug,COUNT(*) AS plays
+                FROM ranking_runs AS r INDEXED BY ranking_runs_popular
+                JOIN ranking_users u ON u.id=r.user_id
+                WHERE {POPULAR_RUN_FILTER} AND game_slug IN ({placeholders})
+                GROUP BY r.game_slug ORDER BY plays DESC,r.game_slug ASC""",
+                tuple(sorted(known_games))).fetchall()
+            return tuple((row["game_slug"], int(row["plays"])) for row in rows)
+        finally:
+            db.close()
+
+    def popular_games(self, known_games: frozenset[str], limit: int = 10) -> tuple[dict[str, Any], int]:
+        """Return a public snapshot and its HTTP Age, with one read per TTL.
+
+        Cache contents never contain identity, session, browser-score or run
+        details. A cached snapshot may precede new finishes by up to 60 seconds;
+        responses after a miss are published only after the SELECT succeeds.
+        """
+        if not 1 <= limit <= 10:
+            raise ValueError("Popular games limit must be between 1 and 10")
+        with self._popular_lock:
+            now = self._popular_clock()
+            cached = self._popular_cache
+            if cached is None or cached[0] != known_games or not 0 <= now - cached[1] < POPULAR_CACHE_SECONDS:
+                rows = self._read_popular_rows(known_games)
+                updated_at = datetime.fromtimestamp(self.clock(), timezone.utc).isoformat().replace("+00:00", "Z")
+                cached = (known_games, self._popular_clock(), updated_at, rows)
+                self._popular_cache = cached
+            age = min(POPULAR_CACHE_SECONDS, max(0, int(self._popular_clock() - cached[1])))
+            rows = cached[3]
+            # New response objects prevent callers from mutating shared cache.
+            return {"games": [{"slug": slug, "plays": plays} for slug, plays in rows[:limit]],
+                    "updated_at": cached[2], "period": "all",
+                    "total_plays": sum(plays for _, plays in rows),
+                    "minimum_active_seconds": MIN_ACTIVE_SECONDS,
+                    "verified": False, "trust_policy": POPULAR_TRUST_POLICY}, age
 
 
 @dataclass(slots=True)
@@ -754,6 +818,19 @@ def create_leaderboard_router(
             raise HTTPException(422, "Selecione um jogo para este ranking.")
         response.headers["Cache-Control"] = "no-store"
         return store.leaderboard(user, game, period)
+
+    @router.get("/games/popular")
+    def popular_games(response: Response, limit: int = Query(default=10, ge=1, le=10)) -> dict[str, Any]:
+        # Deliberately public and non-personalized, like the catalog. No session
+        # inspection, anonymous counters, rate-limit writes or writer dispatch.
+        try:
+            payload, age = store.popular_games(known_games, limit)
+        except sqlite3.Error:
+            raise HTTPException(503, "Os jogos mais jogados estão indisponíveis. Tente novamente.",
+                                headers={"Cache-Control": "no-store", "Retry-After": "5"}) from None
+        response.headers["Cache-Control"] = f"public, max-age={POPULAR_CACHE_SECONDS}"
+        response.headers["Age"] = str(age)
+        return payload
 
     @router.post("/runs")
     @transactional

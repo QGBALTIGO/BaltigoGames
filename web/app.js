@@ -6,6 +6,8 @@
   const fullscreen = {pending:null,sequence:0,timer:null,browserOwned:false,preferBrowser:false,exitOnConfirmation:false,awaitingEnter:false};
   const CATEGORY_LABELS = {puzzle:'Quebra-cabeças',arcade:'Fliperama',shooter:'Tiro',racing:'Corrida',sports:'Esportes',platformer:'Plataforma',casual:'Casuais',board:'Tabuleiro','word-quiz':'Palavras e perguntas','3d':'Jogos em 3D'};
   const FEATURED = ['tetris','snake','2048','pacman','bubble-shooter','car-race','chess','crossy-road'];
+  const popular = {status:'loading',entries:[],fetchedAt:0,pending:null,updatedAt:null,policy:''};
+  const POPULAR_TTL = 60000;
   const NAME_FALLBACKS = {'space-fighter':'Combate espacial',snake:'Cobrinha',tetris:'Tetris','car-race':'Corrida de carros',chess:'Xadrez','bubble-shooter':'Estoura-bolhas','crossy-road':'Travessia','tic-tac-toe':'Jogo da velha','memory-cards':'Jogo da memória',flappy:'Voo sem fim',football:'Futebol',basketball:'Basquete',wordle:'Palavra do dia','endless-runner':'Corrida sem fim',sudoku:'Sudoku',pacman:'Pac-Man','2048':'2048'};
   const DEFAULT_CONTROLS = {racing:'No celular, toque nos controles do jogo ou deslize para mudar de direção. No computador, use as setas do teclado.',shooter:'Toque ou clique para mirar e disparar. Quando houver controles de movimento, use os botões na tela ou as setas.',puzzle:'Toque ou clique nas peças para fazer sua jogada. Alguns desafios também aceitam as setas do teclado.',arcade:'Use os botões exibidos no jogo ou toque na área da partida. No computador, experimente as setas e a barra de espaço.',board:'Toque ou clique na peça e depois na posição desejada. Aguarde sua vez antes de jogar.',platformer:'Use os controles da tela para andar e pular. No computador, use as setas e a barra de espaço.',casual:'Toque ou clique na área do jogo para interagir. Siga o objetivo e os controles da partida.',sports:'Use os controles da tela para direcionar a jogada. Toque ou clique para executar a ação indicada.','word-quiz':'Toque nas letras ou nas respostas da tela. Se houver um campo de resposta, use o teclado do seu aparelho.','3d':'Use os controles indicados na tela. No computador, as setas ou as teclas W, A, S e D costumam controlar o movimento.'};
   const GAME_CONTROLS = {tetris:'No celular, deslize para os lados para mover e use os botões inferiores para girar, acelerar e soltar a peça. No computador: setas laterais para mover, seta para cima para girar, seta para baixo para acelerar e espaço para soltar.','car-race':'No celular, deslize para a esquerda ou a direita para trocar de faixa. No computador, use as setas laterais ou as teclas A e D. O carro acelera automaticamente.'};
@@ -177,11 +179,11 @@
     if(!state.games.length){const skeleton=Array(10).fill('<div class="loading-skeleton" aria-hidden="true"></div>').join('');els.homeGrid.innerHTML=skeleton;}
     try{const data=await api('/api/catalog?v=20261025-arcade-6');
       state.games=(Array.isArray(data.games)?data.games:[]).filter(g=>/^[a-z0-9-]+$/.test(g.slug||'') && typeof g.path==='string' && g.path.startsWith('games/') && !g.path.includes('..'));
-      state.categories=Array.isArray(data.categories)?data.categories:[];renderAll();configureHero();
+      state.categories=Array.isArray(data.categories)?data.categories:[];renderAll();configureHero();if(state.view==='home')loadPopularGames();
       $('heroCatalogCount').textContent=number(state.games.length);
       $('rankingGame').innerHTML='<option value="">Todos os jogos</option>'+[...state.games].sort((a,b)=>gameName(a).localeCompare(gameName(b),'pt-BR')).map(g=>`<option value="${escapeHtml(g.slug)}">${escapeHtml(gameName(g))}</option>`).join('');
       openFromStartParam();
-    }catch{els.homeGrid.innerHTML='';$('catalogError').hidden=false;$('gameCount').textContent='Catálogo indisponível';notify('O catálogo não carregou. Tente novamente.');}
+    }catch{els.homeGrid.innerHTML='';$('catalogError').hidden=false;$('gameCount').textContent='Catálogo indisponível';if(!state.games.length)setPopularState('error');notify('O catálogo não carregou. Tente novamente.');}
     finally{$('retryCatalog').disabled=false;}
   }
   function configureHero(){
@@ -193,6 +195,69 @@
   function gameCard(game){
     const slug=escapeHtml(game.slug),name=escapeHtml(gameName(game)),fav=state.favorites.has(game.slug);
     return `<article class="game-card" data-game-card="${slug}"><div class="game-cover"><img src="${escapeHtml(coverUrl(game))}" style="object-position:${coverPosition(game)}" alt="Cena de ${name}" loading="lazy" decoding="async" width="480" height="360"/><button class="game-launch" type="button" data-game="${slug}" aria-label="Jogar ${name}"><span>${icon('play')}Jogar agora</span></button><button class="favorite-button" type="button" data-favorite="${slug}" aria-label="${fav?'Remover':'Salvar'} ${name} ${fav?'dos':'nos'} favoritos" aria-pressed="${fav}">${icon('heart')}</button></div><div class="game-info"><div><h3>${name}</h3><p>${escapeHtml(catLabel(game.category))}</p></div>${icon('chevron')}</div></article>`;
+  }
+  function setPopularState(status){
+    popular.status=status;const section=$('popularSection');section.dataset.state=status;section.setAttribute('aria-busy',String(status==='loading'));
+    $('popularLoading').hidden=status!=='loading';$('popularList').hidden=status!=='ready';$('popularEmpty').hidden=status!=='empty';$('popularError').hidden=status!=='error';
+    $('popularPrev').disabled=true;$('popularNext').disabled=true;$('retryPopular').disabled=status==='loading';
+    if(status!=='ready'){
+      $('popularUpdated').textContent='Contagem geral';$('popularUpdated').removeAttribute('title');
+      $('popularSummary').textContent={loading:'Consultando as partidas registradas da comunidade.',empty:'Seu próximo favorito pode estrear nesta lista.',error:'A biblioteca continua disponível para sua próxima partida.'}[status];
+    }
+    $('popularStatus').textContent=status==='error'?'Não foi possível carregar os jogos mais jogados.':status==='empty'?'Ainda não há jogos com partidas registradas.':'';
+  }
+  function updatePopularNavigation(){
+    const list=$('popularList'),ready=popular.status==='ready'&&!list.hidden;
+    $('popularPrev').disabled=!ready||list.scrollLeft<=2;
+    $('popularNext').disabled=!ready||list.scrollLeft+list.clientWidth>=list.scrollWidth-2;
+  }
+  function movePopular(direction,oneCard=false){
+    const list=$('popularList'),card=list.querySelector('[data-popular-game]');if(!card)return;
+    const step=card.getBoundingClientRect().width+(Number.parseFloat(getComputedStyle(list).columnGap)||0);
+    const distance=step*(oneCard?1:Math.max(1,Math.round(list.clientWidth/step)));
+    list.scrollBy({left:direction*distance,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+  }
+  function renderPopularGames(){
+    const list=$('popularList');
+    if(!popular.entries.length){list.replaceChildren();setPopularState('empty');return;}
+    list.innerHTML=popular.entries.map(({game,plays},index)=>{
+      const name=escapeHtml(gameName(game)),slug=escapeHtml(game.slug),count=number(plays),label=`${count} ${plays===1?'partida registrada':'partidas registradas'}`;
+      return `<li class="popular-item" data-popular-game="${slug}"><button class="popular-game" type="button" data-game="${slug}" aria-label="Jogar ${name}, posição ${index+1} entre os mais jogados, ${label}"><span class="popular-cover"><img src="${escapeHtml(coverUrl(game))}" style="object-position:${coverPosition(game)}" alt="Cena de ${name}" loading="lazy" decoding="async" width="480" height="300"/><span class="popular-play" aria-hidden="true">${icon('play')}Jogar</span></span><span class="popular-info"><span class="popular-position"><span class="popular-rank" data-popular-rank aria-hidden="true">${String(index+1).padStart(2,'0')}</span><span class="popular-category">${escapeHtml(catLabel(game.category))}</span></span><strong class="popular-name">${name}</strong><span class="popular-plays" data-popular-plays>${label}</span></span></button></li>`;
+    }).join('');
+    setPopularState('ready');
+    const count=popular.entries.length;
+    $('popularSummary').textContent=count<10?`${number(count)} ${count===1?'jogo com partidas registradas':'jogos com partidas registradas'}. A lista cresce com a comunidade.`:'Os 10 jogos com mais partidas registradas. Escolha sua próxima partida.';
+    $('popularStatus').textContent=`${number(count)} ${count===1?'jogo na lista dos mais jogados':'jogos na lista dos mais jogados'}.`;
+    const updated=new Date(popular.updatedAt||'');
+    if(Number.isFinite(updated.getTime())){$('popularUpdated').textContent=`Atualizado às ${updated.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;$('popularUpdated').title=updated.toLocaleString('pt-BR');}
+    if(popular.policy)$('popularPolicy').textContent=popular.policy;
+    list.scrollLeft=0;requestAnimationFrame(updatePopularNavigation);
+  }
+  function loadPopularGames(force=false){
+    if(popular.pending)return popular.pending;
+    if(!state.games.length)return Promise.resolve();
+    if(!force&&Date.now()-popular.fetchedAt<POPULAR_TTL){if(popular.status==='ready')updatePopularNavigation();return Promise.resolve();}
+    setPopularState('loading');const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),10000);
+    const task=(async()=>{
+      try{
+        // Popularity is public: keep the HTTP cache and never attach a session token.
+        const response=await fetch('/api/games/popular?limit=10',{credentials:'omit',cache:force?'reload':'default',signal:controller.signal});
+        if(!response.ok)throw new Error('Popularidade indisponível');
+        const data=await response.json();if(!Array.isArray(data.games)||data.period!=='all')throw new Error('Resposta inválida');
+        const games=new Map(state.games.map(game=>[game.slug,game])),seen=new Set(),entries=[];
+        for(const row of data.games){
+          if(entries.length>=10)break;
+          if(!row||!games.has(row.slug)||seen.has(row.slug)||!Number.isSafeInteger(row.plays)||row.plays<1)continue;
+          seen.add(row.slug);entries.push({game:games.get(row.slug),plays:row.plays});
+        }
+        if(data.games.length&&!entries.length)throw new Error('Jogos indisponíveis');
+        popular.entries=entries;popular.updatedAt=data.updated_at;popular.policy=typeof data.trust_policy==='string'?data.trust_policy.slice(0,1200):'';
+        const responseDate=Date.parse(response.headers.get('Date')||''),headerAge=Number(response.headers.get('Age'))||0;
+        const cacheAge=Math.max(0,headerAge*1000,Number.isFinite(responseDate)?Date.now()-responseDate:0);
+        popular.fetchedAt=Date.now()-Math.min(POPULAR_TTL,cacheAge);renderPopularGames();
+      }catch{popular.entries=[];popular.fetchedAt=Date.now();$('popularList').replaceChildren();setPopularState('error');}
+      finally{clearTimeout(timeout);popular.pending=null;}
+    })();popular.pending=task;return task;
   }
   function matchingGames(){const query=normalize(state.query.trim());return state.games.filter(game=>(state.category==='all'||game.category===state.category)&&(!query||normalize([gameName(game),game.name,game.slug,catLabel(game.category),game.description_pt,...(game.tags||[])].join(' ')).includes(query)));}
   function renderCategories(){
@@ -219,7 +284,7 @@
     if(!['home','explore','ranking','favorites','recent'].includes(view))view='home';state.view=view;
     document.querySelectorAll('.view').forEach(section=>section.classList.toggle('view--active',section.dataset.view===view));
     document.querySelectorAll('[data-view-target]').forEach(button=>{const active=button.dataset.viewTarget===view;button.classList.toggle('nav-item--active',active);button.classList.toggle('nav-link--active',active);if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
-    window.scrollTo({top:0,behavior:'instant'});haptic();if(view==='ranking')loadLeaderboard();
+    window.scrollTo({top:0,behavior:'instant'});haptic();if(view==='ranking')loadLeaderboard();else if(view==='home')loadPopularGames();
   }
 
   function showDialog(mode){state.helpMode=mode;if(!els.dialog.open)els.dialog.showModal();els.dialog.scrollTop=0;}
@@ -358,6 +423,18 @@
     document.addEventListener('error',event=>{const img=event.target;if(!(img instanceof HTMLImageElement))return;if(img.closest('.game-cover')){const parent=img.parentElement;img.remove();parent.classList.add('game-cover--unavailable');const span=document.createElement('span');span.className='cover-fallback';span.textContent=parent.querySelector('[data-game]')?.getAttribute('aria-label')?.replace(/^Jogar /,'')||'Baltigo Games';parent.prepend(span);}else img.hidden=true;},true);
     els.search.addEventListener('input',()=>setQuery(els.search.value));els.exploreSearch.addEventListener('input',()=>setQuery(els.exploreSearch.value));
     $('clearSearch').onclick=()=>setQuery('');$('resetFilters').onclick=resetFilters;$('exploreReset').onclick=resetFilters;$('retryCatalog').onclick=loadCatalog;
+    $('retryPopular').onclick=()=>{if(!state.games.length)loadCatalog();else loadPopularGames(true);};
+    $('popularPrev').onclick=()=>movePopular(-1);$('popularNext').onclick=()=>movePopular(1);
+    $('popularList').addEventListener('scroll',updatePopularNavigation,{passive:true});
+    $('popularList').addEventListener('keydown',event=>{
+      if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+      const buttons=[...$('popularList').querySelectorAll('[data-game]')];if(!buttons.length)return;event.preventDefault();
+      const focused=buttons.indexOf(event.target.closest('[data-game]'));
+      if(focused<0&&['ArrowLeft','ArrowRight'].includes(event.key)){movePopular(event.key==='ArrowRight'?1:-1,true);return;}
+      const index=event.key==='Home'?0:event.key==='End'?buttons.length-1:Math.max(0,Math.min(buttons.length-1,focused+(event.key==='ArrowRight'?1:-1)));
+      buttons[index].focus({preventScroll:true});buttons[index].scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
+    });
+    if(window.ResizeObserver)new ResizeObserver(updatePopularNavigation).observe($('popularList'));
     $('heroPlayButton').onclick=()=>{if(state.heroSlug)openGame(state.heroSlug);};$('randomButton').onclick=()=>{const games=matchingGames();if(games.length)openGame(games[Math.floor(Math.random()*games.length)].slug);else notify('Escolha outra categoria para descobrir um jogo.');};
     $('helpButton').onclick=showGeneralHelp;$('welcomeHelp').onclick=showGeneralHelp;$('profileButton').onclick=showProfile;$('dismissWelcome').onclick=()=>{$('welcomeBanner').hidden=true;putStored('baltigogames:welcome-dismissed',true);};
     const hero=$('heroSection'),stage=hero.querySelector('.arcade-stage');
