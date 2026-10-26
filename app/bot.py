@@ -523,7 +523,7 @@ class _BotUI:
 async def _configure_profile(bot: Any, app_url: str) -> None:
     """Reconcile optional presentation once; a Telegram rate limit must not stop polling."""
     from telegram import BotCommand, MenuButtonWebApp, WebAppInfo
-    from telegram.error import RetryAfter
+    from telegram.error import BadRequest, NetworkError, RetryAfter
 
     commands = [
         BotCommand("jogar", "🎲 Receber uma sugestão ou buscar um jogo"),
@@ -558,6 +558,13 @@ async def _configure_profile(bot: Any, app_url: str) -> None:
             seconds = delay.total_seconds() if hasattr(delay, "total_seconds") else float(delay)
             _LOGGER.warning("Telegram optional profile deferred operation=%s retry_after_seconds=%s", operation, seconds)
             # Stop this optional batch: no retries, sleeps or further profile requests during the limit.
+            break
+        except BadRequest:
+            # In the SDK this inherits NetworkError, but a rejected configuration must remain visible.
+            raise
+        except NetworkError as exc:
+            _LOGGER.warning("Telegram optional profile deferred operation=%s error_type=%s", operation, type(exc).__name__)
+            # Profile metadata is optional. An uncertain SET is reconciled by reading state on the next boot.
             break
 
 

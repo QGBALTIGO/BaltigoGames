@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, Mock
 import pytest
 from telegram import (BotCommand, BotDescription, BotName, BotShortDescription,
                       MenuButtonDefault, MenuButtonWebApp, WebAppInfo)
-from telegram.error import InvalidToken, NetworkError, RetryAfter
+from telegram.error import BadRequest, Forbidden, InvalidToken, NetworkError, RetryAfter, TimedOut
 
 from app.bot import _DESCRIPTION, _SHORT_DESCRIPTION, start_bot
 
@@ -52,8 +52,8 @@ def fake_startup(monkeypatch):
     builder.build.return_value = app
     monkeypatch.setattr(Application, "builder", Mock(return_value=builder))
     monkeypatch.delenv("TELEGRAM_MINI_APP_SHORT_NAME", raising=False)
-    # Optional profile throttling must not sleep before starting the real service.
-    sleep = AsyncMock(side_effect=AssertionError("Startup must not wait for optional profile RetryAfter"))
+    # An optional profile failure must not add retry sleeps before starting the service.
+    sleep = AsyncMock(side_effect=AssertionError("Startup must not sleep for optional profile failures"))
     monkeypatch.setattr(asyncio, "sleep", sleep)
     return SimpleNamespace(app=app, bot=bot, events=events, sleep=sleep)
 
@@ -146,12 +146,54 @@ def test_required_startup_failures_propagate_instead_of_returning_healthy(monkey
         fake.app.start.assert_not_awaited()
 
 
-def test_unrelated_optional_profile_error_is_not_mistaken_for_retry_after(monkeypatch):
+@pytest.mark.parametrize("index", range(5), ids=[item[0] for item in PROFILE])
+@pytest.mark.parametrize("operation", ["getter", "setter"])
+@pytest.mark.parametrize("error_type", [TimedOut, NetworkError])
+def test_transient_optional_profile_failure_stops_batch_but_starts_bot(monkeypatch, caplog, index, operation, error_type):
     fake = fake_startup(monkeypatch)
-    failure = NetworkError("isolated optional read failure")
-    fake.bot.get_my_name.side_effect = failure
-    with pytest.raises(NetworkError) as caught:
+    getter, setter, _, expected = PROFILE[index]
+    sensitive_details = "synthetic-sensitive-profile-detail-do-not-log"
+    failure = error_type(sensitive_details)
+    failed_operation = getter if operation == "getter" else setter
+    if operation == "setter":
+        getattr(fake.bot, getter).return_value = DIFFERENT[index]
+    getattr(fake.bot, failed_operation).side_effect = failure
+    with caplog.at_level(logging.WARNING):
+        start(fake)
+
+    # The failed operation is attempted once, then polling starts without trying
+    # later optional fields, sleeps, or a network retry from this reconciliation.
+    for position, (get_name, set_name, _, _) in enumerate(PROFILE):
+        if position <= index:
+            getattr(fake.bot, get_name).assert_awaited_once_with()
+        else:
+            getattr(fake.bot, get_name).assert_not_awaited()
+        if position == index and operation == "setter":
+            getattr(fake.bot, set_name).assert_awaited_once_with(**expected)
+        else:
+            getattr(fake.bot, set_name).assert_not_awaited()
+    assert failed_operation in caplog.text and error_type.__name__ in caplog.text
+    assert sensitive_details not in caplog.text and TOKEN not in caplog.text
+    assert "retry_after_seconds=" not in caplog.text
+    assert "RetryAfter" not in caplog.text
+    fake.sleep.assert_not_awaited()
+
+
+@pytest.mark.parametrize("index", range(5), ids=[item[0] for item in PROFILE])
+@pytest.mark.parametrize("operation", ["getter", "setter"])
+@pytest.mark.parametrize("error_type", [BadRequest, Forbidden, InvalidToken])
+def test_permanent_optional_profile_errors_propagate(monkeypatch, index, operation, error_type):
+    fake = fake_startup(monkeypatch)
+    getter, setter, _, _ = PROFILE[index]
+    failure = error_type("isolated permanent configuration failure")
+    failed_operation = getter if operation == "getter" else setter
+    if operation == "setter":
+        getattr(fake.bot, getter).return_value = DIFFERENT[index]
+    getattr(fake.bot, failed_operation).side_effect = failure
+    with pytest.raises(error_type) as caught:
         asyncio.run(start_bot(TOKEN, APP_URL, lambda: {"games": []}))
     assert caught.value is failure
+    getattr(fake.bot, failed_operation).assert_awaited_once()
     fake.app.updater.start_polling.assert_not_awaited()
     fake.app.start.assert_not_awaited()
+    fake.sleep.assert_not_awaited()
