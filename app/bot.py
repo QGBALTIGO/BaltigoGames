@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import logging
 import os
 import random
 import re
@@ -35,6 +36,7 @@ _PHOTO_PERMISSION_ERRORS = {
     "not enough rights to send photos to the chat",
     "not enough rights to send media messages to the chat",
 }
+_LOGGER = logging.getLogger("baltigogames.bot")
 
 
 def _plain(value: Any, limit: int) -> str:
@@ -424,8 +426,49 @@ class _BotUI:
         )
 
 
+async def _configure_profile(bot: Any, app_url: str) -> None:
+    """Reconcile optional presentation once; a Telegram rate limit must not stop polling."""
+    from telegram import BotCommand, MenuButtonWebApp, WebAppInfo
+    from telegram.error import RetryAfter
+
+    commands = [
+        BotCommand("jogar", "🎲 Receber uma sugestão ou buscar um jogo"),
+        BotCommand("games", "🕹️ Navegar pelo catálogo e categorias"),
+        BotCommand("home", "🏠 Voltar ao início"),
+    ]
+    menu = MenuButtonWebApp(text="🎮 Jogos", web_app=WebAppInfo(url=app_url))
+    settings = [
+        ("get_my_name", "set_my_name", {"name": "Baltigo Games"},
+         lambda value: value.name, "Baltigo Games"),
+        ("get_my_description", "set_my_description", {"description": _DESCRIPTION},
+         lambda value: value.description, _DESCRIPTION),
+        ("get_my_short_description", "set_my_short_description", {"short_description": _SHORT_DESCRIPTION},
+         lambda value: value.short_description, _SHORT_DESCRIPTION),
+        ("get_my_commands", "set_my_commands", {"commands": commands},
+         lambda value: tuple((command.command, command.description) for command in value),
+         tuple((command.command, command.description) for command in commands)),
+        ("get_chat_menu_button", "set_chat_menu_button", {"menu_button": menu},
+         lambda value: (value.type, getattr(value, "text", None),
+                        getattr(getattr(value, "web_app", None), "url", None)),
+         ("web_app", menu.text, app_url)),
+    ]
+    for getter, setter, arguments, project, desired in settings:
+        operation = getter
+        try:
+            current = await getattr(bot, getter)()
+            if project(current) != desired:
+                operation = setter
+                await getattr(bot, setter)(**arguments)
+        except RetryAfter as exc:
+            delay = exc.retry_after
+            seconds = delay.total_seconds() if hasattr(delay, "total_seconds") else float(delay)
+            _LOGGER.warning("Telegram optional profile deferred operation=%s retry_after_seconds=%s", operation, seconds)
+            # Stop this optional batch: no retries, sleeps or further profile requests during the limit.
+            break
+
+
 async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[str, Any]]):
-    from telegram import BotCommand, MenuButtonWebApp, Update, WebAppInfo
+    from telegram import Update
     from telegram.ext import Application, CallbackQueryHandler, CommandHandler, InlineQueryHandler
 
     application = Application.builder().token(token).build()
@@ -433,22 +476,13 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     me = await application.bot.get_me()
     ui = _BotUI(app_url, catalog_loader, me.username, bool(getattr(me, "has_main_web_app", False)),
                 os.getenv("TELEGRAM_MINI_APP_SHORT_NAME", "").strip())
-    await application.bot.set_my_name(name="Baltigo Games")
-    await application.bot.set_my_description(description=_DESCRIPTION)
-    await application.bot.set_my_short_description(short_description=_SHORT_DESCRIPTION)
     application.add_handler(CommandHandler("start", ui.send_start))
     application.add_handler(CommandHandler("home", ui.send_home))
     application.add_handler(CommandHandler("games", ui.send_games))
     application.add_handler(CommandHandler("jogar", ui.send_play))
     application.add_handler(CallbackQueryHandler(ui.callback_query, pattern=r"^bg:"))
     application.add_handler(InlineQueryHandler(ui.inline_query))
-    await application.bot.set_my_commands([
-        BotCommand("jogar", "🎲 Receber uma sugestão ou buscar um jogo"), BotCommand("games", "🕹️ Navegar pelo catálogo e categorias"),
-        BotCommand("home", "🏠 Voltar ao início"),
-    ])
-    await application.bot.set_chat_menu_button(
-        menu_button=MenuButtonWebApp(text="🎮 Jogos", web_app=WebAppInfo(url=app_url)),
-    )
+    await _configure_profile(application.bot, app_url)
     await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
     await application.start()
     return application

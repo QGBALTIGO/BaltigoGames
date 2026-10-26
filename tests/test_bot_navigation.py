@@ -12,7 +12,7 @@ from unittest.mock import AsyncMock, Mock
 from urllib.parse import parse_qs, urlsplit
 
 import pytest
-from telegram import InputMediaPhoto
+from telegram import InputMediaPhoto, MenuButtonDefault
 from telegram.error import BadRequest
 from telegram.ext import CallbackQueryHandler, CommandHandler, InlineQueryHandler
 
@@ -126,6 +126,11 @@ def harness(monkeypatch, *, main=False, named="", catalog=CATALOG):
     bot = SimpleNamespace(**{name: AsyncMock() for name in (
         "get_me", "set_my_name", "set_my_description", "set_my_short_description", "set_my_commands", "set_chat_menu_button")})
     bot.get_me.return_value = SimpleNamespace(username=USERNAME, has_main_web_app=main)
+    bot.get_my_name = AsyncMock(return_value=SimpleNamespace(name=""))
+    bot.get_my_description = AsyncMock(return_value=SimpleNamespace(description=""))
+    bot.get_my_short_description = AsyncMock(return_value=SimpleNamespace(short_description=""))
+    bot.get_my_commands = AsyncMock(return_value=[])
+    bot.get_chat_menu_button = AsyncMock(return_value=MenuButtonDefault())
     app = SimpleNamespace(bot=bot, initialize=AsyncMock(), add_handler=Mock(), start=AsyncMock(),
                           updater=SimpleNamespace(start_polling=AsyncMock()))
     builder = Mock()

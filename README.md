@@ -121,6 +121,8 @@ Botões `web_app` de mensagens são exclusivos da conversa privada com o bot. Me
 
 O bot registra comandos, descrição e botão de menu em português. `/health` falha se o bot configurado não estiver em execução. Inline Mode e Main Mini App são opções da conta no BotFather e não podem ser habilitadas pelo token.
 
+Na inicialização, o bot lê o perfil, as descrições, os comandos e o menu antes de atualizar somente os campos diferentes. Se o Telegram limitar essa configuração opcional com `RetryAfter`, o lote é adiado e as partidas e o polling continuam disponíveis. A próxima inicialização ou uma reconciliação explícita após o intervalo informado tenta apenas as diferenças restantes; não há repetição em laço durante a limitação. Falhas de autenticação, inicialização e polling continuam sendo propagadas.
+
 Consulte `deploy/README.md` para publicação, persistência e recuperação. Não colocar o token no repositório, nas capturas ou nos logs.
 
 ## Licenças e referências

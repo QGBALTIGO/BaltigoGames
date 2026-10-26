@@ -13,6 +13,11 @@ def fake_application(monkeypatch):
     application.start = AsyncMock()
     application.updater.start_polling = AsyncMock()
     application.bot.get_me = AsyncMock(return_value=SimpleNamespace(username="ExampleBot", has_main_web_app=False))
+    application.bot.get_my_name = AsyncMock(return_value=SimpleNamespace(name="Nome antigo"))
+    application.bot.get_my_description = AsyncMock(return_value=SimpleNamespace(description=""))
+    application.bot.get_my_short_description = AsyncMock(return_value=SimpleNamespace(short_description=""))
+    application.bot.get_my_commands = AsyncMock(return_value=())
+    application.bot.get_chat_menu_button = AsyncMock(return_value=SimpleNamespace(type="default"))
     application.bot.set_my_name = AsyncMock()
     application.bot.set_my_description = AsyncMock()
     application.bot.set_my_short_description = AsyncMock()
@@ -54,7 +59,7 @@ async def test_start_handler(fake_application, chat_type, argument):
     else:
         assert button.web_app is None
         assert button.url == "https://t.me/ExampleBot?start=games"
-    assert {command.command for command in app.bot.set_my_commands.call_args.args[0]} == {"jogar", "games", "home"}
+    assert {command.command for command in app.bot.set_my_commands.call_args.kwargs["commands"]} == {"jogar", "games", "home"}
     assert app.bot.set_chat_menu_button.call_args.kwargs["menu_button"].web_app.url == "https://games.example"
 
 

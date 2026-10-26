@@ -11,7 +11,7 @@ from urllib.parse import parse_qs, urlsplit
 import pytest
 
 from app.bot import (_BotUI, _DESCRIPTION, _SHORT_DESCRIPTION, _game_caption, _game_link,
-                     _launch_url, _photo_url, _plain, _search_games, start_bot)
+                     _configure_profile, _launch_url, _photo_url, _plain, _search_games, start_bot)
 
 
 APP_URL = "https://games.example/?v=2"
@@ -320,8 +320,14 @@ def test_startup_registers_handlers_bios_menu_without_network(monkeypatch):
 
     bot = SimpleNamespace(**{name: AsyncMock() for name in (
         "get_me", "set_my_name", "set_my_description", "set_my_short_description",
-        "set_my_commands", "set_chat_menu_button")})
+        "set_my_commands", "set_chat_menu_button", "get_my_name", "get_my_description",
+        "get_my_short_description", "get_my_commands", "get_chat_menu_button")})
     bot.get_me.return_value = SimpleNamespace(username="BaltigoGamesBot", has_main_web_app=False)
+    bot.get_my_name.return_value = SimpleNamespace(name="Nome antigo")
+    bot.get_my_description.return_value = SimpleNamespace(description="")
+    bot.get_my_short_description.return_value = SimpleNamespace(short_description="")
+    bot.get_my_commands.return_value = ()
+    bot.get_chat_menu_button.return_value = SimpleNamespace(type="default")
     application = SimpleNamespace(bot=bot, initialize=AsyncMock(), add_handler=Mock(), start=AsyncMock(),
                                   updater=SimpleNamespace(start_polling=AsyncMock()))
     builder = Mock()
@@ -482,3 +488,65 @@ def test_callback_photo_permission_fallback_preserves_markup_without_retrying_un
     query.edit_message_media.assert_awaited_once()
     query.edit_message_text.assert_not_awaited()
     query.message.reply_photo.assert_not_awaited()
+
+
+def test_profile_reconciliation_is_idempotent_after_remote_state_changes():
+    from telegram import BotDescription, BotName, BotShortDescription, MenuButtonDefault
+
+    bot = SimpleNamespace(
+        get_my_name=AsyncMock(return_value=BotName('Nome antigo')),
+        get_my_description=AsyncMock(return_value=BotDescription('Descrição antiga')),
+        get_my_short_description=AsyncMock(return_value=BotShortDescription('Resumo antigo')),
+        get_my_commands=AsyncMock(return_value=()),
+        get_chat_menu_button=AsyncMock(return_value=MenuButtonDefault()),
+    )
+
+    async def name(**kwargs):
+        bot.get_my_name.return_value = BotName(kwargs['name'])
+
+    async def description(**kwargs):
+        bot.get_my_description.return_value = BotDescription(kwargs['description'])
+
+    async def short_description(**kwargs):
+        bot.get_my_short_description.return_value = BotShortDescription(kwargs['short_description'])
+
+    async def commands(**kwargs):
+        bot.get_my_commands.return_value = tuple(kwargs['commands'])
+
+    async def menu(**kwargs):
+        bot.get_chat_menu_button.return_value = kwargs['menu_button']
+
+    setters = [
+        ('set_my_name', name), ('set_my_description', description),
+        ('set_my_short_description', short_description), ('set_my_commands', commands),
+        ('set_chat_menu_button', menu),
+    ]
+    for method, effect in setters:
+        setattr(bot, method, AsyncMock(side_effect=effect))
+    run(_configure_profile(bot, APP_URL))
+    assert [getattr(bot, method).await_count for method, _ in setters] == [1] * 5
+    run(_configure_profile(bot, APP_URL))  # A new boot reads the actual server state; no repeated SET.
+    assert [getattr(bot, method).await_count for method, _ in setters] == [1] * 5
+    bot.get_my_description.return_value = BotDescription('Uma alteração externa')
+    run(_configure_profile(bot, APP_URL))
+    assert [getattr(bot, method).await_count for method, _ in setters] == [1, 2, 1, 1, 1]
+
+
+def test_profile_retry_after_logs_only_operation_and_seconds_without_retrying(caplog, monkeypatch):
+    from datetime import timedelta
+    from telegram.error import RetryAfter
+
+    class SensitiveRetryAfter(RetryAfter):
+        def __str__(self):
+            return 'DO-NOT-LOG-CREDENTIAL'
+
+    monkeypatch.setenv('PTB_TIMEDELTA', '1')
+    bot = SimpleNamespace(get_my_name=AsyncMock(side_effect=SensitiveRetryAfter(timedelta(seconds=37))),
+                          set_my_name=AsyncMock(), get_my_description=AsyncMock())
+    with caplog.at_level('WARNING', logger='baltigogames.bot'):
+        run(_configure_profile(bot, APP_URL))
+    assert 'operation=get_my_name' in caplog.text and 'retry_after_seconds=37' in caplog.text
+    assert 'DO-NOT-LOG-CREDENTIAL' not in caplog.text
+    bot.get_my_name.assert_awaited_once()
+    bot.set_my_name.assert_not_awaited()
+    bot.get_my_description.assert_not_awaited()
