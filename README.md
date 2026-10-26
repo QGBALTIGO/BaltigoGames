@@ -123,6 +123,8 @@ O bot registra comandos, descrição e botão de menu em português. `/health` f
 
 Na inicialização, o bot lê o perfil, as descrições, os comandos e o menu antes de atualizar somente os campos diferentes. Se o Telegram limitar essa configuração opcional com `RetryAfter`, o lote é adiado e as partidas e o polling continuam disponíveis. A próxima inicialização ou uma reconciliação explícita após o intervalo informado tenta apenas as diferenças restantes; não há repetição em laço durante a limitação. Falhas de autenticação, inicialização e polling continuam sendo propagadas.
 
+O atendimento permite até 64 atualizações simultâneas, mantendo a ordem de cada conversa. O limite inclui solicitações que aguardam a mesma conversa; não é um agendador com distribuição justa sob inundação. As fotos são enviadas dos arquivos locais e, após a confirmação, reutilizam o `file_id` do Telegram em memória. O cache é limitado e recomeça a cada inicialização. Se o arquivo local estiver ausente, a URL pública continua sendo a alternativa. Menus com a mesma foto confirmada atualizam somente a legenda e os botões, sem baixar ou reenviar a imagem. A confirmação é por mensagem: snapshots antigos de callbacks não servem como prova da foto atual. Uma rejeição definitiva de identificador inválido permite uma recuperação; timeouts, erros de rede e limites não causam reenvios incertos. O log registra operação, transporte e duração sem texto, argumentos, identificadores de conversas ou credenciais.
+
 Consulte `deploy/README.md` para publicação, persistência e recuperação. Não colocar o token no repositório, nas capturas ou nos logs.
 
 ## Licenças e referências

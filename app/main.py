@@ -135,7 +135,8 @@ async def lifespan(app: FastAPI):
         try:
             from .bot import start_bot
 
-            _bot_application = await start_bot(BOT_TOKEN, public_app_url(), load_catalog)
+            _bot_application = await start_bot(BOT_TOKEN, public_app_url(), load_catalog,
+                                               media_root=WEB_DIR / "telegram")
             logger.info("Telegram bot connected")
         except Exception as exc:
             logger.error("Telegram bot failed to start (%s)", type(exc).__name__)

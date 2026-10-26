@@ -7,6 +7,8 @@ import random
 import re
 import unicodedata
 from collections.abc import Callable
+from pathlib import Path
+from time import perf_counter
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -37,6 +39,10 @@ _PHOTO_PERMISSION_ERRORS = {
     "not enough rights to send media messages to the chat",
 }
 _LOGGER = logging.getLogger("baltigogames.bot")
+_INVALID_PHOTO_IDS = {
+    "wrong file identifier/http url specified", "wrong remote file identifier specified",
+    "invalid remote file identifier",
+}
 
 
 def _plain(value: Any, limit: int) -> str:
@@ -145,11 +151,63 @@ class _BotUI:
     """Pure presentation/handlers; tests never initialize a real Telegram client."""
 
     def __init__(self, app_url: str, catalog_loader: Callable[[], dict[str, Any]],
-                 username: str, has_main_web_app: bool = False, named_app_short_name: str = ""):
+                 username: str, has_main_web_app: bool = False, named_app_short_name: str = "",
+                 *, media_root: Path | None = None):
         _game_link(username, has_main_web_app=has_main_web_app, named_app_short_name=named_app_short_name)
         self.app_url, self.catalog_loader = app_url, catalog_loader
         self.username, self.has_main_web_app = username, has_main_web_app
         self.named_app_short_name = named_app_short_name
+        self.media_root = media_root.resolve() if media_root is not None else None
+        # Public artwork only; file IDs belong to this bot instance and never contain chat state.
+        self._photo_ids: dict[str | None, str] = {}
+        # Confirmed current media, not the possibly stale message snapshot in a queued callback.
+        self._message_photo_ids: dict[tuple[int, int], str | None] = {}
+
+    def _photo_source(self, slug: str | None):
+        from telegram import InputFile
+
+        url = _photo_url(self.app_url, slug)
+        if slug in self._photo_ids:
+            return self._photo_ids[slug], "cached"
+        if self.media_root is not None:
+            relative = Path("games") / f"{slug}.jpg" if slug else Path("baltigo-games.jpg")
+            try:
+                candidate = (self.media_root / relative).resolve()
+                if self.media_root in candidate.parents:
+                    return InputFile(candidate.read_bytes(), filename=candidate.name), "upload"
+            except OSError:
+                pass
+        return url, "url"
+
+    def _remember_photo(self, slug: str | None, result: Any) -> None:
+        photos = getattr(result, "photo", None)
+        if isinstance(photos, (tuple, list)) and photos:
+            file_id = getattr(photos[-1], "file_id", None)
+            if isinstance(file_id, str) and file_id:
+                # There are 143 public photos today; bound memory even for changing catalogs.
+                if slug not in self._photo_ids and len(self._photo_ids) >= 256:
+                    self._photo_ids.pop(next(iter(self._photo_ids)))
+                self._photo_ids[slug] = file_id
+
+    def _same_photo(self, slug: str | None, message: Any) -> bool:
+        key = self._message_key(message)
+        return bool(key is not None and self._photo_ids.get(slug) is not None
+                    and self._message_photo_ids.get(key) == self._photo_ids[slug])
+
+    @staticmethod
+    def _message_key(message: Any) -> tuple[int, int] | None:
+        chat_id = getattr(message, "chat_id", None)
+        if type(chat_id) is not int:
+            chat_id = getattr(getattr(message, "chat", None), "id", None)
+        message_id = getattr(message, "message_id", None)
+        return (chat_id, message_id) if type(chat_id) is int and type(message_id) is int else None
+
+    def _record_message_photo(self, message: Any, file_id: str | None) -> None:
+        key = self._message_key(message)
+        if key is not None:
+            if key not in self._message_photo_ids and len(self._message_photo_ids) >= 2048:
+                self._message_photo_ids.pop(next(iter(self._message_photo_ids)))
+            self._message_photo_ids[key] = file_id
 
     def _link(self, slug: str | None = None) -> str:
         return _game_link(self.username, slug, self.has_main_web_app, self.named_app_short_name)
@@ -295,24 +353,60 @@ class _BotUI:
         if message is None:
             return
         has_photo = bool(getattr(message, "photo", None))
+        source, transport, operation = None, "text", "edit_text"
+        started, succeeded = perf_counter(), False
         try:
-            if query is None:
-                await message.reply_photo(photo=_photo_url(self.app_url, slug), caption=caption,
-                                          parse_mode="HTML", reply_markup=keyboard)
-            elif has_photo:
-                await query.edit_message_media(media=InputMediaPhoto(_photo_url(self.app_url, slug),
-                                               caption=caption, parse_mode="HTML"), reply_markup=keyboard)
-            else:
-                await query.edit_message_text(caption, parse_mode="HTML", reply_markup=keyboard)
-        except (BadRequest, Forbidden) as exc:
-            rejection = self._rejection(exc)
-            if query is not None and isinstance(exc, BadRequest) and (
-                    rejection == "message is not modified" or rejection.startswith("message is not modified:")):
-                return
-            if (query is not None and not has_photo) or rejection not in _PHOTO_PERMISSION_ERRORS:
-                raise
-            # Definitive media rejection only; never resend an uncertain network operation.
-            await message.reply_text(caption, parse_mode="HTML", reply_markup=keyboard)
+            for attempt in range(2):
+                try:
+                    if query is None:
+                        operation = "send_photo"
+                        source, transport = self._photo_source(slug)
+                        result = await message.reply_photo(photo=source, caption=caption,
+                                                           parse_mode="HTML", reply_markup=keyboard)
+                    elif has_photo and self._same_photo(slug, message):
+                        operation, transport = "edit_caption", "unchanged"
+                        result = await query.edit_message_caption(caption=caption, parse_mode="HTML", reply_markup=keyboard)
+                    elif has_photo:
+                        operation = "edit_photo"
+                        source, transport = self._photo_source(slug)
+                        # A timeout may still change the remote media. Forget the previous proof before sending.
+                        self._record_message_photo(message, None)
+                        result = await query.edit_message_media(media=InputMediaPhoto(source,
+                                                               caption=caption, parse_mode="HTML"), reply_markup=keyboard)
+                    else:
+                        result = await query.edit_message_text(caption, parse_mode="HTML", reply_markup=keyboard)
+                    if operation != "edit_text":
+                        self._remember_photo(slug, result)
+                        known_id = self._photo_ids.get(slug)
+                        if operation == "edit_photo":
+                            # A bool upload acknowledgment cannot prove the resulting Telegram file ID.
+                            photos = getattr(result, "photo", None)
+                            if not isinstance(photos, (tuple, list)) or not photos:
+                                known_id = source if transport == "cached" else None
+                        self._record_message_photo(result if query is None else message, known_id)
+                    succeeded = True
+                    return
+                except (BadRequest, Forbidden) as exc:
+                    rejection = self._rejection(exc)
+                    if query is not None and isinstance(exc, BadRequest) and (
+                            rejection == "message is not modified" or rejection.startswith("message is not modified:")):
+                        succeeded = True
+                        return
+                    if (attempt == 0 and transport == "cached" and isinstance(exc, BadRequest)
+                            and (rejection in _INVALID_PHOTO_IDS
+                                 or rejection.startswith("wrong remote file identifier specified:"))):
+                        # A definitive rejection did not send a message. Re-upload once; never retry uncertain sends.
+                        if self._photo_ids.get(slug) == source:
+                            del self._photo_ids[slug]
+                        continue
+                    if (query is not None and not has_photo) or rejection not in _PHOTO_PERMISSION_ERRORS:
+                        raise
+                    await message.reply_text(caption, parse_mode="HTML", reply_markup=keyboard)
+                    succeeded = True
+                    return
+        finally:
+            _LOGGER.info("Telegram response operation=%s transport=%s elapsed_ms=%.1f outcome=%s",
+                         operation, transport, (perf_counter() - started) * 1000, "ok" if succeeded else "error")
 
     async def send_home(self, update: Any, context: Any) -> None:
         if update.effective_message is not None:
@@ -467,15 +561,20 @@ async def _configure_profile(bot: Any, app_url: str) -> None:
             break
 
 
-async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[str, Any]]):
+async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[str, Any]],
+                    *, media_root: Path | None = None):
     from telegram import Update
     from telegram.ext import Application, CallbackQueryHandler, CommandHandler, InlineQueryHandler
+    from .bot_transport import ChatUpdateProcessor
 
-    application = Application.builder().token(token).build()
+    builder = Application.builder().token(token)
+    processor = ChatUpdateProcessor()
+    builder.concurrent_updates(processor)
+    application = builder.build()
     await application.initialize()
     me = await application.bot.get_me()
     ui = _BotUI(app_url, catalog_loader, me.username, bool(getattr(me, "has_main_web_app", False)),
-                os.getenv("TELEGRAM_MINI_APP_SHORT_NAME", "").strip())
+                os.getenv("TELEGRAM_MINI_APP_SHORT_NAME", "").strip(), media_root=media_root)
     application.add_handler(CommandHandler("start", ui.send_start))
     application.add_handler(CommandHandler("home", ui.send_home))
     application.add_handler(CommandHandler("games", ui.send_games))
@@ -485,4 +584,6 @@ async def start_bot(token: str, app_url: str, catalog_loader: Callable[[], dict[
     await _configure_profile(application.bot, app_url)
     await application.updater.start_polling(allowed_updates=Update.ALL_TYPES)
     await application.start()
+    _LOGGER.info("Telegram bot ready concurrent_updates=%s media=%s", processor.max_concurrent_updates,
+                 "local" if media_root is not None else "url")
     return application
